@@ -5,7 +5,7 @@ edition = "2021"
 license-file = "../../../LICENSE"
 name = "token_metadata"
 readme = "README.md"
-repository = "https://github.com/metaplex-foundation/tpl-token-metadata"
+repository = "https://github.com/trezoaplex-foundation/tpl-token-metadata"
 version = "1.14.0"
 
 [features]
@@ -38,7 +38,7 @@ thiserror = "1.0"
 [dev-dependencies]
 async-trait = "0.1.64"
 rmp-serde = "1.1.1"
-rooster = { git = "https://github.com/metaplex-foundation/rooster", features = [
+rooster = { git = "https://github.com/trezoaplex-foundation/rooster", features = [
   "no-entrypoint",
 ] }
 serde = { version = "1.0.147", features = ["derive"] }

@@ -4,7 +4,7 @@ version = "0.3.0"
 edition = "2021"
 description = "Trezoaplex Metadata"
 authors = ["Trezoaplex Developers <dev@metaplex.com>"]
-repository = "https://github.com/metaplex-foundation/metaplex-program-library"
+repository = "https://github.com/trezoaplex-foundation/metaplex-program-library"
 license-file = "../../../LICENSE"
 readme = "README.md"
 

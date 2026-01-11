@@ -4,7 +4,7 @@ A Umi-compatible JavaScript library for Token Metadata.
 
 ## Getting started
 
-1. First, if you're not already using Umi, [follow these instructions to install the Umi framework](https://github.com/metaplex-foundation/umi/blob/main/docs/installation.md).
+1. First, if you're not already using Umi, [follow these instructions to install the Umi framework](https://github.com/trezoaplex-foundation/umi/blob/main/docs/installation.md).
 2. Next, install this library using the package manager of your choice.
    ```sh
    npm install @trezoaplex-foundation/tpl-token-metadata

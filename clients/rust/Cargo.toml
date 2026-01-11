@@ -5,7 +5,7 @@ edition = "2021"
 license-file = "../../LICENSE"
 name = "tpl-token-metadata"
 readme = "README.md"
-repository = "https://github.com/metaplex-foundation/tpl-token-metadata"
+repository = "https://github.com/trezoaplex-foundation/tpl-token-metadata"
 version = "5.1.2-alpha.2"
 
 [lib]

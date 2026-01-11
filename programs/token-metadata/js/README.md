@@ -4,7 +4,7 @@ This package contains the token vault contract SDK code.
 
 ## API Docs
 
-Find the [token-metadata API docs published here](https://metaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html).
+Find the [token-metadata API docs published here](https://trezoaplex-foundation.github.io/metaplex-program-library/docs/token-metadata/index.html).
 
 ## Installation
 

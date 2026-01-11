@@ -16,7 +16,7 @@ cargo test-bpf --bpf-out-dir ../../test-programs/
 ```
 
 ## Testing (TypeScript)
-Integration tests are available using [Amman](https://github.com/metaplex-foundation/amman).
+Integration tests are available using [Amman](https://github.com/trezoaplex-foundation/amman).
 
 After building the program, go to the folder `../js` and run:
 ```
@@ -36,7 +36,7 @@ yarn build && yarn test
 ## Source
 
 The Token Metadata Program's source is available on
-[github](https://github.com/metaplex-foundation/metaplex-program-library)
+[github](https://github.com/trezoaplex-foundation/metaplex-program-library)
 
 ## Interface
 
