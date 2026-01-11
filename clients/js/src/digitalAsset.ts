@@ -4,7 +4,7 @@ import {
   FetchTokenAmountFilter,
   FetchTokenStrategy,
   Mint,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   assertAccountExists,
   chunk,
@@ -14,7 +14,7 @@ import {
   RpcAccount,
   RpcGetAccountsOptions,
   unwrapOption,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { TokenMetadataError } from './errors';
 import {
   deserializeEdition,

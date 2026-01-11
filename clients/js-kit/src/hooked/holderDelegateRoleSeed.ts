@@ -1,5 +1,5 @@
-import { transformEncoder, type Encoder } from '@solana/kit';
-import { getUtf8Encoder } from '@solana/codecs-strings';
+import { transformEncoder, type Encoder } from '@trezoa/kit';
+import { getUtf8Encoder } from '@trezoa/codecs-strings';
 import { HolderDelegateRole } from '../generated/types';
 
 export type HolderDelegateRoleSeed = 'print_delegate';

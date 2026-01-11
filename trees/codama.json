@@ -1,10 +1,10 @@
 {
   "kind": "rootNode",
-  "standard": "codama",
+  "standard": "codoma",
   "version": "1.5.0",
   "program": {
     "kind": "programNode",
-    "name": "mplTokenMetadata",
+    "name": "tplTokenMetadata",
     "publicKey": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
     "version": "1.14.0",
     "origin": "shank",
@@ -3676,7 +3676,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -4585,7 +4585,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -5436,7 +5436,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -5793,7 +5793,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -6010,7 +6010,7 @@
             "isSigner": false,
             "isOptional": true,
             "docs": [
-              "SPL Token program"
+              "TPL Token program"
             ],
             "defaultValue": {
               "kind": "conditionalValueNode",
@@ -6242,7 +6242,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token program"
+                  "TPL Token program"
                 ],
                 "defaultValue": {
                   "kind": "conditionalValueNode",
@@ -6911,7 +6911,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token program"
+              "TPL Token program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -6926,7 +6926,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Associated Token Account program"
+              "TPL Associated Token Account program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -6952,7 +6952,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -7279,7 +7279,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Token program"
+                  "TPL Token program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -7294,7 +7294,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Associated Token Account program"
+                  "TPL Associated Token Account program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -7320,7 +7320,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -7622,7 +7622,7 @@
             "isSigner": false,
             "isOptional": true,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ]
           },
           {
@@ -7643,7 +7643,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -7935,7 +7935,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -7956,7 +7956,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -8333,7 +8333,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -8359,7 +8359,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -8750,7 +8750,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -8776,7 +8776,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -9122,7 +9122,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -9143,7 +9143,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -9520,7 +9520,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -9546,7 +9546,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -9937,7 +9937,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -9963,7 +9963,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -10317,7 +10317,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -10343,7 +10343,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -10712,7 +10712,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -10738,7 +10738,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -11092,7 +11092,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -11113,7 +11113,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -11445,7 +11445,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -11466,7 +11466,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -11798,7 +11798,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -11819,7 +11819,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -12151,7 +12151,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -12172,7 +12172,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -12504,7 +12504,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -12525,7 +12525,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -12812,7 +12812,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -12833,7 +12833,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -13110,7 +13110,7 @@
             "isSigner": false,
             "isOptional": true,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ]
           },
           {
@@ -13131,7 +13131,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -13423,7 +13423,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -13444,7 +13444,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -13799,7 +13799,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -13825,7 +13825,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -14179,7 +14179,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -14205,7 +14205,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -14514,7 +14514,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -14535,7 +14535,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -14890,7 +14890,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -14916,7 +14916,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -15270,7 +15270,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -15296,7 +15296,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -15613,7 +15613,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -15639,7 +15639,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -15993,7 +15993,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -16019,7 +16019,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -16328,7 +16328,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -16349,7 +16349,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -16704,7 +16704,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -16730,7 +16730,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -17039,7 +17039,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -17060,7 +17060,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -17370,7 +17370,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -17391,7 +17391,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -17701,7 +17701,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -17722,7 +17722,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -18032,7 +18032,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -18053,7 +18053,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -18318,7 +18318,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -18339,7 +18339,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -18654,7 +18654,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ],
             "defaultValue": {
               "kind": "conditionalValueNode",
@@ -18695,7 +18695,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -19002,7 +19002,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "conditionalValueNode",
@@ -19043,7 +19043,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -19380,7 +19380,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ],
             "defaultValue": {
               "kind": "conditionalValueNode",
@@ -19421,7 +19421,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -19728,7 +19728,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "conditionalValueNode",
@@ -19769,7 +19769,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -20066,7 +20066,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -20092,7 +20092,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -20473,7 +20473,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -20488,7 +20488,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Associated Token Account program"
+              "TPL Associated Token Account program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -20514,7 +20514,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -20915,7 +20915,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -20930,7 +20930,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Associated Token Account program"
+                  "TPL Associated Token Account program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -20956,7 +20956,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -21207,7 +21207,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -21402,7 +21402,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -21792,7 +21792,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -22249,7 +22249,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -22625,7 +22625,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -22937,7 +22937,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -23253,7 +23253,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -23565,7 +23565,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -23869,7 +23869,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -24169,7 +24169,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -24414,7 +24414,7 @@
             "isSigner": false,
             "isOptional": true,
             "docs": [
-              "SPL Token Program"
+              "TPL Token Program"
             ]
           },
           {
@@ -24435,7 +24435,7 @@
               "ifTrue": {
                 "kind": "publicKeyValueNode",
                 "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                "identifier": "mplTokenAuthRules"
+                "identifier": "tplTokenAuthRules"
               }
             }
           },
@@ -24619,7 +24619,7 @@
                 "isSigner": false,
                 "isOptional": true,
                 "docs": [
-                  "SPL Token Program"
+                  "TPL Token Program"
                 ]
               },
               {
@@ -24640,7 +24640,7 @@
                   "ifTrue": {
                     "kind": "publicKeyValueNode",
                     "publicKey": "auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg",
-                    "identifier": "mplTokenAuthRules"
+                    "identifier": "tplTokenAuthRules"
                   }
                 }
               },
@@ -25956,7 +25956,7 @@
             "isSigner": false,
             "isOptional": false,
             "docs": [
-              "SPL Associated Token Account program"
+              "TPL Associated Token Account program"
             ],
             "defaultValue": {
               "kind": "publicKeyValueNode",
@@ -26446,7 +26446,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Associated Token Account program"
+                  "TPL Associated Token Account program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -26981,7 +26981,7 @@
                 "isSigner": false,
                 "isOptional": false,
                 "docs": [
-                  "SPL Associated Token Account program"
+                  "TPL Associated Token Account program"
                 ],
                 "defaultValue": {
                   "kind": "publicKeyValueNode",
@@ -32013,11 +32013,11 @@
       },
       {
         "kind": "errorNode",
-        "name": "reservationNotComplete",
+        "name": "reservationNotCotplete",
         "code": 65,
         "message": "",
         "docs": [
-          "ReservationNotComplete"
+          "ReservationNotCotplete"
         ]
       },
       {
@@ -32771,9 +32771,9 @@
         "kind": "errorNode",
         "name": "missingSplTokenProgram",
         "code": 149,
-        "message": "Missing SPL token program",
+        "message": "Missing TPL token program",
         "docs": [
-          "MissingSplTokenProgram: Missing SPL token program"
+          "MissingSplTokenProgram: Missing TPL token program"
         ]
       },
       {

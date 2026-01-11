@@ -1,6 +1,6 @@
-# Metaplex Token Metadata
+# Trezoaplex Token Metadata
 
-The Token Metadata program is one of the most important programs when dealing with NFTs on the Solana blockchain. Its main goal is to **attach additional data to Fungible or Non-Fungible Tokens** on Solana.
+The Token Metadata program is one of the most important programs when dealing with NFTs on the Trezoa blockchain. Its main goal is to **attach additional data to Fungible or Non-Fungible Tokens** on Trezoa.
 
 ## Building
 
@@ -41,9 +41,9 @@ The Token Metadata Program's source is available on
 ## Interface
 
 The on-chain Token Metadata program is written in Rust and available on crates.io as
-[mpl-token-metadata](https://crates.io/crates/mpl-token-metadata) and
-[docs.rs](https://docs.rs/mpl-token-metadata).
+[tpl-token-metadata](https://crates.io/crates/tpl-token-metadata) and
+[docs.rs](https://docs.rs/tpl-token-metadata).
 
 ## Documentation
 
-Full docs for this program can be found [here](https://docs.metaplex.com/programs/token-metadata/).
+Full docs for this program can be found [here](https://docs.trezoaplex.com/programs/token-metadata/).

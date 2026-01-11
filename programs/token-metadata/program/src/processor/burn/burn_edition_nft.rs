@@ -1,6 +1,6 @@
-use mpl_utils::assert_signer;
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
-use spl_token_2022::state::Account as TokenAccount;
+use tpl_utils::assert_signer;
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use tpl_token_2022::state::Account as TokenAccount;
 
 use super::nonfungible_edition::burn_nonfungible_edition;
 use crate::{
@@ -27,7 +27,7 @@ pub fn process_burn_edition_nft<'a>(
         master_edition_info,
         print_edition_info,
         edition_marker_info,
-        spl_token_program_info
+        tpl_token_program_info
     );
 
     // Validate accounts
@@ -40,7 +40,7 @@ pub fn process_burn_edition_nft<'a>(
     assert_owned_by(print_edition_info, program_id)?;
     assert_owned_by(edition_marker_info, program_id)?;
 
-    // Owned by spl-token program.
+    // Owned by tpl-token program.
     assert_owned_by(master_edition_mint_info, &SPL_TOKEN_ID)?;
     assert_owned_by(master_edition_token_info, &SPL_TOKEN_ID)?;
     assert_owned_by(print_edition_mint_info, &SPL_TOKEN_ID)?;
@@ -85,9 +85,9 @@ pub fn process_burn_edition_nft<'a>(
         token_record_info: None,
         // This handler doesn't get system program and sysvars instructions
         // but we need them to create the Burn struct. They are not used in the burn_nonfungible_edition handler.
-        system_program_info: spl_token_program_info,
-        sysvar_instructions_info: spl_token_program_info,
-        spl_token_program_info,
+        system_program_info: tpl_token_program_info,
+        sysvar_instructions_info: tpl_token_program_info,
+        tpl_token_program_info,
     };
     let context = Context { accounts };
 

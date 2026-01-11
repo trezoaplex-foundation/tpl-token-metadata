@@ -14,7 +14,7 @@ import {
   mapSerializer,
   struct,
   u64,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 export type BurnArgs = { __kind: 'V1'; amount: bigint };
 

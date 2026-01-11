@@ -6,14 +6,14 @@ import {
   MaybeRpcAccount,
   publicKey,
   subtractAmounts,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { readFileSync } from 'fs';
 import {
   AuthorityType,
   burnToken,
   setAuthority,
   SPL_SYSTEM_PROGRAM_ID,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import { createDigitalAssetWithToken, createUmi } from '../_setup';
 import {
   closeAccounts,
@@ -33,7 +33,7 @@ test.skip('it can close ownerless metadata for a fungible with zero supply and n
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -43,7 +43,7 @@ test.skip('it can close ownerless metadata for a fungible with zero supply and n
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.Fungible,
     amount: 1,
   });
@@ -95,7 +95,7 @@ test.skip('it can close ownerless metadata for a fungible with zero supply and m
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -105,7 +105,7 @@ test.skip('it can close ownerless metadata for a fungible with zero supply and m
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.Fungible,
     amount: 1,
   });
@@ -157,7 +157,7 @@ test.skip('it can close ownerless metadata for a fungible asset with zero supply
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -167,7 +167,7 @@ test.skip('it can close ownerless metadata for a fungible asset with zero supply
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.FungibleAsset,
     amount: 1,
   });
@@ -219,7 +219,7 @@ test.skip('it cannot close ownerless metadata for a fungible with non-zero suppl
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -229,7 +229,7 @@ test.skip('it cannot close ownerless metadata for a fungible with non-zero suppl
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.Fungible,
     amount: 1,
   });
@@ -260,7 +260,7 @@ test.skip('it cannot close ownerless metadata for a fungible with zero supply an
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -270,7 +270,7 @@ test.skip('it cannot close ownerless metadata for a fungible with zero supply an
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.Fungible,
     amount: 1,
   });
@@ -305,7 +305,7 @@ test.skip('it cannot close ownerless metadata for a fungible with wrong authorit
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.Fungible,
     amount: 1,
   });
@@ -348,7 +348,7 @@ test.skip('it cannot close ownerless metadata for a fungible with wrong destinat
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -358,7 +358,7 @@ test.skip('it cannot close ownerless metadata for a fungible with wrong destinat
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.Fungible,
     amount: 1,
   });

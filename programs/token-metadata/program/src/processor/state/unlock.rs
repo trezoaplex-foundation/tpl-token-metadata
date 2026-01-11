@@ -1,4 +1,4 @@
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 
 use super::toggle_asset_state;
 use crate::{
@@ -26,7 +26,7 @@ pub fn unlock<'a>(
                 token_record_info: context.accounts.token_record_info,
                 system_program_info: context.accounts.system_program_info,
                 sysvar_instructions_info: context.accounts.sysvar_instructions_info,
-                spl_token_program_info: context.accounts.spl_token_program_info,
+                tpl_token_program_info: context.accounts.tpl_token_program_info,
             },
             TokenState::Locked,
             TokenState::Unlocked,

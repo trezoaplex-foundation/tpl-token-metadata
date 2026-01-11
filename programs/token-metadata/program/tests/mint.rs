@@ -1,24 +1,24 @@
 #![cfg(feature = "test-bpf")]
 pub mod utils;
 
-use solana_program_test::*;
-use solana_sdk::{instruction::InstructionError, signature::Signer, transaction::TransactionError};
+use trezoa_program_test::*;
+use trezoa_sdk::{instruction::InstructionError, signature::Signer, transaction::TransactionError};
 use utils::*;
 
 mod mint {
 
-    use mpl_utils::token::unpack;
+    use tpl_utils::token::unpack;
     use num_traits::FromPrimitive;
-    use solana_program::pubkey::Pubkey;
-    use spl_token_2022::state::Account;
+    use trezoa_program::pubkey::Pubkey;
+    use tpl_token_2022::state::Account;
     use token_metadata::{error::MetadataError, state::TokenStandard};
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn mint_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn mint_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -29,7 +29,7 @@ mod mint {
                 &mut context,
                 TokenStandard::ProgrammableNonFungible,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -39,7 +39,7 @@ mod mint {
         let payer_pubkey = context.payer.pubkey();
 
         asset
-            .mint(&mut context, None, None, 1, spl_token_program)
+            .mint(&mut context, None, None, 1, tpl_token_program)
             .await
             .unwrap();
 
@@ -54,10 +54,10 @@ mod mint {
         assert_eq!(token_account.owner, payer_pubkey);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn mint_nonfungible(spl_token_program: Pubkey) {
+    async fn mint_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -68,7 +68,7 @@ mod mint {
                 &mut context,
                 TokenStandard::NonFungible,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -76,7 +76,7 @@ mod mint {
         // mints one token
 
         asset
-            .mint(&mut context, None, None, 1, spl_token_program)
+            .mint(&mut context, None, None, 1, tpl_token_program)
             .await
             .unwrap();
 
@@ -93,10 +93,10 @@ mod mint {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn mint_fungible(spl_token_program: Pubkey) {
+    async fn mint_fungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -107,7 +107,7 @@ mod mint {
                 &mut context,
                 TokenStandard::Fungible,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -115,7 +115,7 @@ mod mint {
         // mints one token
 
         asset
-            .mint(&mut context, None, None, 100, spl_token_program)
+            .mint(&mut context, None, None, 100, tpl_token_program)
             .await
             .unwrap();
 
@@ -132,10 +132,10 @@ mod mint {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn mint_fungible_asset(spl_token_program: Pubkey) {
+    async fn mint_fungible_asset(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -146,7 +146,7 @@ mod mint {
                 &mut context,
                 TokenStandard::FungibleAsset,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -154,7 +154,7 @@ mod mint {
         // mints one token
 
         asset
-            .mint(&mut context, None, None, 50, spl_token_program)
+            .mint(&mut context, None, None, 50, tpl_token_program)
             .await
             .unwrap();
 
@@ -171,10 +171,10 @@ mod mint {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn try_mint_multiple_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn try_mint_multiple_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut asset = DigitalAsset::default();
@@ -185,7 +185,7 @@ mod mint {
                 None,
                 None,
                 2,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -193,10 +193,10 @@ mod mint {
         assert_custom_error_ix!(1, error, MetadataError::EditionsMustHaveExactlyOneToken);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn try_mint_multiple_nonfungible(spl_token_program: Pubkey) {
+    async fn try_mint_multiple_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut asset = DigitalAsset::default();
@@ -207,7 +207,7 @@ mod mint {
                 None,
                 None,
                 2,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();

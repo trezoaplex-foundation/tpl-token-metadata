@@ -12,7 +12,7 @@ import {
   bytes,
   struct,
   u32,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 export type SeedsVec = { seeds: Array<Uint8Array> };
 

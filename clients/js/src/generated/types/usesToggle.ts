@@ -14,7 +14,7 @@ import {
   struct,
   tuple,
   unit,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { Uses, UsesArgs, getUsesSerializer } from '.';
 
 export type UsesToggle =

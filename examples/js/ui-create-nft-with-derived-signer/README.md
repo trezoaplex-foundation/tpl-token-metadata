@@ -11,17 +11,17 @@ npx create-next-app@latest ui-create-nft
 cd ui-create-nft
 
 # Install dependencies.
-npm install @metaplex-foundation/umi \
-  @metaplex-foundation/umi-signer-wallet-adapters \
-  @metaplex-foundation/umi-uploader-bundlr \
-  @metaplex-foundation/umi-signer-derived \
-  @metaplex-foundation/mpl-toolbox \
-  @lorisleiva/mpl-digital-asset \
-  @solana/web3.js \
-  @solana/wallet-adapter-base \
-  @solana/wallet-adapter-react \
-  @solana/wallet-adapter-react-ui \
-  @solana/wallet-adapter-wallets
+npm install @trezoaplex-foundation/umi \
+  @trezoaplex-foundation/umi-signer-wallet-adapters \
+  @trezoaplex-foundation/umi-uploader-bundlr \
+  @trezoaplex-foundation/umi-signer-derived \
+  @trezoaplex-foundation/tpl-toolbox \
+  @lorisleiva/tpl-digital-asset \
+  @trezoa/web3.js \
+  @trezoa/wallet-adapter-base \
+  @trezoa/wallet-adapter-react \
+  @trezoa/wallet-adapter-react-ui \
+  @trezoa/wallet-adapter-wallets
 
 # Check out the code for the index page.
 cat pages/index.tsx

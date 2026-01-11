@@ -1,8 +1,8 @@
-use mpl_utils::{
+use tpl_utils::{
     assert_signer,
-    token::{spl_token_burn, TokenBurnParams},
+    token::{tpl_token_burn, TokenBurnParams},
 };
-use solana_program::{
+use trezoa_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     pubkey::Pubkey,
@@ -120,7 +120,7 @@ pub fn process_utilize(
                 BURN.as_bytes(),
                 &[seed],
             ];
-            spl_token_burn(TokenBurnParams {
+            tpl_token_burn(TokenBurnParams {
                 mint: mint_info.clone(),
                 amount: 1,
                 authority: burn_authority_info.clone(),
@@ -129,7 +129,7 @@ pub fn process_utilize(
                 authority_signer_seeds: Some(burn_bump_ref),
             })?;
         } else {
-            spl_token_burn(TokenBurnParams {
+            tpl_token_burn(TokenBurnParams {
                 mint: mint_info.clone(),
                 amount: 1,
                 authority: owner_info.clone(),

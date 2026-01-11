@@ -101,5 +101,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         if: github.event.inputs.dry_run == 'false'
         with:
-          commit_message: "chore: Release mpl-token-metadata version ${{ env.PROGRAM_VERSION }}"
-          tagging_message: mpl-token-metadata@v${{ env.PROGRAM_VERSION }}
+          commit_message: "chore: Release tpl-token-metadata version ${{ env.PROGRAM_VERSION }}"
+          tagging_message: tpl-token-metadata@v${{ env.PROGRAM_VERSION }}

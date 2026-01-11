@@ -1,10 +1,10 @@
 use borsh::{BorshDeserialize, BorshSerialize};
-use solana_program::{
+use trezoa_program::{
     instruction::{AccountMeta, Instruction},
     system_program, sysvar,
 };
-use solana_program_test::BanksClientError;
-use solana_sdk::{
+use trezoa_program_test::BanksClientError;
+use trezoa_sdk::{
     compute_budget::ComputeBudgetInstruction, pubkey::Pubkey, signature::Signer,
     signer::keypair::Keypair, transaction::Transaction,
 };
@@ -41,7 +41,7 @@ pub struct BurnPrintArgs<'a> {
     pub edition_marker: Option<Pubkey>,
 }
 
-impl<'a> BurnPrintArgs<'a> {
+itpl<'a> BurnPrintArgs<'a> {
     pub fn default(authority: &'a Keypair) -> BurnPrintArgs<'a> {
         Self {
             authority,
@@ -69,15 +69,15 @@ pub struct EditionMarker {
     pub edition: u64,
     pub token: Keypair,
     pub metadata_token_pubkey: Pubkey,
-    pub spl_token_program: Pubkey,
+    pub tpl_token_program: Pubkey,
 }
 
-impl EditionMarker {
+itpl EditionMarker {
     pub fn new(
         metadata: &Metadata,
         master_edition: &MasterEditionV2,
         edition: u64,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Self {
         let mint = Keypair::new();
         let mint_pubkey = mint.pubkey();
@@ -119,7 +119,7 @@ impl EditionMarker {
             new_edition_pubkey,
             metadata_token_pubkey: metadata.token.pubkey(),
             token: Keypair::new(),
-            spl_token_program,
+            tpl_token_program,
         }
     }
 
@@ -127,7 +127,7 @@ impl EditionMarker {
         asset: &DigitalAsset,
         master_edition: &MasterEditionV2,
         edition: u64,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Self {
         let mint = Keypair::new();
         let mint_pubkey = mint.pubkey();
@@ -167,7 +167,7 @@ impl EditionMarker {
             new_edition_pubkey,
             metadata_token_pubkey: asset.token.unwrap(),
             token: Keypair::new(),
-            spl_token_program,
+            tpl_token_program,
         }
     }
 
@@ -194,7 +194,7 @@ impl EditionMarker {
             &context.payer.pubkey(),
             Some(&context.payer.pubkey()),
             0,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         create_token_account(
@@ -202,7 +202,7 @@ impl EditionMarker {
             &self.token,
             &self.mint.pubkey(),
             &context.payer.pubkey(),
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         mint_tokens(
@@ -212,7 +212,7 @@ impl EditionMarker {
             1,
             &context.payer.pubkey(),
             None,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
 
@@ -241,7 +241,7 @@ impl EditionMarker {
             .banks_client
             .process_transaction_with_commitment(
                 tx,
-                solana_sdk::commitment_config::CommitmentLevel::Confirmed,
+                trezoa_sdk::commitment_config::CommitmentLevel::Confirmed,
             )
             .await?;
 
@@ -264,7 +264,7 @@ impl EditionMarker {
             &context.payer.pubkey(),
             Some(&context.payer.pubkey()),
             0,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         create_token_account(
@@ -272,7 +272,7 @@ impl EditionMarker {
             &self.token,
             &self.mint.pubkey(),
             &context.payer.pubkey(),
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         mint_tokens(
@@ -282,7 +282,7 @@ impl EditionMarker {
             1,
             &context.payer.pubkey(),
             None,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
 
@@ -322,7 +322,7 @@ impl EditionMarker {
             .master_token_account(self.metadata_token_pubkey)
             .master_metadata(self.metadata_pubkey)
             .update_authority(master_metadata.update_authority)
-            .spl_token_program(self.spl_token_program)
+            .tpl_token_program(self.tpl_token_program)
             .spl_ata_program(spl_associated_token_account::ID)
             .sysvar_instructions(sysvar::instructions::ID)
             .system_program(system_program::ID)
@@ -339,7 +339,7 @@ impl EditionMarker {
             .banks_client
             .process_transaction_with_commitment(
                 tx,
-                solana_sdk::commitment_config::CommitmentLevel::Confirmed,
+                trezoa_sdk::commitment_config::CommitmentLevel::Confirmed,
             )
             .await?;
 
@@ -390,7 +390,7 @@ impl EditionMarker {
             .master_token_account(self.metadata_token_pubkey)
             .master_metadata(self.metadata_pubkey)
             .update_authority(context.payer.pubkey())
-            .spl_token_program(fake_token_program.pubkey())
+            .tpl_token_program(fake_token_program.pubkey())
             .spl_ata_program(spl_associated_token_account::ID)
             .sysvar_instructions(sysvar::instructions::ID)
             .system_program(system_program::ID)
@@ -407,7 +407,7 @@ impl EditionMarker {
             .banks_client
             .process_transaction_with_commitment(
                 tx,
-                solana_sdk::commitment_config::CommitmentLevel::Confirmed,
+                trezoa_sdk::commitment_config::CommitmentLevel::Confirmed,
             )
             .await?;
 
@@ -453,7 +453,7 @@ impl EditionMarker {
             AccountMeta::new_readonly(context.payer.pubkey(), false),
             AccountMeta::new_readonly(self.metadata_pubkey, false),
             AccountMeta::new_readonly(fake_token_program.pubkey(), false),
-            AccountMeta::new_readonly(solana_program::system_program::ID, false),
+            AccountMeta::new_readonly(trezoa_program::system_program::ID, false),
             AccountMeta::new_readonly(sysvar::rent::ID, false),
         ];
 
@@ -497,11 +497,11 @@ impl EditionMarker {
             &context.payer.pubkey(),
             new_owner,
             &self.mint.pubkey(),
-            &spl_token::ID,
+            &tpl_token::ID,
         );
 
-        let transfer_ix = spl_token::instruction::transfer(
-            &spl_token::ID,
+        let transfer_ix = tpl_token::instruction::transfer(
+            &tpl_token::ID,
             &self.token.pubkey(),
             &new_owner_token_account,
             &context.payer.pubkey(),
@@ -530,7 +530,7 @@ impl EditionMarker {
             &context.payer.pubkey(),
             new_owner,
             &self.mint.pubkey(),
-            &spl_token::ID,
+            &tpl_token::ID,
         );
 
         let owner_token_record_pda =
@@ -572,7 +572,7 @@ impl EditionMarker {
         &self,
         context: &mut ProgramTestContext,
         args: BurnPrintArgs<'a>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let burn_args = BurnArgs::V1 { amount: 1 };
 
@@ -593,7 +593,7 @@ impl EditionMarker {
             )
             .master_edition(args.master_edition.unwrap_or(self.master_edition_pubkey))
             .edition_marker(args.edition_marker.unwrap_or(self.pubkey))
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(burn_args).unwrap().instruction();
 
@@ -611,7 +611,7 @@ impl EditionMarker {
         &self,
         context: &mut ProgramTestContext,
         args: BurnPrintArgs<'a>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let burn_args = BurnArgs::V1 { amount: 1 };
 
@@ -638,7 +638,7 @@ impl EditionMarker {
             .master_edition(args.master_edition.unwrap_or(self.master_edition_pubkey))
             .edition_marker(args.edition_marker.unwrap_or(self.pubkey))
             .token_record(token_record_pda.0)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(burn_args).unwrap().instruction();
 
@@ -679,7 +679,7 @@ impl EditionMarker {
         payer: Keypair,
         delegate: Pubkey,
         args: DelegateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<Option<Pubkey>, BanksClientError> {
         let mut builder = DelegateBuilder::new();
         builder
@@ -688,7 +688,7 @@ impl EditionMarker {
             .metadata(self.new_metadata_pubkey)
             .payer(payer.pubkey())
             .authority(payer.pubkey())
-            .spl_token_program(spl_token_program)
+            .tpl_token_program(tpl_token_program)
             .master_edition(self.new_edition_pubkey)
             .token(self.token.pubkey());
 
@@ -801,7 +801,7 @@ impl EditionMarker {
         }) = metadata.programmable_config
         {
             builder.authorization_rules(rule_set);
-            builder.authorization_rules_program(mpl_token_auth_rules::ID);
+            builder.authorization_rules_program(tpl_token_auth_rules::ID);
         }
 
         let compute_ix = ComputeBudgetInstruction::set_compute_unit_limit(400_000);

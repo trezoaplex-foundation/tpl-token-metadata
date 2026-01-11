@@ -1,5 +1,5 @@
 use borsh::{BorshDeserialize, BorshSerialize};
-use solana_program::pubkey::Pubkey;
+use trezoa_program::pubkey::Pubkey;
 
 use super::*;
 
@@ -41,7 +41,7 @@ pub struct AssetData {
     pub rule_set: Option<Pubkey>,
 }
 
-impl AssetData {
+itpl AssetData {
     pub fn new(token_standard: TokenStandard, name: String, symbol: String, uri: String) -> Self {
         Self {
             name,

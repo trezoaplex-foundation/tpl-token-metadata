@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Key, keyBeet } from '../types/Key';
 import { TokenState, tokenStateBeet } from '../types/TokenState';
 import { TokenDelegateRole, tokenDelegateRoleBeet } from '../types/TokenDelegateRole';
@@ -34,7 +34,7 @@ export type TokenRecordArgs = {
  * @category Accounts
  * @category generated
  */
-export class TokenRecord implements TokenRecordArgs {
+export class TokenRecord itplements TokenRecordArgs {
   private constructor(
     readonly key: Key,
     readonly bump: number,
@@ -95,7 +95,7 @@ export class TokenRecord implements TokenRecordArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, tokenRecordBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, tokenRecordBeet);
   }
 
   /**
@@ -169,9 +169,9 @@ export const tokenRecordBeet = new beet.FixableBeetStruct<TokenRecord, TokenReco
     ['bump', beet.u8],
     ['state', tokenStateBeet],
     ['ruleSetRevision', beet.coption(beet.u64)],
-    ['delegate', beet.coption(beetSolana.publicKey)],
+    ['delegate', beet.coption(beetTrezoa.publicKey)],
     ['delegateRole', beet.coption(tokenDelegateRoleBeet)],
-    ['lockedTransfer', beet.coption(beetSolana.publicKey)],
+    ['lockedTransfer', beet.coption(beetTrezoa.publicKey)],
   ],
   TokenRecord.fromArgs,
   'TokenRecord',

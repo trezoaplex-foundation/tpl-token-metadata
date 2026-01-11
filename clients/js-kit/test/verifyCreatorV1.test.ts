@@ -58,7 +58,7 @@ test('it can verify the creator of a NonFungible', async (t) => {
     authority: payer,
     payer,
     name: 'My NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
     creators: [
@@ -131,7 +131,7 @@ test('it can verify the creator of a ProgrammableNonFungible', async (t) => {
     authority: payer,
     payer,
     name: 'My PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     creators: [
@@ -202,7 +202,7 @@ test('it can verify the creator of a Fungible', async (t) => {
     authority: payer,
     payer,
     name: 'Fungible Token',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(2),
     tokenStandard: TokenStandard.Fungible,
     creators: [
@@ -275,7 +275,7 @@ test('it can verify one of multiple creators', async (t) => {
     authority: payer,
     payer,
     name: 'Collaborative NFT',
-    uri: 'https://example.com/collab.json',
+    uri: 'https://exatple.com/collab.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
     creators: [

@@ -56,7 +56,7 @@ test('it can revoke a data delegate for a NonFungible', async (t) => {
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: updateAuthority.address,
   });
@@ -136,7 +136,7 @@ test('it can revoke a data delegate for a ProgrammableNonFungible', async (t) =>
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Test PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: updateAuthority.address,
   });
@@ -216,7 +216,7 @@ test('it can revoke a data delegate for a Fungible', async (t) => {
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Test Token',
-    uri: 'https://example.com/token.json',
+    uri: 'https://exatple.com/token.json',
     sellerFeeBasisPoints: basisPoints(2),
   });
 
@@ -292,7 +292,7 @@ test('it can revoke a data delegate for a FungibleAsset', async (t) => {
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Test Asset',
-    uri: 'https://example.com/asset.json',
+    uri: 'https://exatple.com/asset.json',
     sellerFeeBasisPoints: basisPoints(3),
   });
 

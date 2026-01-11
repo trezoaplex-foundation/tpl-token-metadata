@@ -1,8 +1,8 @@
 #![cfg(feature = "test-bpf")]
 pub mod utils;
 
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::TransactionError,
@@ -12,11 +12,11 @@ use utils::*;
 mod delegate {
 
     use borsh::BorshDeserialize;
-    use mpl_token_auth_rules::error::RuleSetError;
-    use mpl_utils::token::unpack;
+    use tpl_token_auth_rules::error::RuleSetError;
+    use tpl_utils::token::unpack;
     use num_traits::FromPrimitive;
-    use solana_program::{program_option::COption, pubkey::Pubkey};
-    use spl_token_2022::state::Account;
+    use trezoa_program::{program_option::COption, pubkey::Pubkey};
+    use tpl_token_2022::state::Account;
     use token_metadata::{
         error::MetadataError,
         instruction::{DelegateArgs, MetadataDelegateRole},
@@ -29,10 +29,10 @@ mod delegate {
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_transfer_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn set_transfer_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -45,7 +45,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -67,7 +67,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -88,7 +88,7 @@ mod delegate {
 
         if let Some(token) = asset.token {
             let account = get_account(&mut context, &token).await;
-            let token_account = mpl_utils::token::unpack::<Account>(&account.data)
+            let token_account = tpl_utils::token::unpack::<Account>(&account.data)
                 .unwrap()
                 .base;
 
@@ -100,10 +100,10 @@ mod delegate {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_transfer_delegate_programmable_nonfungible_edition(spl_token_program: Pubkey) {
+    async fn set_transfer_delegate_programmable_nonfungible_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -117,7 +117,7 @@ mod delegate {
                 None,
                 1,
                 PrintSupply::Unlimited,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -129,7 +129,7 @@ mod delegate {
             &master_asset,
             &test_master_edition,
             1,
-            spl_token_program,
+            tpl_token_program,
         );
 
         test_edition_marker
@@ -152,7 +152,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -182,10 +182,10 @@ mod delegate {
         assert_eq!(token_account.delegated_amount, 1);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_collection_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn set_collection_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -198,7 +198,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -225,7 +225,7 @@ mod delegate {
                 DelegateArgs::CollectionV1 {
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -244,10 +244,10 @@ mod delegate {
         assert_eq!(delegate_record.key, Key::MetadataDelegate);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_sale_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn set_sale_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -260,7 +260,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -282,7 +282,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -310,10 +310,10 @@ mod delegate {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_utility_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn set_utility_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -326,7 +326,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -348,7 +348,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -382,10 +382,10 @@ mod delegate {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn cannot_set_sale_delegate_nonfungible(spl_token_program: Pubkey) {
+    async fn cannot_set_sale_delegate_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -398,7 +398,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -420,7 +420,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -430,10 +430,10 @@ mod delegate {
         assert_custom_error_ix!(1, error, MetadataError::InvalidDelegateRole);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_standard_delegate_nonfungible(spl_token_program: Pubkey) {
+    async fn set_standard_delegate_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -446,7 +446,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -465,16 +465,16 @@ mod delegate {
                 payer,
                 user_pubkey,
                 DelegateArgs::StandardV1 { amount: 1 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn cannot_set_utility_delegate_nonfungible(spl_token_program: Pubkey) {
+    async fn cannot_set_utility_delegate_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -487,7 +487,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -509,7 +509,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -517,12 +517,12 @@ mod delegate {
         assert_custom_error_ix!(1, error, MetadataError::InvalidDelegateRole);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn store_rule_set_revision_on_delegate(spl_token_program: Pubkey) {
+    async fn store_rule_set_revision_on_delegate(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         program_test.set_compute_max_units(400_000);
         let mut context = program_test.start_with_context().await;
 
@@ -542,7 +542,7 @@ mod delegate {
                 Some(rule_set),
                 Some(auth_data),
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -571,7 +571,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -600,10 +600,10 @@ mod delegate {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_locked_transfer_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn set_locked_transfer_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -616,7 +616,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -639,7 +639,7 @@ mod delegate {
                     locked_address: asset.metadata,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -673,12 +673,12 @@ mod delegate {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn delegate_not_in_allow_list(spl_token_program: Pubkey) {
+    async fn delegate_not_in_allow_list(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         program_test.set_compute_max_units(400_000);
         let mut context = program_test.start_with_context().await;
 
@@ -698,7 +698,7 @@ mod delegate {
                 Some(rule_set),
                 Some(auth_data),
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -729,7 +729,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -739,10 +739,10 @@ mod delegate {
         assert_custom_error_ix!(1, error, RuleSetError::DataIsEmpty);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn invalid_close_authority_fails(spl_token_program: Pubkey) {
+    async fn invalid_close_authority_fails(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -755,7 +755,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -780,7 +780,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -788,10 +788,10 @@ mod delegate {
         assert_custom_error_ix!(1, err, MetadataError::InvalidCloseAuthority);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn replace_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn replace_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -804,7 +804,7 @@ mod delegate {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -826,7 +826,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -869,7 +869,7 @@ mod delegate {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();

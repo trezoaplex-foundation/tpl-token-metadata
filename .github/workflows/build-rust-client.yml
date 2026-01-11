@@ -5,7 +5,7 @@ on:
     inputs:
       rust:
         type: string
-      solana:
+      trezoa:
         type: string
   workflow_dispatch:
     inputs:
@@ -14,8 +14,8 @@ on:
         default: 1.68.0
         required: true
         type: string
-      solana:
-        description: Solana version
+      trezoa:
+        description: Trezoa version
         default: 1.16.8
         required: true
         type: string
@@ -38,18 +38,18 @@ jobs:
         run: sudo apt-get install protobuf-compiler
 
       - name: Install Rust
-        uses: metaplex-foundation/actions/install-rust@v1
+        uses: trezoaplex-foundation/actions/install-rust@v1
         with:
           toolchain: ${{ inputs.rust || env.RUST_CLIENT_VERSION }}
 
-      - name: Install Solana
-        uses: metaplex-foundation/actions/install-solana@v1
+      - name: Install Trezoa
+        uses: trezoaplex-foundation/actions/install-trezoa@v1
         with:
-          version: ${{ inputs.solana || env.SOLANA_CLIENT_VERSION }}
+          version: ${{ inputs.trezoa || env.SOLANA_CLIENT_VERSION }}
           cache: ${{ env.CACHE }}
 
       - name: Cache Rust client dependencies
-        uses: metaplex-foundation/actions/cache-crate@v1
+        uses: trezoaplex-foundation/actions/cache-crate@v1
         with:
           folder: ./clients/rust
           key: rust-client
@@ -70,5 +70,5 @@ jobs:
         with:
           name: rust-client-builds
           # First wildcard ensures exported paths are consistently under the clients folder.
-          path: ./client*/rust/target/release/*mpl_token_metadata*
+          path: ./client*/rust/target/release/*tpl_token_metadata*
           if-no-files-found: error

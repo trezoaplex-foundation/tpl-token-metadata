@@ -1,6 +1,6 @@
-use mpl_utils::create_or_allocate_account_raw;
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
-use spl_token_2022::state::Mint;
+use tpl_utils::create_or_allocate_account_raw;
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use tpl_token_2022::state::Mint;
 
 use crate::{
     assertions::{

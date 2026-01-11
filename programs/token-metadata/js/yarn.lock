@@ -65,28 +65,28 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@metaplex-foundation/amman-client@^0.2.0", "@metaplex-foundation/amman-client@^0.2.2":
+"@trezoaplex-foundation/amman-client@^0.2.0", "@trezoaplex-foundation/amman-client@^0.2.2":
   version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/amman-client/-/amman-client-0.2.4.tgz#bcf9cb2b8fa0cdaec3b17a68e638c8cf0531d08a"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/amman-client/-/amman-client-0.2.4.tgz#bcf9cb2b8fa0cdaec3b17a68e638c8cf0531d08a"
   integrity sha512-AB2zKDrGyJtQqUmOswsZCflIuldYmsPvL/zIU/66JOD9HDo8yyz5ITCrs+/0QoW+CIJkotC5JEhuYuBnqLhmNw==
   dependencies:
-    "@metaplex-foundation/cusper" "^0.0.2"
-    "@solana/spl-token-registry" "^0.2.2405"
-    "@solana/web3.js" "^1.66.2"
+    "@trezoaplex-foundation/cusper" "^0.0.2"
+    "@trezoa/tpl-token-registry" "^0.2.2405"
+    "@trezoa/web3.js" "^1.66.2"
     bn.js "^5.2.1"
     debug "^4.3.3"
     js-sha3 "^0.8.0"
     socket.io-client "^4.4.1"
     tweetnacl "^1.0.3"
 
-"@metaplex-foundation/amman@^0.12.0":
+"@trezoaplex-foundation/amman@^0.12.0":
   version "0.12.1"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/amman/-/amman-0.12.1.tgz#8d135fa4e4ac4667133762eca02e6cc221e7f656"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/amman/-/amman-0.12.1.tgz#8d135fa4e4ac4667133762eca02e6cc221e7f656"
   integrity sha512-F3cdHr11ByLGMCrSBRvRCf5uIlhLE+5sWaHT2ZzcE6zVyDta3gs/A12ZBzYZS8ugNETNpJySfB42kMp1VZwbUA==
   dependencies:
-    "@metaplex-foundation/amman-client" "^0.2.0"
-    "@solana/spl-token" "^0.2.0"
-    "@solana/web3.js" "^1.63.1"
+    "@trezoaplex-foundation/amman-client" "^0.2.0"
+    "@trezoa/tpl-token" "^0.2.0"
+    "@trezoa/web3.js" "^1.63.1"
     ansi-colors "^4.1.1"
     bn.js "^5.2.0"
     buffer-hexdump "^1.0.0"
@@ -103,54 +103,54 @@
     wait-on "^6.0.0"
     yargs "^17.3.0"
 
-"@metaplex-foundation/beet-solana@^0.3.1":
+"@trezoaplex-foundation/beet-trezoa@^0.3.1":
   version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/beet-solana/-/beet-solana-0.3.1.tgz#4b37cda5c7f32ffd2bdd8b3164edc05c6463ab35"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/beet-trezoa/-/beet-trezoa-0.3.1.tgz#4b37cda5c7f32ffd2bdd8b3164edc05c6463ab35"
   integrity sha512-tgyEl6dvtLln8XX81JyBvWjIiEcjTkUwZbrM5dIobTmoqMuGewSyk9CClno8qsMsFdB5T3jC91Rjeqmu/6xk2g==
   dependencies:
-    "@metaplex-foundation/beet" ">=0.1.0"
-    "@solana/web3.js" "^1.56.2"
+    "@trezoaplex-foundation/beet" ">=0.1.0"
+    "@trezoa/web3.js" "^1.56.2"
     bs58 "^5.0.0"
     debug "^4.3.4"
 
-"@metaplex-foundation/beet-solana@^0.4.0":
+"@trezoaplex-foundation/beet-trezoa@^0.4.0":
   version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/beet-solana/-/beet-solana-0.4.0.tgz#52891e78674aaa54e0031f1bca5bfbc40de12e8d"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/beet-trezoa/-/beet-trezoa-0.4.0.tgz#52891e78674aaa54e0031f1bca5bfbc40de12e8d"
   integrity sha512-B1L94N3ZGMo53b0uOSoznbuM5GBNJ8LwSeznxBxJ+OThvfHQ4B5oMUqb+0zdLRfkKGS7Q6tpHK9P+QK0j3w2cQ==
   dependencies:
-    "@metaplex-foundation/beet" ">=0.1.0"
-    "@solana/web3.js" "^1.56.2"
+    "@trezoaplex-foundation/beet" ">=0.1.0"
+    "@trezoa/web3.js" "^1.56.2"
     bs58 "^5.0.0"
     debug "^4.3.4"
 
-"@metaplex-foundation/beet@>=0.1.0", "@metaplex-foundation/beet@^0.7.1":
+"@trezoaplex-foundation/beet@>=0.1.0", "@trezoaplex-foundation/beet@^0.7.1":
   version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/beet/-/beet-0.7.1.tgz#0975314211643f87b5f6f3e584fa31abcf4c612c"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/beet/-/beet-0.7.1.tgz#0975314211643f87b5f6f3e584fa31abcf4c612c"
   integrity sha512-hNCEnS2WyCiYyko82rwuISsBY3KYpe828ubsd2ckeqZr7tl0WVLivGkoyA/qdiaaHEBGdGl71OpfWa2rqL3DiA==
   dependencies:
     ansicolors "^0.3.2"
     bn.js "^5.2.0"
     debug "^4.3.3"
 
-"@metaplex-foundation/cusper@^0.0.2":
+"@trezoaplex-foundation/cusper@^0.0.2":
   version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/cusper/-/cusper-0.0.2.tgz#dc2032a452d6c269e25f016aa4dd63600e2af975"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/cusper/-/cusper-0.0.2.tgz#dc2032a452d6c269e25f016aa4dd63600e2af975"
   integrity sha512-S9RulC2fFCFOQraz61bij+5YCHhSO9llJegK8c8Y6731fSi6snUSQJdCUqYS8AIgR0TKbQvdvgSyIIdbDFZbBA==
 
-"@metaplex-foundation/mpl-token-auth-rules@^1.1.0":
+"@trezoaplex-foundation/tpl-token-auth-rules@^1.1.0":
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/mpl-token-auth-rules/-/mpl-token-auth-rules-1.1.0.tgz#1e6243775a61126ce985b0522ba7412af1667777"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/tpl-token-auth-rules/-/tpl-token-auth-rules-1.1.0.tgz#1e6243775a61126ce985b0522ba7412af1667777"
   integrity sha512-RqagEckDqxnt7tEcA6jf54dIRMfLTy5xNTi+uyTTq6WRoM39/7Bshco255909N2CZIqMPUzxzCyjO20xKp+mWA==
   dependencies:
-    "@metaplex-foundation/beet" "^0.7.1"
-    "@metaplex-foundation/beet-solana" "^0.4.0"
-    "@metaplex-foundation/cusper" "^0.0.2"
-    "@solana/spl-token" "^0.3.6"
-    "@solana/web3.js" "^1.66.2"
+    "@trezoaplex-foundation/beet" "^0.7.1"
+    "@trezoaplex-foundation/beet-trezoa" "^0.4.0"
+    "@trezoaplex-foundation/cusper" "^0.0.2"
+    "@trezoa/tpl-token" "^0.3.6"
+    "@trezoa/web3.js" "^1.66.2"
 
-"@metaplex-foundation/rustbin@^0.3.0":
+"@trezoaplex-foundation/rustbin@^0.3.0":
   version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/rustbin/-/rustbin-0.3.1.tgz#bbcd61e8699b73c0b062728c6f5e8d52e8145042"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/rustbin/-/rustbin-0.3.1.tgz#bbcd61e8699b73c0b062728c6f5e8d52e8145042"
   integrity sha512-hWd2JPrnt2/nJzkBpZD3Y6ZfCUlJujv2K7qUfsxdS0jSwLrSrOvYwmNWFw6mc3lbULj6VP4WDyuy9W5/CHU/lQ==
   dependencies:
     debug "^4.3.3"
@@ -158,15 +158,15 @@
     text-table "^0.2.0"
     toml "^3.0.0"
 
-"@metaplex-foundation/solita@^0.19.3":
+"@trezoaplex-foundation/solita@^0.19.3":
   version "0.19.3"
-  resolved "https://registry.yarnpkg.com/@metaplex-foundation/solita/-/solita-0.19.3.tgz#dbb7659f6af513cdae93201ab079f28b162b0199"
+  resolved "https://registry.yarnpkg.com/@trezoaplex-foundation/solita/-/solita-0.19.3.tgz#dbb7659f6af513cdae93201ab079f28b162b0199"
   integrity sha512-VnCqW05opw8UueP9IsH3ax6Dk7J+8QuqTs/ceSeMhJquOpoLv3M4crrzFqX+GXr5GH0j/Fk32UlRD7iEp6sEnQ==
   dependencies:
-    "@metaplex-foundation/beet" "^0.7.1"
-    "@metaplex-foundation/beet-solana" "^0.3.1"
-    "@metaplex-foundation/rustbin" "^0.3.0"
-    "@solana/web3.js" "^1.56.2"
+    "@trezoaplex-foundation/beet" "^0.7.1"
+    "@trezoaplex-foundation/beet-trezoa" "^0.3.1"
+    "@trezoaplex-foundation/rustbin" "^0.3.0"
+    "@trezoa/web3.js" "^1.56.2"
     ansi-colors "^4.1.3"
     camelcase "^6.2.1"
     debug "^4.3.3"
@@ -238,59 +238,59 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@solana/buffer-layout-utils@^0.2.0":
+"@trezoa/buffer-layout-utils@^0.2.0":
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@solana/buffer-layout-utils/-/buffer-layout-utils-0.2.0.tgz#b45a6cab3293a2eb7597cceb474f229889d875ca"
+  resolved "https://registry.yarnpkg.com/@trezoa/buffer-layout-utils/-/buffer-layout-utils-0.2.0.tgz#b45a6cab3293a2eb7597cceb474f229889d875ca"
   integrity sha512-szG4sxgJGktbuZYDg2FfNmkMi0DYQoVjN2h7ta1W1hPrwzarcFLBq9UpX1UjNXsNpT9dn+chgprtWGioUAr4/g==
   dependencies:
-    "@solana/buffer-layout" "^4.0.0"
-    "@solana/web3.js" "^1.32.0"
+    "@trezoa/buffer-layout" "^4.0.0"
+    "@trezoa/web3.js" "^1.32.0"
     bigint-buffer "^1.1.5"
     bignumber.js "^9.0.1"
 
-"@solana/buffer-layout@^4.0.0":
+"@trezoa/buffer-layout@^4.0.0":
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@solana/buffer-layout/-/buffer-layout-4.0.0.tgz#75b1b11adc487234821c81dfae3119b73a5fd734"
+  resolved "https://registry.yarnpkg.com/@trezoa/buffer-layout/-/buffer-layout-4.0.0.tgz#75b1b11adc487234821c81dfae3119b73a5fd734"
   integrity sha512-lR0EMP2HC3+Mxwd4YcnZb0smnaDw7Bl2IQWZiTevRH5ZZBZn6VRWn3/92E3qdU4SSImJkA6IDHawOHAnx/qUvQ==
   dependencies:
     buffer "~6.0.3"
 
-"@solana/spl-token-registry@^0.2.2405":
+"@trezoa/tpl-token-registry@^0.2.2405":
   version "0.2.4574"
-  resolved "https://registry.yarnpkg.com/@solana/spl-token-registry/-/spl-token-registry-0.2.4574.tgz#13f4636b7bec90d2bb43bbbb83512cd90d2ce257"
+  resolved "https://registry.yarnpkg.com/@trezoa/tpl-token-registry/-/tpl-token-registry-0.2.4574.tgz#13f4636b7bec90d2bb43bbbb83512cd90d2ce257"
   integrity sha512-JzlfZmke8Rxug20VT/VpI2XsXlsqMlcORIUivF+Yucj7tFi7A0dXG7h+2UnD0WaZJw8BrUz2ABNkUnv89vbv1A==
   dependencies:
     cross-fetch "3.0.6"
 
-"@solana/spl-token@^0.2.0":
+"@trezoa/tpl-token@^0.2.0":
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@solana/spl-token/-/spl-token-0.2.0.tgz#329bb6babb5de0f9c40035ddb1657f01a8347acd"
+  resolved "https://registry.yarnpkg.com/@trezoa/tpl-token/-/tpl-token-0.2.0.tgz#329bb6babb5de0f9c40035ddb1657f01a8347acd"
   integrity sha512-RWcn31OXtdqIxmkzQfB2R+WpsJOVS6rKuvpxJFjvik2LyODd+WN58ZP3Rpjpro03fscGAkzlFuP3r42doRJgyQ==
   dependencies:
-    "@solana/buffer-layout" "^4.0.0"
-    "@solana/buffer-layout-utils" "^0.2.0"
-    "@solana/web3.js" "^1.32.0"
+    "@trezoa/buffer-layout" "^4.0.0"
+    "@trezoa/buffer-layout-utils" "^0.2.0"
+    "@trezoa/web3.js" "^1.32.0"
     start-server-and-test "^1.14.0"
 
-"@solana/spl-token@^0.3.6":
+"@trezoa/tpl-token@^0.3.6":
   version "0.3.6"
-  resolved "https://registry.yarnpkg.com/@solana/spl-token/-/spl-token-0.3.6.tgz#35473ad2ed71fe91e5754a2ac72901e1b8b26a42"
+  resolved "https://registry.yarnpkg.com/@trezoa/tpl-token/-/tpl-token-0.3.6.tgz#35473ad2ed71fe91e5754a2ac72901e1b8b26a42"
   integrity sha512-P9pTXjDIRvVbjr3J0mCnSamYqLnICeds7IoH1/Ro2R9OBuOHdp5pqKZoscfZ3UYrgnCWUc1bc9M2m/YPHjw+1g==
   dependencies:
-    "@solana/buffer-layout" "^4.0.0"
-    "@solana/buffer-layout-utils" "^0.2.0"
+    "@trezoa/buffer-layout" "^4.0.0"
+    "@trezoa/buffer-layout-utils" "^0.2.0"
     buffer "^6.0.3"
 
-"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.56.2", "@solana/web3.js@^1.66.2":
+"@trezoa/web3.js@^1.32.0", "@trezoa/web3.js@^1.56.2", "@trezoa/web3.js@^1.66.2":
   version "1.66.2"
-  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.66.2.tgz#80b43c5868b846124fe3ebac7d3943930c3fa60c"
+  resolved "https://registry.yarnpkg.com/@trezoa/web3.js/-/web3.js-1.66.2.tgz#80b43c5868b846124fe3ebac7d3943930c3fa60c"
   integrity sha512-RyaHMR2jGmaesnYP045VLeBGfR/gAW3cvZHzMFGg7bkO+WOYOYp1nEllf0/la4U4qsYGKCsO9eEevR5fhHiVHg==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@noble/ed25519" "^1.7.0"
     "@noble/hashes" "^1.1.2"
     "@noble/secp256k1" "^1.6.3"
-    "@solana/buffer-layout" "^4.0.0"
+    "@trezoa/buffer-layout" "^4.0.0"
     bigint-buffer "^1.1.5"
     bn.js "^5.0.0"
     borsh "^0.7.0"
@@ -302,16 +302,16 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@solana/web3.js@^1.63.1":
+"@trezoa/web3.js@^1.63.1":
   version "1.70.1"
-  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.70.1.tgz#4a2df47cc32a0f67be5161e772b2ceb6512281fa"
+  resolved "https://registry.yarnpkg.com/@trezoa/web3.js/-/web3.js-1.70.1.tgz#4a2df47cc32a0f67be5161e772b2ceb6512281fa"
   integrity sha512-AnaqCF1cJ3w7d0yhvLGAKAcRI+n5o+ursQihhoTe4cUh8/9d4gbT73SoHYElS7e67OtAgLmSfbcC5hcOAgdvnQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@noble/ed25519" "^1.7.0"
     "@noble/hashes" "^1.1.2"
     "@noble/secp256k1" "^1.6.3"
-    "@solana/buffer-layout" "^4.0.0"
+    "@trezoa/buffer-layout" "^4.0.0"
     bigint-buffer "^1.1.5"
     bn.js "^5.0.0"
     borsh "^0.7.0"

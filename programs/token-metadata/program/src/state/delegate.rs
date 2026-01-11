@@ -24,7 +24,7 @@ pub struct MetadataDelegateRecord {
     pub update_authority: Pubkey, // 32
 }
 
-impl Default for MetadataDelegateRecord {
+itpl Default for MetadataDelegateRecord {
     fn default() -> Self {
         Self {
             key: Key::MetadataDelegate,
@@ -36,7 +36,7 @@ impl Default for MetadataDelegateRecord {
     }
 }
 
-impl TokenMetadataAccount for MetadataDelegateRecord {
+itpl TokenMetadataAccount for MetadataDelegateRecord {
     fn key() -> Key {
         Key::MetadataDelegate
     }
@@ -46,7 +46,7 @@ impl TokenMetadataAccount for MetadataDelegateRecord {
     }
 }
 
-impl MetadataDelegateRecord {
+itpl MetadataDelegateRecord {
     pub fn from_bytes(data: &[u8]) -> Result<MetadataDelegateRecord, ProgramError> {
         let delegate: MetadataDelegateRecord =
             try_from_slice_checked(data, Key::MetadataDelegate, MetadataDelegateRecord::size())?;
@@ -76,7 +76,7 @@ pub struct HolderDelegateRecord {
     pub update_authority: Pubkey, // 32
 }
 
-impl Default for HolderDelegateRecord {
+itpl Default for HolderDelegateRecord {
     fn default() -> Self {
         Self {
             key: Key::HolderDelegate,
@@ -88,7 +88,7 @@ impl Default for HolderDelegateRecord {
     }
 }
 
-impl TokenMetadataAccount for HolderDelegateRecord {
+itpl TokenMetadataAccount for HolderDelegateRecord {
     fn key() -> Key {
         Key::HolderDelegate
     }
@@ -98,7 +98,7 @@ impl TokenMetadataAccount for HolderDelegateRecord {
     }
 }
 
-impl HolderDelegateRecord {
+itpl HolderDelegateRecord {
     pub fn from_bytes(data: &[u8]) -> Result<HolderDelegateRecord, ProgramError> {
         let delegate: HolderDelegateRecord =
             try_from_slice_checked(data, Key::HolderDelegate, HolderDelegateRecord::size())?;

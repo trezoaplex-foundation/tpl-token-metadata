@@ -55,7 +55,7 @@ pub struct MasterEditionV2 {
     pub max_supply: Option<u64>,
 }
 
-impl Default for MasterEditionV2 {
+itpl Default for MasterEditionV2 {
     fn default() -> Self {
         MasterEditionV2 {
             key: Key::MasterEditionV2,
@@ -65,7 +65,7 @@ impl Default for MasterEditionV2 {
     }
 }
 
-impl TokenMetadataAccount for MasterEditionV2 {
+itpl TokenMetadataAccount for MasterEditionV2 {
     fn key() -> Key {
         Key::MasterEditionV2
     }
@@ -75,7 +75,7 @@ impl TokenMetadataAccount for MasterEditionV2 {
     }
 }
 
-impl MasterEdition for MasterEditionV2 {
+itpl MasterEdition for MasterEditionV2 {
     fn key(&self) -> Key {
         self.key
     }
@@ -129,7 +129,7 @@ pub struct MasterEditionV1 {
     pub one_time_printing_authorization_mint: Pubkey,
 }
 
-impl TokenMetadataAccount for MasterEditionV1 {
+itpl TokenMetadataAccount for MasterEditionV1 {
     fn key() -> Key {
         Key::MasterEditionV1
     }
@@ -139,7 +139,7 @@ impl TokenMetadataAccount for MasterEditionV1 {
     }
 }
 
-impl MasterEdition for MasterEditionV1 {
+itpl MasterEdition for MasterEditionV1 {
     fn key(&self) -> Key {
         self.key
     }
@@ -169,8 +169,8 @@ impl MasterEdition for MasterEditionV1 {
 
 #[cfg(test)]
 mod tests {
-    use solana_program::account_info::AccountInfo;
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_program::account_info::AccountInfo;
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
 
     use crate::{
         error::MetadataError,

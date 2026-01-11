@@ -1,4 +1,4 @@
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 
 use crate::{
     error::MetadataError,
@@ -32,7 +32,7 @@ pub fn process_mint_new_edition_from_master_edition_via_token<'a>(
         system_account_info
     );
 
-    // only support SPL tokens
+    // only support TPL tokens
     if *token_program_account_info.key != SPL_TOKEN_ID {
         return Err(MetadataError::InvalidTokenProgram.into());
     }

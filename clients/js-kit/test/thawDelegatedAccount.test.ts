@@ -32,7 +32,7 @@ import {
   sendAndConfirmInstructions,
   fetchToken,
 } from './_setup';
-import { AccountState } from '@solana-program/token';
+import { AccountState } from '@trezoa-program/token';
 
 /**
  * Test: Thaw a frozen NonFungible token as delegate
@@ -58,7 +58,7 @@ test('it can thaw a frozen NonFungible token as delegate', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -140,7 +140,7 @@ test('it can freeze and thaw a token multiple times', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -244,7 +244,7 @@ test('it cannot thaw a token without being delegate', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });

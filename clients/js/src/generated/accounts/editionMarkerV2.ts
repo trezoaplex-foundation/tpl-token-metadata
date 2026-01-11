@@ -18,7 +18,7 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   bytes,
@@ -26,7 +26,7 @@ import {
   string,
   struct,
   u32,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { Key, KeyArgs, getKeySerializer } from '../types';
 
 export type EditionMarkerV2 = Account<EditionMarkerV2AccountData>;
@@ -120,7 +120,7 @@ export function getEditionMarkerV2GpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
   return gpaBuilder(context, programId)
@@ -141,7 +141,7 @@ export function findEditionMarkerV2Pda(
   }
 ): Pda {
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
   return context.eddsa.findPda(programId, [

@@ -5,7 +5,7 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
+import * as beet from '@trezoaplex-foundation/beet';
 import { Collection, collectionBeet } from './Collection';
 /**
  * This type is used to derive the {@link CollectionToggle} type as well as the de/serializer.

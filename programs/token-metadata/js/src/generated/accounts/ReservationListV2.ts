@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Key, keyBeet } from '../types/Key';
 import { Reservation, reservationBeet } from '../types/Reservation';
 
@@ -31,7 +31,7 @@ export type ReservationListV2Args = {
  * @category Accounts
  * @category generated
  */
-export class ReservationListV2 implements ReservationListV2Args {
+export class ReservationListV2 itplements ReservationListV2Args {
   private constructor(
     readonly key: Key,
     readonly masterEdition: web3.PublicKey,
@@ -93,7 +93,7 @@ export class ReservationListV2 implements ReservationListV2Args {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, reservationListV2Beet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, reservationListV2Beet);
   }
 
   /**
@@ -189,7 +189,7 @@ export const reservationListV2Beet = new beet.FixableBeetStruct<
 >(
   [
     ['key', keyBeet],
-    ['masterEdition', beetSolana.publicKey],
+    ['masterEdition', beetTrezoa.publicKey],
     ['supplySnapshot', beet.coption(beet.u64)],
     ['reservations', beet.array(reservationBeet)],
     ['totalReservationSpots', beet.u64],

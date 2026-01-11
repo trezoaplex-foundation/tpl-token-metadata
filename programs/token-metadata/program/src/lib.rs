@@ -1,6 +1,6 @@
-//! A Token Metadata program for the Solana blockchain.
+//! A Token Metadata program for the Trezoa blockchain.
 //!
-//! The program attach additional data to Fungible or Non-Fungible Tokens on Solana.
+//! The program attach additional data to Fungible or Non-Fungible Tokens on Trezoa.
 
 pub mod assertions;
 
@@ -20,6 +20,6 @@ pub mod state;
 pub mod utils;
 
 // Export current sdk types for downstream users building with a different sdk version
-pub use solana_program;
+pub use trezoa_program;
 
-solana_program::declare_id!("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
+trezoa_program::declare_id!("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");

@@ -2,14 +2,14 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{instruction::InstructionError, transaction::TransactionError};
+use trezoa_program_test::*;
+use trezoa_sdk::{instruction::InstructionError, transaction::TransactionError};
 use token_metadata::state::Metadata as ProgramMetadata;
 use utils::*;
 
 mod unsized_collection_handlers {
 
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
     use token_metadata::{error::MetadataError, state::Collection};
 
     use super::*;
@@ -247,7 +247,7 @@ mod unsized_collection_handlers {
 }
 
 mod sized_collection_handlers {
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
     use token_metadata::{error::MetadataError, state::Collection};
 
     use super::*;
@@ -449,7 +449,7 @@ mod sized_collection_handlers {
 
 mod size_tracking {
     use borsh::BorshDeserialize;
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
     use token_metadata::state::{Collection, CollectionDetails};
 
     use super::*;

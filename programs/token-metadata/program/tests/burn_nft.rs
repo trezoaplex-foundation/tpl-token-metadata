@@ -2,15 +2,15 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{instruction::InstructionError, signer::Signer, transaction::TransactionError};
+use trezoa_program_test::*;
+use trezoa_sdk::{instruction::InstructionError, signer::Signer, transaction::TransactionError};
 use token_metadata::state::Metadata as ProgramMetadata;
 use utils::*;
 mod burn_nft {
 
     use borsh::BorshDeserialize;
-    use solana_program::pubkey::Pubkey;
-    use solana_sdk::signature::Keypair;
+    use trezoa_program::pubkey::Pubkey;
+    use trezoa_sdk::signature::Keypair;
     use token_metadata::{
         error::MetadataError,
         state::{Collection, CollectionDetails},
@@ -111,7 +111,7 @@ mod burn_nft {
             .await
             .unwrap();
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -166,7 +166,7 @@ mod burn_nft {
             .await
             .unwrap();
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.

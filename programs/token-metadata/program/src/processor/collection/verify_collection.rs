@@ -1,5 +1,5 @@
-use mpl_utils::assert_signer;
-use solana_program::{
+use tpl_utils::assert_signer;
+use trezoa_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     pubkey::Pubkey,

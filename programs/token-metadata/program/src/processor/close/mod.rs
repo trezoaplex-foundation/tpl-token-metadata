@@ -1,6 +1,6 @@
-use mpl_utils::{assert_signer, close_account_raw, token::SPL_TOKEN_PROGRAM_IDS};
-use solana_program::{program_option::COption, program_pack::Pack, system_program};
-use spl_token_2022::state::Mint;
+use tpl_utils::{assert_signer, close_account_raw, token::SPL_TOKEN_PROGRAM_IDS};
+use trezoa_program::{program_option::COption, program_pack::Pack, system_program};
+use tpl_token_2022::state::Mint;
 
 use crate::{
     assertions::assert_owner_in,
@@ -22,7 +22,7 @@ pub(crate) fn process_close_accounts<'a>(
     let mint_closed = ctx.accounts.mint_info.data_is_empty()
         && ctx.accounts.mint_info.owner == &system_program::ID;
 
-    // If the mint is not closed then we want to check that it's owned by an SPL Token program.
+    // If the mint is not closed then we want to check that it's owned by an TPL Token program.
     if !mint_closed {
         assert_owner_in(ctx.accounts.mint_info, &SPL_TOKEN_PROGRAM_IDS)?;
     }

@@ -18,14 +18,14 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   publicKey as publicKeySerializer,
   string,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   HolderDelegateRoleSeedArgs,
   getHolderDelegateRoleSeedSerializer,
@@ -140,7 +140,7 @@ export function getHolderDelegateRecordGpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
   return gpaBuilder(context, programId)
@@ -180,7 +180,7 @@ export function findHolderDelegateRecordPda(
   }
 ): Pda {
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
   return context.eddsa.findPda(programId, [

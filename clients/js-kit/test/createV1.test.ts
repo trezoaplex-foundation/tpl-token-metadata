@@ -50,7 +50,7 @@ test('it can create a new NonFungible', async (t) => {
     authority: authority,
     payer: authority,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -63,7 +63,7 @@ test('it can create a new NonFungible', async (t) => {
 
   t.is(metadata.data.mint, mint.address);
   t.is(metadata.data.name, 'My NFT');
-  t.is(metadata.data.uri, 'https://example.com/my-nft.json');
+  t.is(metadata.data.uri, 'https://exatple.com/my-nft.json');
   t.is(metadata.data.sellerFeeBasisPoints, 550);
   t.deepEqual(metadata.data.tokenStandard, {
     __option: 'Some',
@@ -106,7 +106,7 @@ test('it can create a new ProgrammableNonFungible', async (t) => {
     authority: authority,
     payer: authority,
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -119,7 +119,7 @@ test('it can create a new ProgrammableNonFungible', async (t) => {
 
   t.is(metadata.data.mint, mint.address);
   t.is(metadata.data.name, 'My Programmable NFT');
-  t.is(metadata.data.uri, 'https://example.com/my-programmable-nft.json');
+  t.is(metadata.data.uri, 'https://exatple.com/my-programmable-nft.json');
   t.is(metadata.data.sellerFeeBasisPoints, 550);
   t.deepEqual(metadata.data.tokenStandard, {
     __option: 'Some',
@@ -165,7 +165,7 @@ test('it can create a new Fungible', async (t) => {
     authority: authority,
     payer: authority,
     name: 'My Fungible',
-    uri: 'https://example.com/my-fungible.json',
+    uri: 'https://exatple.com/my-fungible.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -178,7 +178,7 @@ test('it can create a new Fungible', async (t) => {
 
   t.is(metadata.data.mint, mint.address);
   t.is(metadata.data.name, 'My Fungible');
-  t.is(metadata.data.uri, 'https://example.com/my-fungible.json');
+  t.is(metadata.data.uri, 'https://exatple.com/my-fungible.json');
   t.is(metadata.data.sellerFeeBasisPoints, 550);
   t.deepEqual(metadata.data.tokenStandard, {
     __option: 'Some',
@@ -219,7 +219,7 @@ test('it can create a new FungibleAsset', async (t) => {
     authority: authority,
     payer: authority,
     name: 'My Fungible Asset',
-    uri: 'https://example.com/my-fungible-asset.json',
+    uri: 'https://exatple.com/my-fungible-asset.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.FungibleAsset,
   });
@@ -232,7 +232,7 @@ test('it can create a new FungibleAsset', async (t) => {
 
   t.is(metadata.data.mint, mint.address);
   t.is(metadata.data.name, 'My Fungible Asset');
-  t.is(metadata.data.uri, 'https://example.com/my-fungible-asset.json');
+  t.is(metadata.data.uri, 'https://exatple.com/my-fungible-asset.json');
   t.is(metadata.data.sellerFeeBasisPoints, 550);
   t.deepEqual(metadata.data.tokenStandard, {
     __option: 'Some',

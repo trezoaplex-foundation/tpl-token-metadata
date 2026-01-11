@@ -60,7 +60,7 @@ test('it can revoke a print delegate for a NonFungible', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -152,7 +152,7 @@ test('it can revoke a print delegate for a ProgrammableNonFungible', async (t) =
     authority: owner,
     payer: owner,
     name: 'Test PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });

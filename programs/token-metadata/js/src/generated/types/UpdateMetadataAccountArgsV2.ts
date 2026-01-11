@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { DataV2, dataV2Beet } from './DataV2';
 export type UpdateMetadataAccountArgsV2 = {
   data: beet.COption<DataV2>;
@@ -24,7 +24,7 @@ export const updateMetadataAccountArgsV2Beet =
   new beet.FixableBeetArgsStruct<UpdateMetadataAccountArgsV2>(
     [
       ['data', beet.coption(dataV2Beet)],
-      ['updateAuthority', beet.coption(beetSolana.publicKey)],
+      ['updateAuthority', beet.coption(beetTrezoa.publicKey)],
       ['primarySaleHappened', beet.coption(beet.bool)],
       ['isMutable', beet.coption(beet.bool)],
     ],

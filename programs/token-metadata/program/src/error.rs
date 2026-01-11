@@ -1,7 +1,7 @@
 //! Error types
 
 use num_derive::FromPrimitive;
-use solana_program::{
+use trezoa_program::{
     decode_error::DecodeError,
     msg,
     program_error::{PrintProgramError, ProgramError},
@@ -273,7 +273,7 @@ pub enum MetadataError {
 
     /// The reservation has only been partially alotted
     #[error("")]
-    ReservationNotComplete,
+    ReservationNotCotplete,
 
     /// You cannot splice over an existing reservation!
     #[error("")]
@@ -585,7 +585,7 @@ pub enum MetadataError {
     MissingTokenAccount,
 
     /// 149
-    #[error("Missing SPL token program")]
+    #[error("Missing TPL token program")]
     MissingSplTokenProgram,
 
     /// 150
@@ -801,19 +801,19 @@ pub enum MetadataError {
     ConditionsForClosingNotMet,
 }
 
-impl PrintProgramError for MetadataError {
+itpl PrintProgramError for MetadataError {
     fn print<E>(&self) {
         msg!(&self.to_string());
     }
 }
 
-impl From<MetadataError> for ProgramError {
+itpl From<MetadataError> for ProgramError {
     fn from(e: MetadataError) -> Self {
         ProgramError::Custom(e as u32)
     }
 }
 
-impl<T> DecodeError<T> for MetadataError {
+itpl<T> DecodeError<T> for MetadataError {
     fn type_of() -> &'static str {
         "Metadata Error"
     }

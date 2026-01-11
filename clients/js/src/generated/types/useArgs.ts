@@ -6,7 +6,7 @@
  * @see https://github.com/metaplex-foundation/kinobi
  */
 
-import { Option, OptionOrNullable, none } from '@metaplex-foundation/umi';
+import { Option, OptionOrNullable, none } from '@trezoaplex-foundation/umi';
 import {
   GetDataEnumKind,
   GetDataEnumKindContent,
@@ -15,7 +15,7 @@ import {
   mapSerializer,
   option,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   AuthorizationData,
   AuthorizationDataArgs,

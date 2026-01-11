@@ -1,11 +1,11 @@
 use std::collections::HashMap;
 
-use mpl_utils::token::SPL_TOKEN_PROGRAM_IDS;
-use solana_program::{
+use tpl_utils::token::SPL_TOKEN_PROGRAM_IDS;
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program_error::ProgramError,
     pubkey::Pubkey,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use super::assert_owner_in;
 use crate::{

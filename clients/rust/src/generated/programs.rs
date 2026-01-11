@@ -5,7 +5,7 @@
 //! [https://github.com/metaplex-foundation/kinobi]
 //!
 
-use solana_program::{pubkey, pubkey::Pubkey};
+use trezoa_program::{pubkey, pubkey::Pubkey};
 
-/// `mpl_token_metadata` program ID.
-pub const MPL_TOKEN_METADATA_ID: Pubkey = pubkey!("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
+/// `tpl_token_metadata` program ID.
+pub const TPL_TOKEN_METADATA_ID: Pubkey = pubkey!("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");

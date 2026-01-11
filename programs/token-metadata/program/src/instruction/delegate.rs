@@ -3,7 +3,7 @@ use std::fmt;
 use borsh::{BorshDeserialize, BorshSerialize};
 #[cfg(feature = "serde-feature")]
 use serde::{Deserialize, Serialize};
-use solana_program::{
+use trezoa_program::{
     instruction::{AccountMeta, Instruction},
     pubkey::Pubkey,
 };
@@ -119,7 +119,7 @@ pub enum MetadataDelegateRole {
     ProgrammableConfigItem,
 }
 
-impl fmt::Display for MetadataDelegateRole {
+itpl fmt::Display for MetadataDelegateRole {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let message = match self {
             Self::AuthorityItem => "authority_item_delegate".to_string(),
@@ -143,7 +143,7 @@ pub enum HolderDelegateRole {
     PrintDelegate,
 }
 
-impl fmt::Display for HolderDelegateRole {
+itpl fmt::Display for HolderDelegateRole {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let message = match self {
             Self::PrintDelegate => "print_delegate".to_string(),
@@ -168,11 +168,11 @@ impl fmt::Display for HolderDelegateRole {
 ///   8. `[signer, writable]` Payer
 ///   9. `[]` System Program
 ///   10. `[]` Instructions sysvar account
-///   11. `[optional]` SPL Token Program
+///   11. `[optional]` TPL Token Program
 ///   12. `[optional]` Token Authorization Rules program
 ///   13. `[optional]` Token Authorization Rules account
-impl InstructionBuilder for super::builders::Delegate {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Delegate {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let accounts = vec![
             if let Some(delegate_record) = self.delegate_record {
                 AccountMeta::new(delegate_record, false)
@@ -197,7 +197,7 @@ impl InstructionBuilder for super::builders::Delegate {
             AccountMeta::new(self.payer, true),
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program.unwrap_or(crate::ID), false),
+            AccountMeta::new_readonly(self.tpl_token_program.unwrap_or(crate::ID), false),
             AccountMeta::new_readonly(self.authorization_rules_program.unwrap_or(crate::ID), false),
             AccountMeta::new_readonly(self.authorization_rules.unwrap_or(crate::ID), false),
         ];
@@ -227,11 +227,11 @@ impl InstructionBuilder for super::builders::Delegate {
 ///   8. `[signer, writable]` Payer
 ///   9. `[]` System Program
 ///   10. `[]` Instructions sysvar account
-///   11. `[optional]` SPL Token Program
+///   11. `[optional]` TPL Token Program
 ///   12. `[optional]` Token Authorization Rules program
 ///   13. `[optional]` Token Authorization Rules account
-impl InstructionBuilder for super::builders::Revoke {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Revoke {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let accounts = vec![
             if let Some(delegate_record) = self.delegate_record {
                 AccountMeta::new(delegate_record, false)
@@ -256,7 +256,7 @@ impl InstructionBuilder for super::builders::Revoke {
             AccountMeta::new(self.payer, true),
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program.unwrap_or(crate::ID), false),
+            AccountMeta::new_readonly(self.tpl_token_program.unwrap_or(crate::ID), false),
             AccountMeta::new_readonly(self.authorization_rules_program.unwrap_or(crate::ID), false),
             AccountMeta::new_readonly(self.authorization_rules.unwrap_or(crate::ID), false),
         ];

@@ -1,5 +1,5 @@
 {
-  "entryPoints": ["src/mpl-token-metadata.ts"],
+  "entryPoints": ["src/tpl-token-metadata.ts"],
   "excludeInternal": true,
   "excludePrivate": true,
   "categorizeByGroup": false,

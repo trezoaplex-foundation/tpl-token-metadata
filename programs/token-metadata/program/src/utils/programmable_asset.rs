@@ -1,13 +1,13 @@
-use mpl_token_auth_rules::{
+use tpl_token_auth_rules::{
     instruction::{builders::ValidateBuilder, InstructionBuilder, ValidateArgs},
     payload::PayloadType,
 };
-use mpl_utils::{create_or_allocate_account_raw, token::TokenTransferCheckedParams};
-use solana_program::{
+use tpl_utils::{create_or_allocate_account_raw, token::TokenTransferCheckedParams};
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program::invoke_signed,
     program_error::ProgramError, program_option::COption, pubkey::Pubkey,
 };
-use spl_token_2022::{
+use tpl_token_2022::{
     instruction::{freeze_account, thaw_account, AuthorityType as SplAuthorityType},
     state::Account,
 };
@@ -75,7 +75,7 @@ pub fn freeze<'a>(
     mint: AccountInfo<'a>,
     token: AccountInfo<'a>,
     edition: AccountInfo<'a>,
-    spl_token_program: AccountInfo<'a>,
+    tpl_token_program: AccountInfo<'a>,
     edition_bump: Option<u8>,
 ) -> ProgramResult {
     let edition_info_path = Vec::from([
@@ -106,7 +106,7 @@ pub fn freeze<'a>(
     edition_info_seeds.push(&binding);
 
     invoke_signed(
-        &freeze_account(spl_token_program.key, token.key, mint.key, edition.key, &[]).unwrap(),
+        &freeze_account(tpl_token_program.key, token.key, mint.key, edition.key, &[]).unwrap(),
         &[token, mint, edition],
         &[&edition_info_seeds],
     )?;
@@ -117,7 +117,7 @@ pub fn thaw<'a>(
     mint_info: AccountInfo<'a>,
     token_info: AccountInfo<'a>,
     edition_info: AccountInfo<'a>,
-    spl_token_program: AccountInfo<'a>,
+    tpl_token_program: AccountInfo<'a>,
     edition_bump: Option<u8>,
 ) -> ProgramResult {
     let edition_info_path = Vec::from([
@@ -148,7 +148,7 @@ pub fn thaw<'a>(
 
     invoke_signed(
         &thaw_account(
-            spl_token_program.key,
+            tpl_token_program.key,
             token_info.key,
             mint_info.key,
             edition_info.key,
@@ -352,7 +352,7 @@ pub fn frozen_transfer<'a>(
     let dest_info = params.destination.clone();
     let token_program_info = params.token_program.clone();
 
-    mpl_utils::token::spl_token_transfer_checked(params).unwrap();
+    tpl_utils::token::tpl_token_transfer_checked(params).unwrap();
 
     freeze(
         mint_info,
@@ -371,7 +371,7 @@ pub(crate) struct ClearCloseAuthorityParams<'a, 'b> {
     pub token_info: &'a AccountInfo<'a>,
     pub master_edition_info: &'a AccountInfo<'a>,
     pub authority_info: &'a AccountInfo<'a>,
-    pub spl_token_program_info: &'a AccountInfo<'a>,
+    pub tpl_token_program_info: &'a AccountInfo<'a>,
     pub edition_bump: Option<u8>,
 }
 
@@ -382,7 +382,7 @@ pub(crate) fn clear_close_authority(params: ClearCloseAuthorityParams) -> Progra
         token_info,
         master_edition_info,
         authority_info,
-        spl_token_program_info,
+        tpl_token_program_info,
         edition_bump,
     } = params;
 
@@ -414,8 +414,8 @@ pub(crate) fn clear_close_authority(params: ClearCloseAuthorityParams) -> Progra
         ];
 
         invoke_signed(
-            &spl_token_2022::instruction::set_authority(
-                spl_token_program_info.key,
+            &tpl_token_2022::instruction::set_authority(
+                tpl_token_program_info.key,
                 token_info.key,
                 None,
                 SplAuthorityType::CloseAccount,

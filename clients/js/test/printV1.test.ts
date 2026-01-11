@@ -2,14 +2,14 @@ import {
   createMintWithAssociatedToken,
   findAssociatedTokenPda,
   setComputeUnitLimit,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   percentAmount,
   publicKey,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   DigitalAsset,
@@ -33,7 +33,7 @@ test('it can print a new edition from a NonFungible', async (t) => {
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: percentAmount(5.42),
     tokenOwner: originalOwner.publicKey,
     printSupply: printSupply('Limited', [10]),
@@ -69,7 +69,7 @@ test('it can print a new edition from a NonFungible', async (t) => {
     metadata: {
       name: 'My NFT',
       symbol: 'MNFT',
-      uri: 'https://example.com/nft.json',
+      uri: 'https://exatple.com/nft.json',
       sellerFeeBasisPoints: 542,
     },
     token: {
@@ -91,7 +91,7 @@ test('it can print a new edition from a ProgrammableNonFungible', async (t) => {
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My PNFT',
     symbol: 'MPNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: percentAmount(5.42),
     tokenOwner: originalOwner.publicKey,
     printSupply: printSupply('Limited', [10]),
@@ -132,7 +132,7 @@ test('it can print a new edition from a ProgrammableNonFungible', async (t) => {
     metadata: {
       name: 'My PNFT',
       symbol: 'MPNFT',
-      uri: 'https://example.com/pnft.json',
+      uri: 'https://exatple.com/pnft.json',
       sellerFeeBasisPoints: 542,
       tokenStandard: some(TokenStandard.ProgrammableNonFungibleEdition),
     },
@@ -155,7 +155,7 @@ test('it can print a new edition from a NonFungible by initializing the mint bef
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: percentAmount(5.42),
     tokenOwner: originalOwner.publicKey,
     printSupply: printSupply('Limited', [10]),
@@ -206,7 +206,7 @@ test('it can print a new edition from a NonFungible by initializing the mint bef
     metadata: {
       name: 'My NFT',
       symbol: 'MNFT',
-      uri: 'https://example.com/nft.json',
+      uri: 'https://exatple.com/nft.json',
       sellerFeeBasisPoints: 542,
     },
     token: {
@@ -265,7 +265,7 @@ test('it cannot thaw the token on a pNFT Edition', async (t) => {
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My PNFT',
     symbol: 'MPNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: percentAmount(5.42),
     tokenOwner: originalOwner.publicKey,
     printSupply: printSupply('Limited', [10]),

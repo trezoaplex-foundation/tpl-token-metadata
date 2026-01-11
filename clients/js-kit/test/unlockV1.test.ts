@@ -38,7 +38,7 @@ import {
   sendAndConfirm,
   fetchToken,
 } from './_setup';
-import { AccountState } from '@solana-program/token';
+import { AccountState } from '@trezoa-program/token';
 
 /**
  * Test: Unlock ProgrammableNonFungible with utility delegate
@@ -66,7 +66,7 @@ test('it can unlock a ProgrammableNonFungible with utility delegate', async (t) 
     authority: owner,
     payer,
     name: 'My PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -176,7 +176,7 @@ test('it can unfreeze a NonFungible with standard delegate', async (t) => {
     authority: owner,
     payer,
     name: 'My NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -280,7 +280,7 @@ test('it can unfreeze a Fungible with freeze authority', async (t) => {
     authority: owner,
     payer,
     name: 'Fungible Token',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(2.5),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -365,7 +365,7 @@ test('it can unfreeze a FungibleAsset with freeze authority', async (t) => {
     authority: owner,
     payer,
     name: 'Fungible Asset',
-    uri: 'https://example.com/asset.json',
+    uri: 'https://exatple.com/asset.json',
     sellerFeeBasisPoints: basisPoints(3),
     tokenStandard: TokenStandard.FungibleAsset,
   });

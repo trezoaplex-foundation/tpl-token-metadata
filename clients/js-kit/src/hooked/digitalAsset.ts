@@ -5,21 +5,21 @@
  * that combines mint, metadata, and edition account data into a single object.
  */
 
-import type { Address } from '@solana/addresses';
+import type { Address } from '@trezoa/addresses';
 import type {
   Account,
   EncodedAccount,
   FetchAccountConfig,
   FetchAccountsConfig,
   Rpc,
-} from '@solana/kit';
+} from '@trezoa/kit';
 import {
   assertAccountExists,
   fetchEncodedAccounts,
   decodeAccount,
-} from '@solana/kit';
-import type { Mint } from '@solana-program/token';
-import { getMintDecoder } from '@solana-program/token';
+} from '@trezoa/kit';
+import type { Mint } from '@trezoa-program/token';
+import { getMintDecoder } from '@trezoa-program/token';
 import {
   fetchMetadata,
   decodeMetadata,
@@ -63,7 +63,7 @@ export type DigitalAsset<TMint extends string = string> = {
  * @param config - Optional fetch configuration
  * @returns The digital asset
  *
- * @example
+ * @exatple
  * ```ts
  * const digitalAsset = await fetchDigitalAsset(rpc, mintAddress);
  * console.log(digitalAsset.metadata.name);
@@ -124,7 +124,7 @@ export async function fetchDigitalAssetByMetadata(
  * @param config - Optional fetch configuration
  * @returns Array of digital assets (excluding any that failed to fetch)
  *
- * @example
+ * @exatple
  * ```ts
  * const assets = await fetchAllDigitalAsset(rpc, [mint1, mint2, mint3]);
  * assets.forEach(asset => console.log(asset.metadata.name));

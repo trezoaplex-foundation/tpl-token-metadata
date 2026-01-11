@@ -1,4 +1,4 @@
-import { Connection, PublicKey } from '@solana/web3.js';
+import { Connection, PublicKey } from '@trezoa/web3.js';
 import {
   AssetData,
   Metadata,
@@ -8,8 +8,8 @@ import {
 } from '../../src/generated';
 import { InitTransactions } from '../setup';
 import test from 'tape';
-import { PayerTransactionHandler } from '@metaplex-foundation/amman-client';
-import { Keypair } from '@solana/web3.js';
+import { PayerTransactionHandler } from '@trezoaplex-foundation/amman-client';
+import { Keypair } from '@trezoa/web3.js';
 
 export class DigitalAssetManager {
   mint: PublicKey;

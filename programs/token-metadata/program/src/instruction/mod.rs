@@ -21,7 +21,7 @@ pub use escrow::*;
 pub use fee::collect_fees;
 pub use freeze::*;
 pub use metadata::*;
-use mpl_token_metadata_context_derive::AccountContext;
+use tpl_token_metadata_context_derive::AccountContext;
 #[cfg(feature = "serde-feature")]
 use serde::{Deserialize, Serialize};
 use shank::ShankInstruction;
@@ -104,7 +104,7 @@ pub enum MetadataInstruction {
     /// Allows updating the primary sale boolean on Metadata solely through owning an account
     /// containing a token from the metadata's mint and being a signer on this transaction.
     /// A sort of limited authority for limited update capability that is required for things like
-    /// Metaplex to work without needing full authority passing.
+    /// Trezoaplex to work without needing full authority passing.
     #[account(0, writable, name="metadata", desc="Metadata key (pda of ['metadata', program id, mint id])")]
     #[account(1, signer, name="owner", desc="Owner on the token account")]
     #[account(2, name="token", desc="Account containing tokens from the metadata's mint")]
@@ -120,7 +120,7 @@ pub enum MetadataInstruction {
     /// these people with the list and see that bidder A gets edition #2, so on and so forth.
     ///
     /// NOTE: If you have more than 20 addresses in a reservation list, this may be called multiple times to build up the list,
-    /// otherwise, it simply wont fit in one transaction. Only provide a total_reservation argument on the first call, which will
+    /// otherwise, it sitply wont fit in one transaction. Only provide a total_reservation argument on the first call, which will
     /// allocate the edition space, and in follow up calls this will specifically be unnecessary (and indeed will error.)
     #[account(0, writable, name="master_edition", desc="Master Edition V1 key (pda of ['metadata', program id, mint id, 'edition'])")]
     #[account(1, writable, name="reservation_list", desc="PDA for ReservationList of ['metadata', program id, master edition key, 'reservation', resource-key]")]
@@ -386,13 +386,13 @@ pub enum MetadataInstruction {
     #[account(1, signer, name="creator", desc="Creator")]
     RemoveCreatorVerification,
 
-    /// Completely burn a NFT, including closing the metadata account.
+    /// Cotpletely burn a NFT, including closing the metadata account.
     #[account(0, writable, name="metadata", desc="Metadata (pda of ['metadata', program id, mint id])")]
     #[account(1, signer, writable, name="owner", desc="NFT owner")]
     #[account(2, writable, name="mint", desc="Mint of the NFT")]
     #[account(3, writable, name="token_account", desc="Token account to close")]
     #[account(4, writable, name="master_edition_account", desc="MasterEdition2 of the NFT")]
-    #[account(5, name="spl_token_program", desc="SPL Token Program")]
+    #[account(5, name="tpl_token_program", desc="TPL Token Program")]
     #[account(6, optional, writable, name="collection_metadata", desc="Metadata of the Collection")]
     #[legacy_optional_accounts_strategy]
     BurnNft,
@@ -472,7 +472,7 @@ pub enum MetadataInstruction {
     #[legacy_optional_accounts_strategy]
     BubblegumSetCollectionSize(SetCollectionSizeArgs),
 
-    /// Completely burn a print edition NFT.
+    /// Cotpletely burn a print edition NFT.
     #[account(0, writable, name="metadata", desc="Metadata (pda of ['metadata', program id, mint id])")]
     #[account(1, signer, writable, name="owner", desc="NFT owner")]
     #[account(2, writable, name="print_edition_mint", desc="Mint of the print edition NFT")]
@@ -482,7 +482,7 @@ pub enum MetadataInstruction {
     #[account(6, writable, name="master_edition_account", desc="MasterEdition2 of the original NFT")]
     #[account(7, writable, name="print_edition_account", desc="Print Edition account of the NFT")]
     #[account(8, writable, name="edition_marker_account", desc="Edition Marker PDA of the NFT")]
-    #[account(9, name="spl_token_program", desc="SPL Token Program")]
+    #[account(9, name="tpl_token_program", desc="TPL Token Program")]
     BurnEditionNft,
 
     /// Create an escrow account to hold tokens.
@@ -567,7 +567,7 @@ pub enum MetadataInstruction {
     #[account(10, optional, writable, name="token_record", desc="Token record account")]
     #[account(11, name="system_program", desc="System program")]
     #[account(12, name="sysvar_instructions", desc="Instructions sysvar account")]
-    #[account(13, name="spl_token_program", desc="SPL Token Program")]
+    #[account(13, name="tpl_token_program", desc="TPL Token Program")]
     Burn(BurnArgs),
 
     /// Creates the metadata and associated accounts for a new or existing mint account.
@@ -584,7 +584,7 @@ pub enum MetadataInstruction {
     #[account(5, name="update_authority", desc="Update authority for the metadata account")]
     #[account(6, name="system_program", desc="System program")]
     #[account(7, name="sysvar_instructions", desc="Instructions sysvar account")]
-    #[account(8, optional, name="spl_token_program", desc="SPL Token program")]
+    #[account(8, optional, name="tpl_token_program", desc="TPL Token program")]
     #[args(initialize_mint: bool)]
     #[args(update_authority_as_signer: bool)]
     Create(CreateArgs),
@@ -606,8 +606,8 @@ pub enum MetadataInstruction {
     #[account(8, signer, writable, name="payer", desc="Payer")]
     #[account(9, name="system_program", desc="System program")]
     #[account(10, name="sysvar_instructions", desc="Instructions sysvar account")]
-    #[account(11, name="spl_token_program", desc="SPL Token program")]
-    #[account(12, name="spl_ata_program", desc="SPL Associated Token Account program")]
+    #[account(11, name="tpl_token_program", desc="TPL Token program")]
+    #[account(12, name="spl_ata_program", desc="TPL Associated Token Account program")]
     #[account(13, optional, name="authorization_rules_program", desc="Token Authorization Rules program")]
     #[account(14, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Mint(MintArgs),
@@ -631,7 +631,7 @@ pub enum MetadataInstruction {
     #[account(8, signer, writable, name="payer", desc="Payer")]
     #[account(9, name="system_program", desc="System Program")]
     #[account(10, name="sysvar_instructions", desc="Instructions sysvar account")]
-    #[account(11, optional, name="spl_token_program", desc="SPL Token Program")]
+    #[account(11, optional, name="tpl_token_program", desc="TPL Token Program")]
     #[account(12, optional, name="authorization_rules_program", desc="Token Authorization Rules Program")]
     #[account(13, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Delegate(DelegateArgs),
@@ -650,7 +650,7 @@ pub enum MetadataInstruction {
     #[account(8, signer, writable, name="payer", desc="Payer")]
     #[account(9, name="system_program", desc="System Program")]
     #[account(10, name="sysvar_instructions", desc="Instructions sysvar account")]
-    #[account(11, optional, name="spl_token_program", desc="SPL Token Program")]
+    #[account(11, optional, name="tpl_token_program", desc="TPL Token Program")]
     #[account(12, optional, name="authorization_rules_program", desc="Token Authorization Rules Program")]
     #[account(13, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Revoke(RevokeArgs),
@@ -669,7 +669,7 @@ pub enum MetadataInstruction {
     #[account(7, signer, writable, name="payer", desc="Payer")]
     #[account(8, name="system_program", desc="System program")]
     #[account(9, name="sysvar_instructions", desc="System program")]
-    #[account(10, optional, name="spl_token_program", desc="SPL Token Program")]
+    #[account(10, optional, name="tpl_token_program", desc="TPL Token Program")]
     #[account(11, optional, name="authorization_rules_program", desc="Token Authorization Rules Program")]
     #[account(12, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Lock(LockArgs),
@@ -688,7 +688,7 @@ pub enum MetadataInstruction {
     #[account(7, signer, writable, name="payer", desc="Payer")]
     #[account(8, name="system_program", desc="System program")]
     #[account(9, name="sysvar_instructions", desc="System program")]
-    #[account(10, optional, name="spl_token_program", desc="SPL Token Program")]
+    #[account(10, optional, name="tpl_token_program", desc="TPL Token Program")]
     #[account(11, optional, name="authorization_rules_program", desc="Token Authorization Rules Program")]
     #[account(12, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Unlock(UnlockArgs),
@@ -706,7 +706,7 @@ pub enum MetadataInstruction {
     #[account(9, writable, name="token_record", desc="Token record account")]
     #[account(10, name="system_program", desc="System program")]
     #[account(11, name="sysvar_instructions", desc="Instruction sysvar account")]
-    #[account(12, name="spl_token_program", desc="SPL Token Program")]
+    #[account(12, name="tpl_token_program", desc="TPL Token Program")]
     #[account(13, optional, name="authorization_rules_program", desc="Token Authorization Rules Program")]
     #[account(14, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Migrate,
@@ -728,8 +728,8 @@ pub enum MetadataInstruction {
     #[account(10, signer, writable, name="payer", desc="Payer")]
     #[account(11, name="system_program", desc="System Program")]
     #[account(12, name="sysvar_instructions", desc="Instructions sysvar account")]
-    #[account(13, name="spl_token_program", desc="SPL Token Program")]
-    #[account(14, name="spl_ata_program", desc="SPL Associated Token Account program")]
+    #[account(13, name="tpl_token_program", desc="TPL Token Program")]
+    #[account(14, name="spl_ata_program", desc="TPL Associated Token Account program")]
     #[account(15, optional, name="authorization_rules_program", desc="Token Authorization Rules Program")]
     #[account(16, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Transfer(TransferArgs),
@@ -766,7 +766,7 @@ pub enum MetadataInstruction {
     #[account(6, signer, name="payer", desc="Payer")]
     #[account(7, name="system_program", desc="System program")]
     #[account(8, name="sysvar_instructions", desc="System program")]
-    #[account(9, optional, name="spl_token_program", desc="SPL Token Program")]
+    #[account(9, optional, name="tpl_token_program", desc="TPL Token Program")]
     #[account(10, optional, name="authorization_rules_program", desc="Token Authorization Rules Program")]
     #[account(11, optional, name="authorization_rules", desc="Token Authorization Rules account")]
     Use(UseArgs),
@@ -820,8 +820,8 @@ pub enum MetadataInstruction {
     #[account(11, name="master_token_account", desc="token account containing token from master metadata mint")]
     #[account(12, name="master_metadata", desc="Master record metadata account")]
     #[account(13, name="update_authority", desc="The update authority of the master edition.")]
-    #[account(14, name="spl_token_program", desc="Token program")]
-    #[account(15, name="spl_ata_program", desc="SPL Associated Token Account program")]
+    #[account(14, name="tpl_token_program", desc="Token program")]
+    #[account(15, name="spl_ata_program", desc="TPL Associated Token Account program")]
     #[account(16, name="sysvar_instructions", desc="Instructions sysvar account")]
     #[account(17, name="system_program", desc="System program")]
     // #[account(18, optional, name="holder_delegate_record", desc="The Delegate Record authorizing escrowless edition printing")]
@@ -869,5 +869,5 @@ pub struct Context<T> {
 }
 
 pub trait InstructionBuilder {
-    fn instruction(&self) -> solana_program::instruction::Instruction;
+    fn instruction(&self) -> trezoa_program::instruction::Instruction;
 }

@@ -2,7 +2,7 @@ import {
   mapSerializer,
   Serializer,
   string,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { TokenMetadataError } from '../errors';
 import { HolderDelegateRole } from '../generated/types/holderDelegateRole';
 

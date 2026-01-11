@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 /**
  * This type is used to derive the {@link ProgrammableConfig} type as well as the de/serializer.
  * However don't refer to it in your code but use the {@link ProgrammableConfig} type instead.
@@ -46,7 +46,7 @@ export const programmableConfigBeet = beet.dataEnum<ProgrammableConfigRecord>([
   [
     'V1',
     new beet.FixableBeetArgsStruct<ProgrammableConfigRecord['V1']>(
-      [['ruleSet', beet.coption(beetSolana.publicKey)]],
+      [['ruleSet', beet.coption(beetTrezoa.publicKey)]],
       'ProgrammableConfigRecord["V1"]',
     ),
   ],

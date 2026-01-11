@@ -60,7 +60,7 @@ test('it can print a new edition from a NonFungible', async (t) => {
     authority: masterOwner,
     payer: masterOwner,
     name: 'My Master NFT',
-    uri: 'https://example.com/master-nft.json',
+    uri: 'https://exatple.com/master-nft.json',
     sellerFeeBasisPoints: basisPoints(5.42),
     tokenStandard: TokenStandard.NonFungible,
     printSupply: { __kind: 'Limited', fields: [10n] } as PrintSupply,
@@ -121,7 +121,7 @@ test('it can print a new edition from a NonFungible', async (t) => {
   const editionMetadata = await fetchMetadata(rpc, editionMetadataAddress);
 
   t.is(editionMetadata.data.name, 'My Master NFT');
-  t.is(editionMetadata.data.uri, 'https://example.com/master-nft.json');
+  t.is(editionMetadata.data.uri, 'https://exatple.com/master-nft.json');
   t.is(editionMetadata.data.sellerFeeBasisPoints, 542);
 });
 
@@ -151,7 +151,7 @@ test('it can print a new edition from a ProgrammableNonFungible', async (t) => {
     authority: masterOwner,
     payer: masterOwner,
     name: 'My Master PNFT',
-    uri: 'https://example.com/master-pnft.json',
+    uri: 'https://exatple.com/master-pnft.json',
     sellerFeeBasisPoints: basisPoints(5.42),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     printSupply: { __kind: 'Limited', fields: [10n] } as PrintSupply,
@@ -212,7 +212,7 @@ test('it can print a new edition from a ProgrammableNonFungible', async (t) => {
   const editionMetadata = await fetchMetadata(rpc, editionMetadataAddress);
 
   t.is(editionMetadata.data.name, 'My Master PNFT');
-  t.is(editionMetadata.data.uri, 'https://example.com/master-pnft.json');
+  t.is(editionMetadata.data.uri, 'https://exatple.com/master-pnft.json');
   t.is(editionMetadata.data.sellerFeeBasisPoints, 542);
   t.deepEqual(editionMetadata.data.tokenStandard, {
     __option: 'Some',

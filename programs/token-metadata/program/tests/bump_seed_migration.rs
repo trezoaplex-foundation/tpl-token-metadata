@@ -2,8 +2,8 @@
 pub mod utils;
 
 use borsh::BorshDeserialize;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     account::{Account, AccountSharedData},
     signature::{Keypair, Signer},
     transaction::Transaction,

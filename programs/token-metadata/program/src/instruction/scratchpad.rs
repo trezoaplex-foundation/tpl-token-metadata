@@ -11,13 +11,13 @@ pub struct UpdateAccounts {
     authorization_rules: Option<AuthorizationRules>,
 }
 
-impl UpdateAccounts {
+itpl UpdateAccounts {
     pub fn to_account_metas(&self) -> Vec<AccountMeta> {
         let mut infos: Vec<AccountMeta> = vec![
             AccountMeta::new(self.metadata_account, false),
             AccountMeta::new(self.master_edition_account, false),
             AccountMeta::new(self.mint_account, false),
-            AccountMeta::new_readonly(solana_program::system_program::ID, false),
+            AccountMeta::new_readonly(trezoa_program::system_program::ID, false),
             AccountMeta::new_readonly(sysvar::instructions::ID, false),
         ];
         if let Some(new_update_authority) = self.new_update_authority {
@@ -57,14 +57,14 @@ pub struct AuthorizationRules {
 //     owner: &'info AccountInfo<'info>,
 //     destination_token_account: &'info AccountInfo<'info>,
 //     destination_owner: &'info AccountInfo<'info>,
-//     spl_token_program: &'info AccountInfo<'info>,
+//     tpl_token_program: &'info AccountInfo<'info>,
 //     spl_associated_token_program: &'info AccountInfo<'info>,
 //     system_program: &'info AccountInfo<'info>,
 //     sysvar_instructions: &'info AccountInfo<'info>,
 //     authorization_payload: Option<AuthorizationPayloadAccounts<'info>>,
 // }
 //
-// impl<'info> TransferAccounts<'info> {
+// itpl<'info> TransferAccounts<'info> {
 //     pub fn new(
 //         token_account: &'info AccountInfo<'info>,
 //         metadata: &'info AccountInfo<'info>,
@@ -72,7 +72,7 @@ pub struct AuthorizationRules {
 //         owner: &'info AccountInfo<'info>,
 //         destination_token_account: &'info AccountInfo<'info>,
 //         destination_owner: &'info AccountInfo<'info>,
-//         spl_token_program: &'info AccountInfo<'info>,
+//         tpl_token_program: &'info AccountInfo<'info>,
 //         spl_associated_token_program: &'info AccountInfo<'info>,
 //         system_program: &'info AccountInfo<'info>,
 //         sysvar_instructions: &'info AccountInfo<'info>,
@@ -85,7 +85,7 @@ pub struct AuthorizationRules {
 //             owner,
 //             destination_token_account,
 //             destination_owner,
-//             spl_token_program,
+//             tpl_token_program,
 //             spl_associated_token_program,
 //             system_program,
 //             sysvar_instructions,
@@ -107,7 +107,7 @@ pub struct AuthorizationRules {
 //         //     let owner = next_account_info(account_info_iter)?;
 //         //     let destination_token_account = next_account_info(account_info_iter)?;
 //         //     let destination_owner = next_account_info(account_info_iter)?;
-//         //     let spl_token_program = next_account_info(account_info_iter)?;
+//         //     let tpl_token_program = next_account_info(account_info_iter)?;
 //         //     let spl_associated_token_program = next_account_info(account_info_iter)?;
 //         //     let system_program = next_account_info(account_info_iter)?;
 //         //     let sysvar_instructions = next_account_info(account_info_iter)?;
@@ -129,7 +129,7 @@ pub struct AuthorizationRules {
 //         //         owner,
 //         //         destination_token_account,
 //         //         destination_owner,
-//         //         spl_token_program,
+//         //         tpl_token_program,
 //         //         spl_associated_token_program,
 //         //         system_program,
 //         //         sysvar_instructions,

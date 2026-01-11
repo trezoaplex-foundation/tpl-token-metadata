@@ -5,10 +5,10 @@ import {
   Umi,
   percentAmount,
   PublicKey,
-} from "@metaplex-foundation/umi";
-import { createNft } from "@metaplex-foundation/mpl-token-metadata";
+} from "@trezoaplex-foundation/umi";
+import { createNft } from "@trezoaplex-foundation/tpl-token-metadata";
 import { Inter } from "@next/font/google";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@trezoa/wallet-adapter-react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { FormEvent, useState } from "react";
@@ -19,7 +19,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
-    (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
+    (await import("@trezoa/wallet-adapter-react-ui")).WalletMultiButton,
   { ssr: false }
 );
 

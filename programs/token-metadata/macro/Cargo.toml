@@ -1,9 +1,9 @@
 [package]
-name = "mpl-token-metadata-context-derive"
+name = "tpl-token-metadata-context-derive"
 version = "0.3.0"
 edition = "2021"
-description = "Metaplex Metadata"
-authors = ["Metaplex Developers <dev@metaplex.com>"]
+description = "Trezoaplex Metadata"
+authors = ["Trezoaplex Developers <dev@metaplex.com>"]
 repository = "https://github.com/metaplex-foundation/metaplex-program-library"
 license-file = "../../../LICENSE"
 readme = "README.md"

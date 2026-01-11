@@ -15,7 +15,7 @@ import {
   tuple,
   u64,
   unit,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 export type PrintSupply =
   | { __kind: 'Zero' }

@@ -4,8 +4,8 @@ import {
   LoadOrGenKeypair,
   LOCALHOST,
   PayerTransactionHandler,
-} from '@metaplex-foundation/amman-client';
-import * as splToken from '@solana/spl-token';
+} from '@trezoaplex-foundation/amman-client';
+import * as splToken from '@trezoa/tpl-token';
 import {
   ComputeBudgetProgram,
   Connection,
@@ -15,7 +15,7 @@ import {
   SYSVAR_INSTRUCTIONS_PUBKEY,
   Transaction,
   TransactionInstruction,
-} from '@solana/web3.js';
+} from '@trezoa/web3.js';
 import {
   AssetData,
   createCreateInstruction,
@@ -72,14 +72,14 @@ import {
   CreateOrUpdateInstructionArgs,
   createCreateOrUpdateInstruction,
   PROGRAM_ID as TOKEN_AUTH_RULES_ID,
-} from '@metaplex-foundation/mpl-token-auth-rules';
+} from '@trezoaplex-foundation/tpl-token-auth-rules';
 import {
   ACCOUNT_SIZE,
   createInitializeAccountInstruction,
   createInitializeMintInstruction,
   MintLayout,
   TOKEN_PROGRAM_ID,
-} from '@solana/spl-token';
+} from '@trezoa/tpl-token';
 import { findTokenRecordPda } from '../utils/programmable';
 import { encode } from '@msgpack/msgpack';
 

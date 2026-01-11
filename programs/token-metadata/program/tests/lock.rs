@@ -2,20 +2,20 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
+use trezoa_program_test::*;
 use utils::*;
 
 mod lock {
 
     use borsh::BorshDeserialize;
-    use mpl_utils::token::unpack;
-    use solana_program::pubkey::Pubkey;
-    use solana_sdk::{
+    use tpl_utils::token::unpack;
+    use trezoa_program::pubkey::Pubkey;
+    use trezoa_sdk::{
         instruction::InstructionError,
         signature::{Keypair, Signer},
         transaction::TransactionError,
     };
-    use spl_token_2022::state::Account;
+    use tpl_token_2022::state::Account;
     use token_metadata::{
         error::MetadataError,
         instruction::DelegateArgs,
@@ -25,10 +25,10 @@ mod lock {
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_owner_lock_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn fail_owner_lock_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -41,7 +41,7 @@ mod lock {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -66,7 +66,7 @@ mod lock {
                 approver,
                 Some(pda_key),
                 payer,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -76,10 +76,10 @@ mod lock {
         assert_custom_error!(error, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_owner_lock_nonfungible(spl_token_program: Pubkey) {
+    async fn fail_owner_lock_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -92,7 +92,7 @@ mod lock {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -110,17 +110,17 @@ mod lock {
         let payer = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let error = asset
-            .lock(&mut context, approver, None, payer, spl_token_program)
+            .lock(&mut context, approver, None, payer, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(error, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn delegate_lock_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn delegate_lock_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -133,7 +133,7 @@ mod lock {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -162,7 +162,7 @@ mod lock {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -177,7 +177,7 @@ mod lock {
                 delegate,
                 Some(pda_key),
                 payer,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -190,10 +190,10 @@ mod lock {
         assert!(token.is_frozen());
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn delegate_lock_nonfungible(spl_token_program: Pubkey) {
+    async fn delegate_lock_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -206,7 +206,7 @@ mod lock {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -230,7 +230,7 @@ mod lock {
                 payer,
                 delegate_pubkey,
                 DelegateArgs::StandardV1 { amount: 1 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -240,7 +240,7 @@ mod lock {
         let payer = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         asset
-            .lock(&mut context, delegate, None, payer, spl_token_program)
+            .lock(&mut context, delegate, None, payer, tpl_token_program)
             .await
             .unwrap();
 
@@ -252,10 +252,10 @@ mod lock {
         assert!(token.is_frozen());
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn locked_programmable_nonfungible_delegate_fails(spl_token_program: Pubkey) {
+    async fn locked_programmable_nonfungible_delegate_fails(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -268,7 +268,7 @@ mod lock {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -297,7 +297,7 @@ mod lock {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -312,7 +312,7 @@ mod lock {
                 delegate,
                 Some(pda_key),
                 payer,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -339,7 +339,7 @@ mod lock {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -347,10 +347,10 @@ mod lock {
         assert_custom_error_ix!(1, error, MetadataError::LockedToken);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn locked_transfer_delegate_lock_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn locked_transfer_delegate_lock_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -363,7 +363,7 @@ mod lock {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -393,7 +393,7 @@ mod lock {
                     locked_address: Pubkey::default(),
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -408,7 +408,7 @@ mod lock {
                 delegate,
                 Some(pda_key),
                 payer,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();

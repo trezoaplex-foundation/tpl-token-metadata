@@ -1,14 +1,14 @@
 import {
   createToken,
   findAssociatedTokenPda,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   base58PublicKey,
   generateSigner,
   publicKey,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   DigitalAssetWithToken,

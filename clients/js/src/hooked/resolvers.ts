@@ -1,4 +1,4 @@
-import { getMintSize } from '@metaplex-foundation/mpl-toolbox';
+import { getMintSize } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   ACCOUNT_HEADER_SIZE,
   Context,
@@ -6,7 +6,7 @@ import {
   isSigner,
   none,
   some,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { isNonFungible } from '../digitalAsset';
 import {
   CollectionDetailsArgs,

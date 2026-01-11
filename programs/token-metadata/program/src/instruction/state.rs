@@ -1,7 +1,7 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 #[cfg(feature = "serde-feature")]
 use serde::{Deserialize, Serialize};
-use solana_program::instruction::{AccountMeta, Instruction};
+use trezoa_program::instruction::{AccountMeta, Instruction};
 
 use super::{InstructionBuilder, MetadataInstruction};
 use crate::processor::AuthorizationData;
@@ -40,11 +40,11 @@ pub enum UnlockArgs {
 ///   7. `[signer, writable]` Payer
 ///   8. `[]` System Program
 ///   9. `[]` Instructions sysvar account
-///   10. `[optional]` SPL Token Program
+///   10. `[optional]` TPL Token Program
 ///   11. `[optional]` Token Authorization Rules program
 ///   12. `[optional]` Token Authorization Rules account
-impl InstructionBuilder for super::builders::Lock {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Lock {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let mut accounts = vec![
             AccountMeta::new_readonly(self.authority, true),
             AccountMeta::new_readonly(self.token_owner.unwrap_or(crate::ID), false),
@@ -60,12 +60,12 @@ impl InstructionBuilder for super::builders::Lock {
             AccountMeta::new(self.payer, true),
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program.unwrap_or(crate::ID), false),
+            AccountMeta::new_readonly(self.tpl_token_program.unwrap_or(crate::ID), false),
         ];
 
         // Optional authorization rules accounts
         if let Some(rules) = &self.authorization_rules {
-            accounts.push(AccountMeta::new_readonly(mpl_token_auth_rules::ID, false));
+            accounts.push(AccountMeta::new_readonly(tpl_token_auth_rules::ID, false));
             accounts.push(AccountMeta::new_readonly(*rules, false));
         } else {
             accounts.push(AccountMeta::new_readonly(crate::ID, false));
@@ -96,11 +96,11 @@ impl InstructionBuilder for super::builders::Lock {
 ///   7. `[signer, writable]` Payer
 ///   8. `[]` System Program
 ///   9. `[]` Instructions sysvar account
-///   10. `[optional]` SPL Token Program
+///   10. `[optional]` TPL Token Program
 ///   11. `[optional]` Token Authorization Rules program
 ///   12. `[optional]` Token Authorization Rules account
-impl InstructionBuilder for super::builders::Unlock {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Unlock {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let mut accounts = vec![
             AccountMeta::new_readonly(self.authority, true),
             AccountMeta::new_readonly(self.token_owner.unwrap_or(crate::ID), false),
@@ -116,12 +116,12 @@ impl InstructionBuilder for super::builders::Unlock {
             AccountMeta::new(self.payer, true),
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program.unwrap_or(crate::ID), false),
+            AccountMeta::new_readonly(self.tpl_token_program.unwrap_or(crate::ID), false),
         ];
 
         // Optional authorization rules accounts
         if let Some(rules) = &self.authorization_rules {
-            accounts.push(AccountMeta::new_readonly(mpl_token_auth_rules::ID, false));
+            accounts.push(AccountMeta::new_readonly(tpl_token_auth_rules::ID, false));
             accounts.push(AccountMeta::new_readonly(*rules, false));
         } else {
             accounts.push(AccountMeta::new_readonly(crate::ID, false));

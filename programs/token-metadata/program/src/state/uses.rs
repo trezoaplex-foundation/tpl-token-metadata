@@ -30,7 +30,7 @@ pub struct UseAuthorityRecord {
     pub bump: u8,
 }
 
-impl Default for UseAuthorityRecord {
+itpl Default for UseAuthorityRecord {
     fn default() -> Self {
         UseAuthorityRecord {
             key: Key::UseAuthorityRecord,
@@ -40,7 +40,7 @@ impl Default for UseAuthorityRecord {
     }
 }
 
-impl TokenMetadataAccount for UseAuthorityRecord {
+itpl TokenMetadataAccount for UseAuthorityRecord {
     fn key() -> Key {
         Key::UseAuthorityRecord
     }
@@ -50,7 +50,7 @@ impl TokenMetadataAccount for UseAuthorityRecord {
     }
 }
 
-impl UseAuthorityRecord {
+itpl UseAuthorityRecord {
     pub fn from_bytes(b: &[u8]) -> Result<UseAuthorityRecord, ProgramError> {
         let ua: UseAuthorityRecord =
             try_from_slice_checked(b, Key::UseAuthorityRecord, USE_AUTHORITY_RECORD_SIZE)?;
@@ -64,8 +64,8 @@ impl UseAuthorityRecord {
 
 #[cfg(test)]
 mod tests {
-    use solana_program::account_info::AccountInfo;
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_program::account_info::AccountInfo;
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
 
     use crate::{
         error::MetadataError,

@@ -2,14 +2,14 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{instruction::InstructionError, signer::Signer, transaction::TransactionError};
+use trezoa_program_test::*;
+use trezoa_sdk::{instruction::InstructionError, signer::Signer, transaction::TransactionError};
 use utils::*;
 
 mod burn_edition_nft {
     use instruction::{builders::ResizeBuilder, InstructionBuilder};
-    use solana_program::pubkey::Pubkey;
-    use solana_sdk::{signature::Keypair, transaction::Transaction};
+    use trezoa_program::pubkey::Pubkey;
+    use trezoa_sdk::{signature::Keypair, transaction::Transaction};
     use spl_associated_token_account::get_associated_token_address;
     use token_metadata::{
         error::MetadataError,
@@ -41,7 +41,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -57,7 +57,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -73,7 +73,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -181,7 +181,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -198,7 +198,7 @@ mod burn_edition_nft {
         }
 
         let mut print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -211,7 +211,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -332,7 +332,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -348,7 +348,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -364,7 +364,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -426,7 +426,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -451,7 +451,7 @@ mod burn_edition_nft {
             .await
             .unwrap();
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -467,7 +467,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -527,7 +527,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -559,7 +559,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(second_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -620,7 +620,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -636,7 +636,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -649,7 +649,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -666,7 +666,7 @@ mod burn_edition_nft {
         }
 
         let second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token::ID);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token::ID);
         second_print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -679,7 +679,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(second_print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -742,7 +742,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -758,7 +758,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -771,7 +771,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -863,7 +863,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -879,7 +879,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -892,7 +892,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -935,7 +935,7 @@ mod burn_edition_nft {
         // because the derivation will be incorrect.
 
         let second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token::ID);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token::ID);
         second_print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -948,7 +948,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(second_print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1006,7 +1006,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1022,7 +1022,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1035,7 +1035,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1077,7 +1077,7 @@ mod burn_edition_nft {
         // so will pass that check but will fail with IncorrectEditionMarker.
 
         let second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token::ID);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token::ID);
         second_print_edition.create(&mut context).await.unwrap();
 
         let err = burn_edition(
@@ -1121,7 +1121,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1137,7 +1137,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1150,7 +1150,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1180,7 +1180,7 @@ mod burn_edition_nft {
         assert!(master_edition_struct.max_supply == Some(10));
 
         let mut second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token::ID);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token::ID);
         second_print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1193,7 +1193,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(second_print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1323,7 +1323,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1450,7 +1450,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(original_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1466,7 +1466,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1479,7 +1479,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1497,7 +1497,7 @@ mod burn_edition_nft {
 
         // Print a new edition and transfer to a user.
         let mut user_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token::ID);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token::ID);
         user_print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1510,7 +1510,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(user_print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1584,7 +1584,7 @@ mod burn_edition_nft {
         assert!(!user_print_edition.exists_on_chain(&mut context).await);
 
         // Reprint owner's burned edition
-        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&original_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -1592,7 +1592,7 @@ mod burn_edition_nft {
 
         // Reprint user's burned edition: this should fail.
         let user_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token::ID);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token::ID);
         let err = user_print_edition.create(&mut context).await.unwrap_err();
 
         assert_custom_error!(err, MetadataError::AlreadyInitialized);
@@ -1622,7 +1622,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(other_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1645,7 +1645,7 @@ mod burn_edition_nft {
             .unwrap();
 
         let other_print_edition =
-            EditionMarker::new(&other_nft, &other_master_edition, 1, spl_token::ID);
+            EditionMarker::new(&other_nft, &other_master_edition, 1, tpl_token::ID);
         other_print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1658,7 +1658,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(other_print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1693,7 +1693,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(our_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1709,7 +1709,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&our_nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&our_nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1722,7 +1722,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1783,7 +1783,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1799,7 +1799,7 @@ mod burn_edition_nft {
             assert_after_master_edition(&mut context, master_edition.pubkey).await;
         }
 
-        let print_edition = EditionMarker::new(&nft, &master_edition, 1, spl_token::ID);
+        let print_edition = EditionMarker::new(&nft, &master_edition, 1, tpl_token::ID);
         print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1812,7 +1812,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1828,7 +1828,7 @@ mod burn_edition_nft {
             assert_after_print_edition(&mut context, print_edition.new_edition_pubkey).await;
         }
 
-        let second_print_edition = EditionMarker::new(&nft, &master_edition, 2, spl_token::ID);
+        let second_print_edition = EditionMarker::new(&nft, &master_edition, 2, tpl_token::ID);
         second_print_edition.create(&mut context).await.unwrap();
 
         #[cfg(feature = "resize")]
@@ -1841,7 +1841,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(second_print_edition.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -1900,7 +1900,7 @@ mod burn_edition_nft {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(other_nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],

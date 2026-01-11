@@ -3,9 +3,9 @@ pub mod utils;
 
 use borsh::BorshDeserialize;
 use num_traits::FromPrimitive;
-use solana_program::native_token::LAMPORTS_PER_SOL;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program::native_token::LAMPORTS_PER_TRZ;
+use trezoa_program_test::*;
+use trezoa_sdk::{
     account::{Account, AccountSharedData},
     instruction::InstructionError,
     signature::{Keypair, Signer},
@@ -24,7 +24,7 @@ use utils::*;
 mod verify_collection {
 
     use borsh::BorshDeserialize;
-    use solana_sdk::transaction::Transaction;
+    use trezoa_sdk::transaction::Transaction;
     use token_metadata::state::{CollectionAuthorityRecord, COLLECTION_AUTHORITY_RECORD_SIZE};
 
     use super::*;
@@ -1309,7 +1309,7 @@ async fn success_collection_authority_delegate_revoke() {
     data[1] = bump; // bump
 
     let record_account = Account {
-        lamports: LAMPORTS_PER_SOL,
+        lamports: LAMPORTS_PER_TRZ,
         data,
         owner: token_metadata::ID,
         executable: false,

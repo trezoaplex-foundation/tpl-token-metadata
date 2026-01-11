@@ -1,13 +1,13 @@
 #![cfg(feature = "test-bpf")]
 pub mod utils;
 
-use solana_program_test::*;
-use solana_sdk::{signer::Signer, transaction::Transaction};
+use trezoa_program_test::*;
+use trezoa_sdk::{signer::Signer, transaction::Transaction};
 use utils::*;
 
 mod escrow {
     use borsh::BorshDeserialize;
-    use solana_program::program_pack::Pack;
+    use trezoa_program::program_pack::Pack;
     use token_metadata::{escrow::find_escrow_account, state::EscrowAuthority};
 
     use super::*;
@@ -108,10 +108,10 @@ mod escrow {
             &context.payer.pubkey(),
             &escrow_address.0,
             &attribute_test_metadata.mint.pubkey(),
-            &spl_token::ID,
+            &tpl_token::ID,
         );
-        let ix1 = spl_token::instruction::transfer(
-            &spl_token::ID,
+        let ix1 = tpl_token::instruction::transfer(
+            &tpl_token::ID,
             &attribute_test_metadata.token.pubkey(),
             &escrow_attribute_token_account,
             &context.payer.pubkey(),
@@ -131,7 +131,7 @@ mod escrow {
         let attribute_src_account =
             get_account(&mut context, &attribute_test_metadata.token.pubkey()).await;
         let attribute_src =
-            spl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
         assert!(attribute_src.amount == 1);
         println!("{:#?}", attribute_src);
 
@@ -146,13 +146,13 @@ mod escrow {
         let attribute_src_account =
             get_account(&mut context, &attribute_test_metadata.token.pubkey()).await;
         let attribute_src =
-            spl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
         assert!(attribute_src.amount == 0);
         println!("{:#?}", attribute_src);
         let attribute_dst_account =
             get_account(&mut context, &escrow_attribute_token_account).await;
         let attribute_dst =
-            spl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
         assert!(attribute_dst.amount == 1);
         assert!(attribute_dst.mint == attribute_src.mint);
         assert!(attribute_dst.owner == escrow_address.0);
@@ -191,7 +191,7 @@ mod escrow {
         let attribute_src_account =
             get_account(&mut context, &escrow_attribute_token_account).await;
         let attribute_src =
-            spl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
         assert!(attribute_src.amount == 1);
         println!("{:#?}", attribute_src);
 
@@ -206,7 +206,7 @@ mod escrow {
         println!("attribute_src:{:#?}", attribute_src);
         let attribute_dst_account = get_account(&mut context, &payer_attribute_token_account).await;
         let attribute_dst =
-            spl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
         assert!(attribute_dst.amount == 1);
         assert!(attribute_dst.mint == attribute_src.mint);
         assert!(attribute_dst.owner == context.payer.pubkey());
@@ -303,10 +303,10 @@ mod escrow {
             &context.payer.pubkey(),
             &escrow_address.0,
             &attribute_test_metadata.mint.pubkey(),
-            &spl_token::ID,
+            &tpl_token::ID,
         );
-        let ix1 = spl_token::instruction::transfer(
-            &spl_token::ID,
+        let ix1 = tpl_token::instruction::transfer(
+            &tpl_token::ID,
             &attribute_test_metadata.token.pubkey(),
             &escrow_attribute_token_account,
             &context.payer.pubkey(),
@@ -326,7 +326,7 @@ mod escrow {
         let attribute_src_account =
             get_account(&mut context, &attribute_test_metadata.token.pubkey()).await;
         let attribute_src =
-            spl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
         println!("Attribute Source: {:#?}", attribute_src);
         assert!(attribute_src.amount == 10);
 
@@ -341,13 +341,13 @@ mod escrow {
         let attribute_src_account =
             get_account(&mut context, &attribute_test_metadata.token.pubkey()).await;
         let attribute_src =
-            spl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
         assert!(attribute_src.amount == 8);
         println!("{:#?}", attribute_src);
         let attribute_dst_account =
             get_account(&mut context, &escrow_attribute_token_account).await;
         let attribute_dst =
-            spl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
         assert!(attribute_dst.amount == 2);
         assert!(attribute_dst.mint == attribute_src.mint);
         assert!(attribute_dst.owner == escrow_address.0);
@@ -399,7 +399,7 @@ mod escrow {
         let attribute_src_account =
             get_account(&mut context, &escrow_attribute_token_account).await;
         let attribute_src =
-            spl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_src_account.data).unwrap();
         assert!(attribute_src.amount == 2);
         println!("Escrow Transfer Out: {:#?}", attribute_src);
 
@@ -408,7 +408,7 @@ mod escrow {
         println!("Escrow Post-Transfer: {:#?}", attribute_src);
         let attribute_dst_account = get_account(&mut context, &payer_attribute_token_account).await;
         let attribute_dst =
-            spl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
+            tpl_token::state::Account::unpack_from_slice(&attribute_dst_account.data).unwrap();
         assert!(attribute_dst.amount == 2);
         assert!(attribute_dst.mint == attribute_src.mint);
         assert!(attribute_dst.owner == context.payer.pubkey());

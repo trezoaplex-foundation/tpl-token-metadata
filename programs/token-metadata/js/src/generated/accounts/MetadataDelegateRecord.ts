@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Key, keyBeet } from '../types/Key';
 
 /**
@@ -29,7 +29,7 @@ export type MetadataDelegateRecordArgs = {
  * @category Accounts
  * @category generated
  */
-export class MetadataDelegateRecord implements MetadataDelegateRecordArgs {
+export class MetadataDelegateRecord itplements MetadataDelegateRecordArgs {
   private constructor(
     readonly key: Key,
     readonly bump: number,
@@ -89,7 +89,7 @@ export class MetadataDelegateRecord implements MetadataDelegateRecordArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, metadataDelegateRecordBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, metadataDelegateRecordBeet);
   }
 
   /**
@@ -166,9 +166,9 @@ export const metadataDelegateRecordBeet = new beet.BeetStruct<
   [
     ['key', keyBeet],
     ['bump', beet.u8],
-    ['mint', beetSolana.publicKey],
-    ['delegate', beetSolana.publicKey],
-    ['updateAuthority', beetSolana.publicKey],
+    ['mint', beetTrezoa.publicKey],
+    ['delegate', beetTrezoa.publicKey],
+    ['updateAuthority', beetTrezoa.publicKey],
   ],
   MetadataDelegateRecord.fromArgs,
   'MetadataDelegateRecord',

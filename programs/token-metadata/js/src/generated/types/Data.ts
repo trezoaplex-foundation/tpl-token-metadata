@@ -5,7 +5,7 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
+import * as beet from '@trezoaplex-foundation/beet';
 import { Creator, creatorBeet } from './Creator';
 export type Data = {
   name: string;

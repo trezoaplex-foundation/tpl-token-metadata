@@ -1,4 +1,4 @@
-use mpl_token_auth_rules::payload::Payload;
+use tpl_token_auth_rules::payload::Payload;
 use rooster::{
     instruction::{
         delegate as rooster_delegate, delegate_transfer, init, withdraw, DelegateTransferArgs,
@@ -7,7 +7,7 @@ use rooster::{
     pda::find_rooster_pda,
     AuthorizationData,
 };
-use solana_sdk::compute_budget::ComputeBudgetInstruction;
+use trezoa_sdk::compute_budget::ComputeBudgetInstruction;
 use spl_associated_token_account::get_associated_token_address_with_program_id;
 
 use super::*;
@@ -18,7 +18,7 @@ pub struct RoosterManager {
     bump: u8,
 }
 
-impl RoosterManager {
+itpl RoosterManager {
     pub async fn init(
         context: &mut ProgramTestContext,
         authority: Keypair,
@@ -54,18 +54,18 @@ impl RoosterManager {
         edition: Pubkey,
         rule_set: Pubkey,
         payload: Payload,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let args = WithdrawArgs {
             auth_data: AuthorizationData::new(payload),
         };
 
         let token =
-            get_associated_token_address_with_program_id(&self.pda(), &mint, &spl_token_program);
+            get_associated_token_address_with_program_id(&self.pda(), &mint, &tpl_token_program);
         let destination = get_associated_token_address_with_program_id(
             &destination_owner,
             &mint,
-            &spl_token_program,
+            &tpl_token_program,
         );
 
         let compute_ix = ComputeBudgetInstruction::set_compute_unit_limit(800_000);
@@ -80,7 +80,7 @@ impl RoosterManager {
             metadata,
             edition,
             rule_set,
-            spl_token_program,
+            tpl_token_program,
             args,
         );
 
@@ -103,11 +103,11 @@ impl RoosterManager {
         metadata: Pubkey,
         edition: Pubkey,
         authorization_rules: Option<Pubkey>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         args: rooster::instruction::DelegateArgs,
     ) -> Result<(), BanksClientError> {
         let token =
-            get_associated_token_address_with_program_id(&self.pda(), &mint, &spl_token_program);
+            get_associated_token_address_with_program_id(&self.pda(), &mint, &tpl_token_program);
 
         let ix = rooster_delegate(
             delegate.pubkey(),
@@ -117,7 +117,7 @@ impl RoosterManager {
             metadata,
             edition,
             authorization_rules,
-            spl_token_program,
+            tpl_token_program,
             args,
         );
 
@@ -141,14 +141,14 @@ impl RoosterManager {
         mint: Pubkey,
         rule_set: Pubkey,
         payload: Payload,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let source_token =
-            get_associated_token_address_with_program_id(&source_owner, &mint, &spl_token_program);
+            get_associated_token_address_with_program_id(&source_owner, &mint, &tpl_token_program);
         let destination_token = get_associated_token_address_with_program_id(
             &destination_owner,
             &mint,
-            &spl_token_program,
+            &tpl_token_program,
         );
 
         let compute_ix = ComputeBudgetInstruction::set_compute_unit_limit(800_000);
@@ -167,7 +167,7 @@ impl RoosterManager {
             destination_token,
             mint,
             rule_set,
-            spl_token_program,
+            tpl_token_program,
             args,
         );
 

@@ -57,7 +57,7 @@ test('createV1 - authority defaults to payer', async (t) => {
     mint: mint,
     payer: payer, // authority is NOT specified - should default to payer
     name: 'Default Authority Test',
-    uri: 'https://example.com/default-authority.json',
+    uri: 'https://exatple.com/default-authority.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -103,7 +103,7 @@ test('mintV1 - authority defaults to payer', async (t) => {
     mint: mint,
     payer: payer,
     name: 'Mint Authority Default Test',
-    uri: 'https://example.com/mint-default.json',
+    uri: 'https://exatple.com/mint-default.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -159,7 +159,7 @@ test('delegateSaleV1 - authority defaults to payer', async (t) => {
     mint: mint,
     payer: owner,
     name: 'Delegate Authority Default Test',
-    uri: 'https://example.com/delegate-default.json',
+    uri: 'https://exatple.com/delegate-default.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -229,7 +229,7 @@ test('transferV1 - authority defaults to payer', async (t) => {
     mint: mint,
     payer: ownerA,
     name: 'Transfer Authority Default Test',
-    uri: 'https://example.com/transfer-default.json',
+    uri: 'https://exatple.com/transfer-default.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -295,7 +295,7 @@ test('explicit authority takes precedence over default', async (t) => {
     payer: payer,
     authority: explicitAuthority, // Explicit authority - should NOT use payer
     name: 'Explicit Authority Test',
-    uri: 'https://example.com/explicit-authority.json',
+    uri: 'https://exatple.com/explicit-authority.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });

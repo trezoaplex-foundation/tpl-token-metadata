@@ -1,12 +1,12 @@
 use std::fmt::Display;
 
-use mpl_token_auth_rules::utils::get_latest_revision;
-use mpl_utils::{assert_signer, create_or_allocate_account_raw, token::SPL_TOKEN_PROGRAM_IDS};
-use solana_program::{
+use tpl_token_auth_rules::utils::get_latest_revision;
+use tpl_utils::{assert_signer, create_or_allocate_account_raw, token::SPL_TOKEN_PROGRAM_IDS};
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program::invoke, program_option::COption,
     pubkey::Pubkey, system_program, sysvar,
 };
-use spl_token_2022::{instruction::AuthorityType as SplAuthorityType, state::Account};
+use tpl_token_2022::{instruction::AuthorityType as SplAuthorityType, state::Account};
 
 use crate::{
     assertions::{
@@ -34,7 +34,7 @@ pub enum DelegateScenario {
     Token(TokenDelegateRole),
 }
 
-impl Display for DelegateScenario {
+itpl Display for DelegateScenario {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let message = match self {
             Self::Metadata(role) => match role {
@@ -260,7 +260,7 @@ fn create_other_delegate_v1(
 }
 
 /// Creates a presistent delegate. For non-programmable assets, this is just a wrapper over
-/// spl-token 'approve' delegate.
+/// tpl-token 'approve' delegate.
 ///
 /// Note that `DelegateRole::Sale` is only available for programmable assets.
 #[allow(deprecated)]
@@ -281,8 +281,8 @@ fn create_persistent_delegate_v1(
         }
     };
 
-    let spl_token_program_info = match ctx.accounts.spl_token_program_info {
-        Some(spl_token_program_info) => spl_token_program_info,
+    let tpl_token_program_info = match ctx.accounts.tpl_token_program_info {
+        Some(tpl_token_program_info) => tpl_token_program_info,
         None => {
             return Err(MetadataError::MissingSplTokenProgram.into());
         }
@@ -306,7 +306,7 @@ fn create_persistent_delegate_v1(
         ctx.accounts.sysvar_instructions_info.key,
         &sysvar::instructions::ID,
     )?;
-    assert_token_program_matches_package(spl_token_program_info)?;
+    assert_token_program_matches_package(tpl_token_program_info)?;
 
     // account relationships
 
@@ -315,7 +315,7 @@ fn create_persistent_delegate_v1(
         return Err(MetadataError::MintMismatch.into());
     }
 
-    // authority must be the owner of the token account: spl-token required the
+    // authority must be the owner of the token account: tpl-token required the
     // token owner to set a delegate
     let token = unpack::<Account>(&token_info.try_borrow_data()?)?;
     if token.owner != *ctx.accounts.authority_info.key {
@@ -363,7 +363,7 @@ fn create_persistent_delegate_v1(
                     .authorization_rules_info
                     .ok_or(MetadataError::MissingAuthorizationRules)?;
                 assert_keys_equal(authorization_rules_info.key, &rule_set)?;
-                assert_owned_by(authorization_rules_info, &mpl_token_auth_rules::ID)?;
+                assert_owned_by(authorization_rules_info, &tpl_token_auth_rules::ID)?;
 
                 // validates auth rules program
                 let authorization_rules_program_info = ctx
@@ -372,7 +372,7 @@ fn create_persistent_delegate_v1(
                     .ok_or(MetadataError::MissingAuthorizationRulesProgram)?;
                 assert_keys_equal(
                     authorization_rules_program_info.key,
-                    &mpl_token_auth_rules::ID,
+                    &tpl_token_auth_rules::ID,
                 )?;
 
                 let auth_rules_validate_params = AuthRulesValidateParams {
@@ -436,7 +436,7 @@ fn create_persistent_delegate_v1(
                     ctx.accounts.mint_info.clone(),
                     token_info.clone(),
                     master_edition_info.clone(),
-                    spl_token_program_info.clone(),
+                    tpl_token_program_info.clone(),
                     metadata.edition_nonce,
                 )?;
             } else {
@@ -450,10 +450,10 @@ fn create_persistent_delegate_v1(
         }
     }
 
-    // creates the spl-token delegate
+    // creates the tpl-token delegate
     invoke(
-        &spl_token_2022::instruction::approve(
-            spl_token_program_info.key,
+        &tpl_token_2022::instruction::approve(
+            tpl_token_program_info.key,
             token_info.key,
             ctx.accounts.delegate_info.key,
             ctx.accounts.authority_info.key,
@@ -484,8 +484,8 @@ fn create_persistent_delegate_v1(
             }
         } else {
             invoke(
-                &spl_token_2022::instruction::set_authority(
-                    spl_token_program_info.key,
+                &tpl_token_2022::instruction::set_authority(
+                    tpl_token_program_info.key,
                     token_info.key,
                     Some(master_edition_info.key),
                     SplAuthorityType::CloseAccount,
@@ -511,7 +511,7 @@ fn create_persistent_delegate_v1(
                 ctx.accounts.mint_info.clone(),
                 token_info.clone(),
                 master_edition_info.clone(),
-                spl_token_program_info.clone(),
+                tpl_token_program_info.clone(),
                 metadata.edition_nonce,
             )?;
         } else {

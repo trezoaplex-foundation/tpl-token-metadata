@@ -1,7 +1,7 @@
 use std::cmp;
 
-use mpl_utils::assert_signer;
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use tpl_utils::assert_signer;
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 
 use crate::{
     assertions::assert_owned_by,

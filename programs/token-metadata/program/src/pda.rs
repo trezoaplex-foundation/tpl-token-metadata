@@ -1,4 +1,4 @@
-use solana_program::pubkey::Pubkey;
+use trezoa_program::pubkey::Pubkey;
 
 use crate::{
     instruction::{HolderDelegateRole, MetadataDelegateRole},

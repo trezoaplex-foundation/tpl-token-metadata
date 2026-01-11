@@ -7,13 +7,13 @@ import {
   Signer,
   transactionBuilder,
   Umi,
-} from '@metaplex-foundation/umi';
-import { createUmi as baseCreateUmi } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { createUmi as baseCreateUmi } from '@trezoaplex-foundation/umi-bundle-tests';
 import {
   createV1,
   findMetadataPda,
   mintV1,
-  mplTokenMetadata,
+  tplTokenMetadata,
   TokenStandard,
   verifyCreatorV1,
 } from '../src';
@@ -58,7 +58,7 @@ export const SPL_TOKEN_2022_PROGRAM_ID: PublicKey = publicKey(
 export const collectionV2Padding = new Array(8).fill(0);
 
 export const createUmi = async () =>
-  (await baseCreateUmi()).use(mplTokenMetadata());
+  (await baseCreateUmi()).use(tplTokenMetadata());
 
 export const createDigitalAsset = async (
   umi: Umi,
@@ -68,7 +68,7 @@ export const createDigitalAsset = async (
   await createV1(umi, {
     mint,
     name: 'My NFT',
-    uri: 'https://example.com',
+    uri: 'https://exatple.com',
     sellerFeeBasisPoints: percentAmount(2.5),
     ...input,
   }).sendAndConfirm(umi);
@@ -89,7 +89,7 @@ export const createDigitalAssetWithToken = async (
       createV1(umi, {
         mint,
         name: 'My NFT',
-        uri: 'https://example.com',
+        uri: 'https://exatple.com',
         sellerFeeBasisPoints: percentAmount(2.5),
         ...input,
       })
@@ -119,7 +119,7 @@ export const createDigitalAssetWithVerifiedCreators = async (
       createV1(umi, {
         mint,
         name: 'My NFT',
-        uri: 'https://example.com',
+        uri: 'https://exatple.com',
         sellerFeeBasisPoints: percentAmount(2.5),
         ...input,
       })

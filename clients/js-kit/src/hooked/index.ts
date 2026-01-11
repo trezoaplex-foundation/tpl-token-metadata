@@ -1,5 +1,5 @@
 /**
- * Hooked functions for Codama-generated code
+ * Hooked functions for Codoma-generated code
  * These provide custom resolution logic for instruction builders
  */
 

@@ -61,7 +61,7 @@ test('it can create and mint a NonFungible using createNft helper', async (t) =>
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -77,7 +77,7 @@ test('it can create and mint a NonFungible using createNft helper', async (t) =>
   const metadata = await fetchMetadata(rpc, metadataAddress);
 
   t.is(metadata.data.name, 'Test NFT');
-  t.is(metadata.data.uri, 'https://example.com/nft.json');
+  t.is(metadata.data.uri, 'https://exatple.com/nft.json');
   t.is(metadata.data.sellerFeeBasisPoints, basisPoints(5));
   if (metadata.data.tokenStandard.__option === 'Some') {
     t.is(metadata.data.tokenStandard.value, TokenStandard.NonFungible);
@@ -110,7 +110,7 @@ test('it can create and mint a ProgrammableNonFungible using createProgrammableN
     authority: owner,
     payer: owner,
     name: 'Test PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(7.5),
     tokenOwner: owner.address,
   });
@@ -126,7 +126,7 @@ test('it can create and mint a ProgrammableNonFungible using createProgrammableN
   const metadata = await fetchMetadata(rpc, metadataAddress);
 
   t.is(metadata.data.name, 'Test PNFT');
-  t.is(metadata.data.uri, 'https://example.com/pnft.json');
+  t.is(metadata.data.uri, 'https://exatple.com/pnft.json');
   t.is(metadata.data.sellerFeeBasisPoints, basisPoints(7.5));
   if (metadata.data.tokenStandard.__option === 'Some') {
     t.is(metadata.data.tokenStandard.value, TokenStandard.ProgrammableNonFungible);
@@ -159,7 +159,7 @@ test('it can create a Fungible using createFungible helper', async (t) => {
     authority,
     payer: authority,
     name: 'Test Fungible',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(2.5),
   });
 
@@ -170,7 +170,7 @@ test('it can create a Fungible using createFungible helper', async (t) => {
   const metadata = await fetchMetadata(rpc, metadataAddress);
 
   t.is(metadata.data.name, 'Test Fungible');
-  t.is(metadata.data.uri, 'https://example.com/fungible.json');
+  t.is(metadata.data.uri, 'https://exatple.com/fungible.json');
   t.is(metadata.data.sellerFeeBasisPoints, basisPoints(2.5));
   if (metadata.data.tokenStandard.__option === 'Some') {
     t.is(metadata.data.tokenStandard.value, TokenStandard.Fungible);
@@ -215,7 +215,7 @@ test('it can create a FungibleAsset using createFungibleAsset helper', async (t)
     authority,
     payer: authority,
     name: 'Test Asset',
-    uri: 'https://example.com/asset.json',
+    uri: 'https://exatple.com/asset.json',
     sellerFeeBasisPoints: basisPoints(3),
   });
 
@@ -226,7 +226,7 @@ test('it can create a FungibleAsset using createFungibleAsset helper', async (t)
   const metadata = await fetchMetadata(rpc, metadataAddress);
 
   t.is(metadata.data.name, 'Test Asset');
-  t.is(metadata.data.uri, 'https://example.com/asset.json');
+  t.is(metadata.data.uri, 'https://exatple.com/asset.json');
   t.is(metadata.data.sellerFeeBasisPoints, basisPoints(3));
   if (metadata.data.tokenStandard.__option === 'Some') {
     t.is(metadata.data.tokenStandard.value, TokenStandard.FungibleAsset);
@@ -272,7 +272,7 @@ test('it can create an NFT with collection using createNft helper', async (t) =>
     authority,
     payer: authority,
     name: 'Test Collection',
-    uri: 'https://example.com/collection.json',
+    uri: 'https://exatple.com/collection.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: authority.address,
     isCollection: true,
@@ -291,7 +291,7 @@ test('it can create an NFT with collection using createNft helper', async (t) =>
     authority,
     payer: authority,
     name: 'Collection Item',
-    uri: 'https://example.com/item.json',
+    uri: 'https://exatple.com/item.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: authority.address,
     collection: {

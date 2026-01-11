@@ -1,9 +1,9 @@
-//! Additional trait implementations for generated types.
+//! Additional trait itplementations for generated types.
 
 use std::io::{Error, ErrorKind};
 
 use borsh::BorshDeserialize;
-use solana_program::pubkey::Pubkey;
+use trezoa_program::pubkey::Pubkey;
 
 use crate::{
     accounts::{
@@ -20,7 +20,7 @@ use crate::{
     },
 };
 
-/// safe deserialize default impl
+/// safe deserialize default itpl
 
 macro_rules! safe_deserialize {
     ( ($n:tt, $k:tt), $(($name:tt, $key:tt)),+ ) => {
@@ -28,7 +28,7 @@ macro_rules! safe_deserialize {
         safe_deserialize!($( ($name, $key) ),+);
     };
     ( ($name:tt, $key:tt) ) => {
-        impl $name {
+        itpl $name {
             pub fn safe_deserialize(data: &[u8]) -> Result<Self, borsh::io::Error> {
                 if data.is_empty() || data[0] != Key::$key as u8 {
                     return Err(borsh::io::Error::new(
@@ -54,7 +54,7 @@ safe_deserialize!(
 
 // UpdateV1InstructionArgs
 
-impl Default for UpdateV1InstructionArgs {
+itpl Default for UpdateV1InstructionArgs {
     fn default() -> Self {
         Self {
             new_update_authority: None,
@@ -72,11 +72,11 @@ impl Default for UpdateV1InstructionArgs {
 
 // Token Standard
 
-impl Copy for TokenStandard {}
+itpl Copy for TokenStandard {}
 
 // Metadata
 
-impl Metadata {
+itpl Metadata {
     pub fn safe_deserialize(data: &[u8]) -> Result<Self, borsh::io::Error> {
         if data.is_empty() || data[0] != Key::MetadataV1 as u8 {
             return Err(borsh::io::Error::new(ErrorKind::Other, "DataTypeMismatch"));
@@ -160,7 +160,7 @@ impl Metadata {
 
 const LOCKED_TRANSFER_SIZE: usize = 33;
 
-impl TokenRecord {
+itpl TokenRecord {
     pub fn safe_deserialize(data: &[u8]) -> Result<TokenRecord, Error> {
         // we perform a manual deserialization since we are potentially dealing
         // with accounts of different sizes
@@ -206,7 +206,7 @@ impl TokenRecord {
 
 // UpdateArgs
 
-impl Default for UpdateArgs {
+itpl Default for UpdateArgs {
     fn default() -> Self {
         Self::V1 {
             new_update_authority: None,
@@ -222,7 +222,7 @@ impl Default for UpdateArgs {
     }
 }
 
-impl UpdateArgs {
+itpl UpdateArgs {
     pub fn default_as_update_authority() -> Self {
         Self::AsUpdateAuthorityV2 {
             new_update_authority: None,
@@ -293,4 +293,4 @@ impl UpdateArgs {
 
 // Key
 
-impl Copy for Key {}
+itpl Copy for Key {}

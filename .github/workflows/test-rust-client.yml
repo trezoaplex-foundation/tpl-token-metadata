@@ -24,18 +24,18 @@ jobs:
         run: sudo apt-get install protobuf-compiler
 
       - name: Install Rust
-        uses: metaplex-foundation/actions/install-rust@v1
+        uses: trezoaplex-foundation/actions/install-rust@v1
         with:
           toolchain: ${{ env.RUST_CLIENT_VERSION }}
 
-      - name: Install Solana
-        uses: metaplex-foundation/actions/install-solana@v1
+      - name: Install Trezoa
+        uses: trezoaplex-foundation/actions/install-trezoa@v1
         with:
           version: ${{ env.SOLANA_CLIENT_VERSION }}
           cache: ${{ env.CACHE }}
 
       - name: Cache Rust client test dependencies
-        uses: metaplex-foundation/actions/cache-crate@v1
+        uses: trezoaplex-foundation/actions/cache-crate@v1
         with:
           folder: ./clients/rust
           key: rust-client-test

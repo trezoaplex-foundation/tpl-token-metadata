@@ -1,5 +1,5 @@
-use mpl_utils::cmp_pubkeys;
-use solana_program::{
+use tpl_utils::cmp_pubkeys;
+use trezoa_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     program_error::ProgramError,
@@ -8,7 +8,7 @@ use solana_program::{
     pubkey::Pubkey,
     rent::Rent,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use crate::{
     error::MetadataError,
@@ -40,7 +40,7 @@ pub fn assert_keys_equal_with_error(
 pub fn assert_initialized<T: Pack + IsInitialized>(
     account_info: &AccountInfo,
 ) -> Result<T, ProgramError> {
-    mpl_utils::assert_initialized(account_info, MetadataError::Uninitialized)
+    tpl_utils::assert_initialized(account_info, MetadataError::Uninitialized)
 }
 
 pub fn assert_mint_authority_matches_mint(
@@ -86,12 +86,12 @@ pub fn assert_delegated_tokens(
     delegate: &AccountInfo,
     mint_info: &AccountInfo,
     token_account_info: &AccountInfo,
-    spl_token_program: &Pubkey,
+    tpl_token_program: &Pubkey,
 ) -> ProgramResult {
-    assert_owned_by(mint_info, spl_token_program)?;
+    assert_owned_by(mint_info, tpl_token_program)?;
 
     let token_account = unpack_initialized::<Account>(&token_account_info.data.borrow())?;
-    assert_owned_by(token_account_info, spl_token_program)?;
+    assert_owned_by(token_account_info, tpl_token_program)?;
 
     if token_account.mint != *mint_info.key {
         return Err(MetadataError::MintMismatch.into());
@@ -115,7 +115,7 @@ pub fn assert_derivation(
     account: &AccountInfo,
     path: &[&[u8]],
 ) -> Result<u8, ProgramError> {
-    mpl_utils::assert_derivation(program_id, account, path, MetadataError::DerivedKeyInvalid)
+    tpl_utils::assert_derivation(program_id, account, path, MetadataError::DerivedKeyInvalid)
 }
 
 pub fn assert_derivation_with_bump(
@@ -123,7 +123,7 @@ pub fn assert_derivation_with_bump(
     account: &AccountInfo,
     path: &[&[u8]],
 ) -> Result<(), ProgramError> {
-    mpl_utils::assert_derivation_with_bump(
+    tpl_utils::assert_derivation_with_bump(
         program_id,
         account,
         path,
@@ -132,7 +132,7 @@ pub fn assert_derivation_with_bump(
 }
 
 pub fn assert_owned_by(account: &AccountInfo, owner: &Pubkey) -> ProgramResult {
-    mpl_utils::assert_owned_by(account, owner, MetadataError::IncorrectOwner)
+    tpl_utils::assert_owned_by(account, owner, MetadataError::IncorrectOwner)
 }
 
 pub fn assert_owner_in(account: &AccountInfo, owners: &[Pubkey]) -> ProgramResult {
@@ -144,14 +144,14 @@ pub fn assert_owner_in(account: &AccountInfo, owners: &[Pubkey]) -> ProgramResul
 }
 
 pub fn assert_token_program_matches_package(token_program_info: &AccountInfo) -> ProgramResult {
-    mpl_utils::token::assert_token_program_matches_package(
+    tpl_utils::token::assert_token_program_matches_package(
         token_program_info,
         MetadataError::InvalidTokenProgram,
     )
 }
 
 pub fn assert_rent_exempt(rent: &Rent, account_info: &AccountInfo) -> ProgramResult {
-    mpl_utils::assert_rent_exempt(rent, account_info, MetadataError::NotRentExempt)
+    tpl_utils::assert_rent_exempt(rent, account_info, MetadataError::NotRentExempt)
 }
 
 pub fn assert_delegate(

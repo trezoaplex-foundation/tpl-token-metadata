@@ -1,11 +1,11 @@
 use crate::*;
-use solana_program::borsh::try_from_slice_unchecked;
+use trezoa_program::borsh::try_from_slice_unchecked;
 use token_metadata::{
     id, instruction,
     state::{Collection, Creator, Data, DataV2, Uses, PREFIX},
 };
 
-use solana_sdk::{
+use trezoa_sdk::{
     pubkey::Pubkey, signature::Signer, signer::keypair::Keypair, transaction::Transaction,
     transport,
 };
@@ -17,7 +17,7 @@ pub struct TestCollection {
     pub items: Vec<Pubkey>,
 }
 
-impl TestCollection {
+itpl TestCollection {
     pub fn new() -> Self {
         let parent_nft = Metadata::new();
 

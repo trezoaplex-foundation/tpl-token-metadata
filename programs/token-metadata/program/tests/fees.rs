@@ -1,13 +1,13 @@
 #![cfg(feature = "test-bpf")]
 pub mod utils;
 
-use solana_program_test::*;
+use trezoa_program_test::*;
 use utils::*;
 
 mod fees {
     use num_traits::FromPrimitive;
-    use solana_program::{native_token::LAMPORTS_PER_SOL, pubkey::Pubkey};
-    use solana_sdk::{
+    use trezoa_program::{native_token::LAMPORTS_PER_TRZ, pubkey::Pubkey};
+    use trezoa_sdk::{
         instruction::InstructionError,
         pubkey,
         signature::{read_keypair_file, Keypair},
@@ -53,10 +53,10 @@ mod fees {
         md.assert_create_fees_charged(&mut context).await.unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn charge_create(spl_token_program: Pubkey) {
+    async fn charge_create(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut nft = DigitalAsset::new();
@@ -64,7 +64,7 @@ mod fees {
             &mut context,
             token_metadata::state::TokenStandard::NonFungible,
             None,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -73,10 +73,10 @@ mod fees {
         nft.assert_create_fees_charged(&mut context).await.unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn update_does_not_overwrite_flag(spl_token_program: Pubkey) {
+    async fn update_does_not_overwrite_flag(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let update_authority = context.payer.dirty_clone();
@@ -86,7 +86,7 @@ mod fees {
             &mut context,
             token_metadata::state::TokenStandard::NonFungible,
             None,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -107,16 +107,16 @@ mod fees {
         nft.assert_create_fees_charged(&mut context).await.unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     // Used for local QA testing and requires a keypair so excluded from CI.
     #[ignore]
-    async fn collect_fees_max_accounts(spl_token_program: Pubkey) {
+    async fn collect_fees_max_accounts(tpl_token_program: Pubkey) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
 
-        let authority_funding = 10 * LAMPORTS_PER_SOL;
+        let authority_funding = 10 * LAMPORTS_PER_TRZ;
 
         let authority = read_keypair_file(
             "/home/danenbm/keypairs/Levytx9LLPzAtDJJD7q813Zsm8zg9e1pb53mGxTKpD7.json",
@@ -136,7 +136,7 @@ mod fees {
                 &mut context,
                 token_metadata::state::TokenStandard::NonFungible,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -170,18 +170,18 @@ mod fees {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     // Used for local QA testing and requires a keypair so excluded from CI.
     #[ignore]
-    async fn collect_fees_burned_account(spl_token_program: Pubkey) {
+    async fn collect_fees_burned_account(tpl_token_program: Pubkey) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
 
         let nft_authority = context.payer.dirty_clone();
 
-        let fee_authority_funding = LAMPORTS_PER_SOL;
+        let fee_authority_funding = LAMPORTS_PER_TRZ;
 
         let fee_authority = read_keypair_file(
             "/home/danenbm/keypairs/Levytx9LLPzAtDJJD7q813Zsm8zg9e1pb53mGxTKpD7.json",
@@ -199,7 +199,7 @@ mod fees {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -212,7 +212,7 @@ mod fees {
             args,
             None,
             None,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -233,16 +233,16 @@ mod fees {
         assert_eq!(recipient_balance, expected_balance);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     // Used for local QA testing and requires a keypair so excluded from CI.
     #[ignore]
-    async fn cannot_collect_fees_using_wrong_fee_destination(spl_token_program: Pubkey) {
+    async fn cannot_collect_fees_using_wrong_fee_destination(tpl_token_program: Pubkey) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
 
-        let authority_funding = 10 * LAMPORTS_PER_SOL;
+        let authority_funding = 10 * LAMPORTS_PER_TRZ;
 
         let authority = read_keypair_file(
             "/home/danenbm/keypairs/Levytx9LLPzAtDJJD7q813Zsm8zg9e1pb53mGxTKpD7.json",
@@ -261,7 +261,7 @@ mod fees {
             &mut context,
             token_metadata::state::TokenStandard::NonFungible,
             None,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();

@@ -1,8 +1,8 @@
 #![cfg(feature = "test-bpf")]
 pub mod utils;
 
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     signature::{Keypair, Signer},
     transaction::Transaction,
 };

@@ -1,4 +1,4 @@
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use super::*;
 use crate::{
@@ -135,19 +135,19 @@ pub(crate) fn burn_nonfungible_edition(
             .map_err(|_| MetadataError::InvalidEditionMarker)?;
     }
 
-    // Burn the SPL token
+    // Burn the TPL token
     let params = TokenBurnParams {
         mint: ctx.accounts.mint_info.clone(),
         source: ctx.accounts.token_info.clone(),
         authority: ctx.accounts.authority_info.clone(),
-        token_program: ctx.accounts.spl_token_program_info.clone(),
+        token_program: ctx.accounts.tpl_token_program_info.clone(),
         amount: 1,
         authority_signer_seeds: None,
     };
-    spl_token_burn(params)?;
+    tpl_token_burn(params)?;
 
     let params = TokenCloseParams {
-        token_program: ctx.accounts.spl_token_program_info.clone(),
+        token_program: ctx.accounts.tpl_token_program_info.clone(),
         account: ctx.accounts.token_info.clone(),
         destination: ctx.accounts.authority_info.clone(),
         owner: if edition_close_authority {
@@ -161,7 +161,7 @@ pub(crate) fn burn_nonfungible_edition(
             None
         },
     };
-    spl_token_close(params)?;
+    tpl_token_close(params)?;
 
     //       **EDITION HOUSEKEEPING**
     // Set the particular bit for this edition to 0 to allow reprinting,

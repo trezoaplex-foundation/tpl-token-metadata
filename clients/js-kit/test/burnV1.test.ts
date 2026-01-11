@@ -51,7 +51,7 @@ test('it can burn NonFungible token', async (t) => {
   const owner = await createKeypair();
   const payer = owner;
 
-  // Airdrop SOL to payer
+  // Airdrop TRZ to payer
   await airdrop(rpc, owner.address);
 
   // Create NonFungible token
@@ -60,7 +60,7 @@ test('it can burn NonFungible token', async (t) => {
     authority: owner,
     payer,
     name: 'My NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -130,7 +130,7 @@ test('it can burn ProgrammableNonFungible token', async (t) => {
     authority: owner,
     payer,
     name: 'My PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -200,7 +200,7 @@ test('it can burn partial amount of Fungible tokens', async (t) => {
     authority: owner,
     payer,
     name: 'Fungible Token',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(2.5),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -278,7 +278,7 @@ test('it can burn all Fungible tokens', async (t) => {
     authority: owner,
     payer,
     name: 'Fungible Token',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(3),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -348,7 +348,7 @@ test('it can burn FungibleAsset token', async (t) => {
     authority: owner,
     payer,
     name: 'Fungible Asset',
-    uri: 'https://example.com/asset.json',
+    uri: 'https://exatple.com/asset.json',
     sellerFeeBasisPoints: basisPoints(4),
     tokenStandard: TokenStandard.FungibleAsset,
   });

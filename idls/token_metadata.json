@@ -2079,7 +2079,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -2621,7 +2621,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         }
       ],
@@ -3031,7 +3031,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         }
       ],
@@ -3122,7 +3122,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Token program"
+            "TPL Token program"
           ]
         }
       ],
@@ -3239,7 +3239,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token program"
+            "TPL Token program"
           ]
         },
         {
@@ -3247,7 +3247,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Associated Token Account program"
+            "TPL Associated Token Account program"
           ]
         },
         {
@@ -3383,7 +3383,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -3519,7 +3519,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -3646,7 +3646,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -3773,7 +3773,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -3912,7 +3912,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -4055,7 +4055,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -4063,7 +4063,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Associated Token Account program"
+            "TPL Associated Token Account program"
           ]
         },
         {
@@ -4292,7 +4292,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Token Program"
+            "TPL Token Program"
           ]
         },
         {
@@ -4644,7 +4644,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Associated Token Account program"
+            "TPL Associated Token Account program"
           ]
         },
         {
@@ -7280,7 +7280,7 @@
     },
     {
       "code": 65,
-      "name": "ReservationNotComplete",
+      "name": "ReservationNotCotplete",
       "msg": ""
     },
     {
@@ -7701,7 +7701,7 @@
     {
       "code": 149,
       "name": "MissingSplTokenProgram",
-      "msg": "Missing SPL token program"
+      "msg": "Missing TPL token program"
     },
     {
       "code": 150,

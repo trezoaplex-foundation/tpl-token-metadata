@@ -1,4 +1,4 @@
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, msg, pubkey::Pubkey};
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, msg, pubkey::Pubkey};
 
 use crate::{
     error::MetadataError,
@@ -30,7 +30,7 @@ pub fn create<'a>(
     }
 }
 
-/// V1 implementation of the create instruction.
+/// V1 itplementation of the create instruction.
 fn create_v1(program_id: &Pubkey, ctx: Context<Create>, args: CreateArgs) -> ProgramResult {
     // get the args for the instruction
     let CreateArgs::V1 {
@@ -60,9 +60,9 @@ fn create_v1(program_id: &Pubkey, ctx: Context<Create>, args: CreateArgs) -> Pro
             return Err(MetadataError::MintIsNotSigner.into());
         }
 
-        let spl_token_program = ctx
+        let tpl_token_program = ctx
             .accounts
-            .spl_token_program_info
+            .tpl_token_program_info
             .ok_or(MetadataError::MissingSplTokenProgram)?;
 
         create_mint(
@@ -72,7 +72,7 @@ fn create_v1(program_id: &Pubkey, ctx: Context<Create>, args: CreateArgs) -> Pro
             ctx.accounts.payer_info,
             asset_data.token_standard,
             decimals,
-            spl_token_program,
+            tpl_token_program,
         )?;
     } else {
         let mint = validate_mint(
@@ -132,9 +132,9 @@ fn create_v1(program_id: &Pubkey, ctx: Context<Create>, args: CreateArgs) -> Pro
         let print_supply = print_supply.ok_or(MetadataError::MissingPrintSupply)?;
 
         if let Some(master_edition) = ctx.accounts.master_edition_info {
-            let spl_token_program = ctx
+            let tpl_token_program = ctx
                 .accounts
-                .spl_token_program_info
+                .tpl_token_program_info
                 .ok_or(MetadataError::MissingSplTokenProgram)?;
 
             create_master_edition(
@@ -145,7 +145,7 @@ fn create_v1(program_id: &Pubkey, ctx: Context<Create>, args: CreateArgs) -> Pro
                 ctx.accounts.authority_info,
                 ctx.accounts.payer_info,
                 ctx.accounts.metadata_info,
-                spl_token_program,
+                tpl_token_program,
                 ctx.accounts.system_program_info,
                 print_supply.to_option(),
             )?;

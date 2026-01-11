@@ -52,7 +52,7 @@ test('it can transfer NonFungible to new owner', async (t) => {
   const ownerB = await createKeypair();
   const payer = ownerA;
 
-  // Airdrop SOL to payer
+  // Airdrop TRZ to payer
   await airdrop(rpc, ownerA.address);
 
   // Create NonFungible token
@@ -61,7 +61,7 @@ test('it can transfer NonFungible to new owner', async (t) => {
     authority: ownerA,
     payer,
     name: 'My NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -146,7 +146,7 @@ test('it can transfer ProgrammableNonFungible', async (t) => {
     authority: ownerA,
     payer,
     name: 'My PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -231,7 +231,7 @@ test('it can transfer partial amount of Fungible tokens', async (t) => {
     authority: ownerA,
     payer,
     name: 'Fungible Token',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(2.5),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -316,7 +316,7 @@ test('it can transfer all FungibleAsset tokens', async (t) => {
     authority: ownerA,
     payer,
     name: 'Fungible Asset',
-    uri: 'https://example.com/asset.json',
+    uri: 'https://exatple.com/asset.json',
     sellerFeeBasisPoints: basisPoints(3),
     tokenStandard: TokenStandard.FungibleAsset,
   });

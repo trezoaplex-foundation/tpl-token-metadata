@@ -189,24 +189,24 @@ pub fn account_context_derive(input: TokenStream) -> TokenStream {
 
 /// Generates a struct for each enum variant.
 ///
-/// The struct will contain all shank annotated accounts and the impl block
+/// The struct will contain all shank annotated accounts and the itpl block
 /// will initialize them using the accounts iterators. It support the use of
 /// optional accounts, which would generate an account field with an
 /// `Option<AccountInfo<'a>>` type.
 ///
 /// ```ignore
 /// pub struct MyAccount<'a> {
-///     my_first_account: solana_program::account_info::AccountInfo<'a>,
-///     my_second_optional_account: Option<solana_program::account_info::AccountInfo<'a>>,
+///     my_first_account: trezoa_program::account_info::AccountInfo<'a>,
+///     my_second_optional_account: Option<trezoa_program::account_info::AccountInfo<'a>>,
 ///     ..
 /// }
-/// impl<'a> MyAccount<'a> {
+/// itpl<'a> MyAccount<'a> {
 ///     pub fn to_context(
-///         accounts: &'a [solana_program::account_info::AccountInfo<'a>]
-///     ) -> Result<Context<'a, Self>, solana_program::sysvar::slot_history::ProgramError> {
+///         accounts: &'a [trezoa_program::account_info::AccountInfo<'a>]
+///     ) -> Result<Context<'a, Self>, trezoa_program::sysvar::slot_history::ProgramError> {
 ///         let account_info_iter = &mut accounts.iter();
 ///
-///         let my_first_account = solana_program::account_info::next_account_info(account_info_iter)?;
+///         let my_first_account = trezoa_program::account_info::next_account_info(account_info_iter)?;
 ///
 ///         ..
 ///
@@ -214,7 +214,7 @@ pub fn account_context_derive(input: TokenStream) -> TokenStream {
 /// }
 /// ```
 fn generate_accounts(variants: &[Variant]) -> TokenStream {
-    // build the trait implementation
+    // build the trait itplementation
     let variant_structs = variants.iter().map(|variant| {
         let name = syn::parse_str::<syn::Ident>(&variant.name).unwrap();
         // struct fields
@@ -222,11 +222,11 @@ fn generate_accounts(variants: &[Variant]) -> TokenStream {
             let account_name = syn::parse_str::<syn::Ident>(format!("{}_info", &account.name).as_str()).unwrap();
             if account.optional {
                 quote! {
-                    pub #account_name: Option<&'a solana_program::account_info::AccountInfo<'a>>
+                    pub #account_name: Option<&'a trezoa_program::account_info::AccountInfo<'a>>
                 }
             } else {
                 quote! {
-                    pub #account_name:&'a solana_program::account_info::AccountInfo<'a>
+                    pub #account_name:&'a trezoa_program::account_info::AccountInfo<'a>
                 }
             }
         });
@@ -251,10 +251,10 @@ fn generate_accounts(variants: &[Variant]) -> TokenStream {
             pub struct #name<'a> {
                 #(#struct_fields,)*
             }
-            impl<'a> #name<'a> {
-                pub fn to_context(accounts: &'a [solana_program::account_info::AccountInfo<'a>]) -> Result<Context<Self>, solana_program::sysvar::slot_history::ProgramError> {
+            itpl<'a> #name<'a> {
+                pub fn to_context(accounts: &'a [trezoa_program::account_info::AccountInfo<'a>]) -> Result<Context<Self>, trezoa_program::sysvar::slot_history::ProgramError> {
                     if accounts.len() < #expected {
-                        return Err(solana_program::sysvar::slot_history::ProgramError::NotEnoughAccountKeys);
+                        return Err(trezoa_program::sysvar::slot_history::ProgramError::NotEnoughAccountKeys);
                     }
                     Ok(Context {
                         accounts: Self {
@@ -277,10 +277,10 @@ fn generate_builders(variants: &[Variant]) -> TokenStream {
     let mut default_pubkeys = HashMap::new();
     default_pubkeys.insert(
         "system_program".to_string(),
-        syn::parse_str::<syn::ExprPath>("solana_program::system_program::ID").unwrap(),
+        syn::parse_str::<syn::ExprPath>("trezoa_program::system_program::ID").unwrap(),
     );
     default_pubkeys.insert(
-        "spl_token_program".to_string(),
+        "tpl_token_program".to_string(),
         syn::parse_str::<syn::ExprPath>("crate::utils::SPL_TOKEN_ID").unwrap(),
     );
     default_pubkeys.insert(
@@ -289,14 +289,14 @@ fn generate_builders(variants: &[Variant]) -> TokenStream {
     );
     default_pubkeys.insert(
         "sysvar_instructions".to_string(),
-        syn::parse_str::<syn::ExprPath>("solana_program::sysvar::instructions::ID").unwrap(),
+        syn::parse_str::<syn::ExprPath>("trezoa_program::sysvar::instructions::ID").unwrap(),
     );
     default_pubkeys.insert(
         "authorization_rules_program".to_string(),
-        syn::parse_str::<syn::ExprPath>("mpl_token_auth_rules::ID").unwrap(),
+        syn::parse_str::<syn::ExprPath>("tpl_token_auth_rules::ID").unwrap(),
     );
 
-    // build the trait implementation
+    // build the trait itplementation
     let variant_structs = variants.iter().map(|variant| {
         let name = syn::parse_str::<syn::Ident>(&variant.name).unwrap();
 
@@ -308,11 +308,11 @@ fn generate_builders(variants: &[Variant]) -> TokenStream {
             let account_name = syn::parse_str::<syn::Ident>(&account.name).unwrap();
             if account.optional {
                 quote! {
-                    pub #account_name: Option<solana_program::pubkey::Pubkey>
+                    pub #account_name: Option<trezoa_program::pubkey::Pubkey>
                 }
             } else {
                 quote! {
-                    pub #account_name: solana_program::pubkey::Pubkey
+                    pub #account_name: trezoa_program::pubkey::Pubkey
                 }
             }
         });
@@ -340,7 +340,7 @@ fn generate_builders(variants: &[Variant]) -> TokenStream {
         let builder_accounts = variant.accounts.iter().map(|account| {
             let account_name = syn::parse_str::<syn::Ident>(&account.name).unwrap();
             quote! {
-                pub #account_name: Option<solana_program::pubkey::Pubkey>
+                pub #account_name: Option<trezoa_program::pubkey::Pubkey>
             }
         });
 
@@ -380,7 +380,7 @@ fn generate_builders(variants: &[Variant]) -> TokenStream {
         let builder_accounts_methods = variant.accounts.iter().map(|account| {
             let account_name = syn::parse_str::<syn::Ident>(&account.name).unwrap();
             quote! {
-                pub fn #account_name(&mut self, #account_name: solana_program::pubkey::Pubkey) -> &mut Self {
+                pub fn #account_name(&mut self, #account_name: trezoa_program::pubkey::Pubkey) -> &mut Self {
                     self.#account_name = Some(#account_name);
                     self
                 }
@@ -478,7 +478,7 @@ fn generate_builders(variants: &[Variant]) -> TokenStream {
                 #(#builder_args,)*
             }
 
-            impl #builder_name {
+            itpl #builder_name {
                 pub fn new() -> Box<#builder_name> {
                     Box::new(#builder_name {
                         #(#builder_initialize_accounts,)*

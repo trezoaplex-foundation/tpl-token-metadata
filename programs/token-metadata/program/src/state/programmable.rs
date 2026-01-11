@@ -1,15 +1,15 @@
 use std::io::Error;
 
 use borsh::{BorshDeserialize, BorshSerialize};
-use mpl_utils::cmp_pubkeys;
+use tpl_utils::cmp_pubkeys;
 #[cfg(feature = "serde-feature")]
 use serde::{Deserialize, Serialize};
 use shank::ShankAccount;
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, instruction::AccountMeta, program_error::ProgramError,
     program_option::COption, pubkey::Pubkey,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use super::*;
 use crate::{
@@ -42,7 +42,7 @@ pub const TOKEN_RECORD_SIZE: usize = 1 // Key
 /// of frozen (locked) and thaw (unlocked).
 ///
 /// It also stores state regarding token delegates that are set on the token account: the pubkey
-/// of the delegate set (this would match the spl-token account delegate) and the role.
+/// of the delegate set (this would match the tpl-token account delegate) and the role.
 ///
 /// Every token account holding a `pNFT` has a token record associated. The seeds for the token
 /// record PDA are:
@@ -64,7 +64,7 @@ pub struct TokenRecord {
     /// Stores the rule set revision (if any). The revision is updated every time
     /// a new token delegate is approved.
     pub rule_set_revision: Option<u64>,
-    /// Pubkey of the current token delegate. This delegate key will match the spl-token
+    /// Pubkey of the current token delegate. This delegate key will match the tpl-token
     /// delegate pubkey.
     #[cfg_attr(
         feature = "serde-feature",
@@ -86,7 +86,7 @@ pub struct TokenRecord {
     pub locked_transfer: Option<Pubkey>,
 }
 
-impl Default for TokenRecord {
+itpl Default for TokenRecord {
     fn default() -> Self {
         #[allow(deprecated)]
         Self {
@@ -101,7 +101,7 @@ impl Default for TokenRecord {
     }
 }
 
-impl TokenMetadataAccount for TokenRecord {
+itpl TokenMetadataAccount for TokenRecord {
     fn key() -> Key {
         Key::TokenRecord
     }
@@ -120,7 +120,7 @@ impl TokenMetadataAccount for TokenRecord {
     }
 }
 
-impl TokenRecord {
+itpl TokenRecord {
     pub fn is_locked(&self) -> bool {
         matches!(self.state, TokenState::Locked)
     }
@@ -136,7 +136,7 @@ impl TokenRecord {
     }
 }
 
-impl Resizable for TokenRecord {
+itpl Resizable for TokenRecord {
     fn from_bytes<'a>(account_data: &[u8]) -> Result<TokenRecord, ProgramError> {
         // we perform a manual deserialization since we are potentially dealing
         // with accounts of different sizes
@@ -235,7 +235,7 @@ pub struct AuthorityRequest<'a, 'b> {
     pub token_delegate_roles: Vec<TokenDelegateRole>,
 }
 
-impl<'a, 'b> Default for AuthorityRequest<'a, 'b> {
+itpl<'a, 'b> Default for AuthorityRequest<'a, 'b> {
     fn default() -> Self {
         Self {
             precedence: &[
@@ -280,7 +280,7 @@ pub enum AuthorityType {
     TokenDelegate,
 }
 
-impl AuthorityType {
+itpl AuthorityType {
     /// Determines the `AuthorityType`.
     ///
     /// The `AuthorityType` is used to determine the authority of a request. An authority can
@@ -427,7 +427,7 @@ pub enum Operation {
     Delegate { scenario: DelegateScenario },
 }
 
-impl ToString for Operation {
+itpl ToString for Operation {
     fn to_string(&self) -> String {
         match self {
             Self::Transfer { scenario } => format!("Transfer:{}", scenario),
@@ -453,7 +453,7 @@ pub enum PayloadKey {
     SourceSeeds,
 }
 
-impl ToString for PayloadKey {
+itpl ToString for PayloadKey {
     fn to_string(&self) -> String {
         match self {
             PayloadKey::Amount => "Amount",
@@ -475,7 +475,7 @@ pub trait ToAccountMeta {
     fn to_account_meta(&self) -> AccountMeta;
 }
 
-impl<'info> ToAccountMeta for AccountInfo<'info> {
+itpl<'info> ToAccountMeta for AccountInfo<'info> {
     fn to_account_meta(&self) -> AccountMeta {
         AccountMeta {
             pubkey: *self.key,

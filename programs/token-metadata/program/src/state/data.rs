@@ -36,7 +36,7 @@ pub struct DataV2 {
     pub uses: Option<Uses>,
 }
 
-impl DataV2 {
+itpl DataV2 {
     pub fn to_v1(&self) -> Data {
         let ns = self.clone();
         Data {

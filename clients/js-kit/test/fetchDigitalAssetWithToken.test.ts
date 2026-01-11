@@ -58,7 +58,7 @@ test('it can fetch a NonFungible with token account', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test NFT with Token',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -136,7 +136,7 @@ test('it can fetch using associated token account', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test ATA NFT',
-    uri: 'https://example.com/ata-nft.json',
+    uri: 'https://exatple.com/ata-nft.json',
     sellerFeeBasisPoints: basisPoints(3),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -198,7 +198,7 @@ test('it can fetch a Fungible with token account', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test Fungible Token',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(1),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -261,7 +261,7 @@ test('it can fetch a ProgrammableNonFungible with token record', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });

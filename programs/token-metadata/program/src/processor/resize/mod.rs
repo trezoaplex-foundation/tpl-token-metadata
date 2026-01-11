@@ -12,8 +12,8 @@ use crate::{
         clean_write_resize_master_edition, metadata::clean_write_resize_metadata,
     },
 };
-use mpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use tpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 
 pub fn process_resize<'a>(
     _program_id: &'a Pubkey,
@@ -35,7 +35,7 @@ pub fn process_resize<'a>(
     }
 
     // Check that the system program is correct.
-    if ctx.accounts.system_program_info.key != &solana_program::system_program::ID {
+    if ctx.accounts.system_program_info.key != &trezoa_program::system_program::ID {
         return Err(MetadataError::InvalidSystemProgram.into());
     }
 

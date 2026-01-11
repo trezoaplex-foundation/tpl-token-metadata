@@ -21,11 +21,11 @@ pub use delegate::*;
 pub use escrow::*;
 pub use freeze::*;
 pub use metadata::*;
-use mpl_token_auth_rules::payload::Payload;
+use tpl_token_auth_rules::payload::Payload;
 pub use resize::*;
 #[cfg(feature = "serde-feature")]
 use serde::{Deserialize, Serialize};
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, msg, program_error::ProgramError,
     pubkey::Pubkey,
 };
@@ -59,7 +59,7 @@ pub struct AuthorizationData {
     pub payload: Payload,
 }
 
-impl AuthorizationData {
+itpl AuthorizationData {
     pub fn new(payload: Payload) -> Self {
         Self { payload }
     }
@@ -106,7 +106,7 @@ pub fn process_instruction<'a>(
 
     // checks if there is a locked token; this will block any instruction that
     // requires the token record account when the token is locked – 'Update' is
-    // an example of an instruction that does not require the token record, so
+    // an exatple of an instruction that does not require the token record, so
     // it can be executed even when a token is locked
     if is_locked(program_id, accounts) && !matches!(instruction, MetadataInstruction::Unlock(_)) {
         return Err(MetadataError::LockedToken.into());
@@ -170,7 +170,7 @@ pub fn process_instruction<'a>(
         }
         MetadataInstruction::CloseAccounts => close::process_close_accounts(program_id, accounts),
         _ => {
-            // pNFT accounts and SPL Token-2022 program can only be used by the "new" API; before
+            // pNFT accounts and TPL Token-2022 program can only be used by the "new" API; before
             // forwarding the transaction to the "legacy" processor we determine whether we are
             // dealing with a pNFT or not
             if !incompatible_accounts(program_id, accounts)? {
@@ -349,7 +349,7 @@ fn process_legacy_instruction<'a>(
 
 /// Checks whether the instruction's accounts are compatible with legacy instructions or not.
 ///
-/// The test will return `true` if we are dealing with a pNFT metadata or SPL Token-2022 program;
+/// The test will return `true` if we are dealing with a pNFT metadata or TPL Token-2022 program;
 /// otherwise, it will return `false`.
 fn incompatible_accounts(
     program_id: &Pubkey,
@@ -370,8 +370,8 @@ fn incompatible_accounts(
                     return Ok(true);
                 }
             }
-        } else if account_info.key == &spl_token_2022::ID
-            || account_info.owner == &spl_token_2022::ID
+        } else if account_info.key == &tpl_token_2022::ID
+            || account_info.owner == &tpl_token_2022::ID
         {
             return Ok(true);
         }
@@ -402,7 +402,7 @@ macro_rules! all_account_infos {
     ($accounts:expr, $($account:ident),*) => {
         let [$($account),*] = match $accounts {
             [$($account),*, ..] => [$($account),*],
-            _ => return Err(solana_program::program_error::ProgramError::NotEnoughAccountKeys),
+            _ => return Err(trezoa_program::program_error::ProgramError::NotEnoughAccountKeys),
         };
     };
 }

@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Data, dataBeet } from './Data';
 import { CollectionToggle, collectionToggleBeet } from './CollectionToggle';
 import { CollectionDetailsToggle, collectionDetailsToggleBeet } from './CollectionDetailsToggle';
@@ -134,7 +134,7 @@ export const updateArgsBeet = beet.dataEnum<UpdateArgsRecord>([
     'V1',
     new beet.FixableBeetArgsStruct<UpdateArgsRecord['V1']>(
       [
-        ['newUpdateAuthority', beet.coption(beetSolana.publicKey)],
+        ['newUpdateAuthority', beet.coption(beetTrezoa.publicKey)],
         ['data', beet.coption(dataBeet)],
         ['primarySaleHappened', beet.coption(beet.bool)],
         ['isMutable', beet.coption(beet.bool)],
@@ -152,7 +152,7 @@ export const updateArgsBeet = beet.dataEnum<UpdateArgsRecord>([
     'AsUpdateAuthorityV2',
     new beet.FixableBeetArgsStruct<UpdateArgsRecord['AsUpdateAuthorityV2']>(
       [
-        ['newUpdateAuthority', beet.coption(beetSolana.publicKey)],
+        ['newUpdateAuthority', beet.coption(beetTrezoa.publicKey)],
         ['data', beet.coption(dataBeet)],
         ['primarySaleHappened', beet.coption(beet.bool)],
         ['isMutable', beet.coption(beet.bool)],
@@ -171,7 +171,7 @@ export const updateArgsBeet = beet.dataEnum<UpdateArgsRecord>([
     'AsAuthorityItemDelegateV2',
     new beet.FixableBeetArgsStruct<UpdateArgsRecord['AsAuthorityItemDelegateV2']>(
       [
-        ['newUpdateAuthority', beet.coption(beetSolana.publicKey)],
+        ['newUpdateAuthority', beet.coption(beetTrezoa.publicKey)],
         ['primarySaleHappened', beet.coption(beet.bool)],
         ['isMutable', beet.coption(beet.bool)],
         ['tokenStandard', beet.coption(tokenStandardBeet)],

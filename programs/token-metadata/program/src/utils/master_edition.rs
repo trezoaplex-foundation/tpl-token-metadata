@@ -1,15 +1,15 @@
 use arrayref::{array_mut_ref, array_ref, mut_array_refs};
 use borsh::BorshSerialize;
 use metadata::{process_create_metadata_accounts_logic, CreateMetadataAccountsLogicArgs};
-use mpl_utils::{
+use tpl_utils::{
     assert_signer, create_or_allocate_account_raw,
     token::{get_mint_authority, get_mint_supply},
 };
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program_error::ProgramError,
     pubkey::Pubkey, system_program,
 };
-use spl_token_2022::state::{Account, Mint};
+use tpl_token_2022::state::{Account, Mint};
 
 use super::*;
 use crate::{
@@ -289,8 +289,8 @@ pub fn extract_edition_number_from_deprecated_reservation_list(
                 break;
             }
 
-            if reservation.address == solana_program::system_program::ID {
-                // This is an anchor point in the array...it means we reset our math to
+            if reservation.address == trezoa_program::system_program::ID {
+                // This is an trezoa point in the array...it means we reset our math to
                 // this offset because we may be missing information in between this point and
                 // the points before it.
                 prev_total_offsets = reservation.total_spots;

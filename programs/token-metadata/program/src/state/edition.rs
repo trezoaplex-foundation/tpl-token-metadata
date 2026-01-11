@@ -25,7 +25,7 @@ pub struct Edition {
     pub edition: u64,
 }
 
-impl Default for Edition {
+itpl Default for Edition {
     fn default() -> Self {
         Edition {
             key: Key::EditionV1,
@@ -35,7 +35,7 @@ impl Default for Edition {
     }
 }
 
-impl TokenMetadataAccount for Edition {
+itpl TokenMetadataAccount for Edition {
     fn key() -> Key {
         Key::EditionV1
     }
@@ -47,8 +47,8 @@ impl TokenMetadataAccount for Edition {
 
 #[cfg(test)]
 mod tests {
-    use solana_program::account_info::AccountInfo;
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_program::account_info::AccountInfo;
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
 
     use crate::{
         error::MetadataError,

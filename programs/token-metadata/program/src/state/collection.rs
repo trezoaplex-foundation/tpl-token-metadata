@@ -20,7 +20,7 @@ pub struct CollectionAuthorityRecord {
     pub update_authority: Option<Pubkey>, //33 (1 + 32)
 }
 
-impl Default for CollectionAuthorityRecord {
+itpl Default for CollectionAuthorityRecord {
     fn default() -> Self {
         CollectionAuthorityRecord {
             key: Key::CollectionAuthorityRecord,
@@ -30,7 +30,7 @@ impl Default for CollectionAuthorityRecord {
     }
 }
 
-impl TokenMetadataAccount for CollectionAuthorityRecord {
+itpl TokenMetadataAccount for CollectionAuthorityRecord {
     fn key() -> Key {
         Key::CollectionAuthorityRecord
     }
@@ -40,7 +40,7 @@ impl TokenMetadataAccount for CollectionAuthorityRecord {
     }
 }
 
-impl CollectionAuthorityRecord {
+itpl CollectionAuthorityRecord {
     pub fn from_bytes(b: &[u8]) -> Result<CollectionAuthorityRecord, ProgramError> {
         let ca: CollectionAuthorityRecord = try_from_slice_checked(
             b,
@@ -69,8 +69,8 @@ pub enum CollectionDetails {
 
 #[cfg(test)]
 mod tests {
-    use solana_program::account_info::AccountInfo;
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_program::account_info::AccountInfo;
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
 
     use crate::{
         error::MetadataError,

@@ -1,14 +1,14 @@
 //! These types exist to give Shank a way to create the Payload type as it
-//! cannnot create it from the remote type from mpl-token-auth-rules.
+//! cannnot create it from the remote type from tpl-token-auth-rules.
 //! Care will need to be taken to ensure they stay synced with any changes in
-//! mpl-token-auth-rules.
+//! tpl-token-auth-rules.
 
 use std::collections::HashMap;
 
 use borsh::{BorshDeserialize, BorshSerialize};
 #[cfg(feature = "serde-feature")]
 use serde::{Deserialize, Serialize};
-use solana_program::pubkey::Pubkey;
+use trezoa_program::pubkey::Pubkey;
 
 #[repr(C)]
 #[cfg_attr(feature = "serde-feature", derive(Serialize, Deserialize))]

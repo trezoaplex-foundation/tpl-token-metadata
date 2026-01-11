@@ -18,12 +18,12 @@ import {
   getAddressEncoder,
   getU8Encoder,
   type Address,
-} from '@solana/kit';
+} from '@trezoa/kit';
 import { getCreateEscrowAccountInstructionAsync } from '../src/generated/instructions';
 import { fetchTokenOwnedEscrow } from '../src/generated/accounts';
 import { createNft } from '../src/hooked/createHelpers';
 import { findAssociatedTokenPda } from './_setup';
-import { MPL_TOKEN_METADATA_PROGRAM_ADDRESS } from '../src/generated/programs';
+import { TPL_TOKEN_METADATA_PROGRAM_ADDRESS } from '../src/generated/programs';
 import {
   createKeypair,
   createRpc,
@@ -43,10 +43,10 @@ async function findTokenOwnerEscrowPda(
   mint: Address
 ): Promise<[Address, number]> {
   const result = await getProgramDerivedAddress({
-    programAddress: MPL_TOKEN_METADATA_PROGRAM_ADDRESS,
+    programAddress: TPL_TOKEN_METADATA_PROGRAM_ADDRESS,
     seeds: [
       getUtf8Encoder().encode('metadata'),
-      getAddressEncoder().encode(MPL_TOKEN_METADATA_PROGRAM_ADDRESS),
+      getAddressEncoder().encode(TPL_TOKEN_METADATA_PROGRAM_ADDRESS),
       getAddressEncoder().encode(mint),
       getU8Encoder().encode(0), // TokenOwner authority type
       getUtf8Encoder().encode('escrow'),
@@ -63,10 +63,10 @@ async function findCreatorEscrowPda(
   creator: Address
 ): Promise<[Address, number]> {
   const result = await getProgramDerivedAddress({
-    programAddress: MPL_TOKEN_METADATA_PROGRAM_ADDRESS,
+    programAddress: TPL_TOKEN_METADATA_PROGRAM_ADDRESS,
     seeds: [
       getUtf8Encoder().encode('metadata'),
-      getAddressEncoder().encode(MPL_TOKEN_METADATA_PROGRAM_ADDRESS),
+      getAddressEncoder().encode(TPL_TOKEN_METADATA_PROGRAM_ADDRESS),
       getAddressEncoder().encode(mint),
       getU8Encoder().encode(1), // Creator authority type
       getAddressEncoder().encode(creator),
@@ -100,7 +100,7 @@ test('it can create an escrow account with TokenOwner authority', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -162,7 +162,7 @@ test('it can create an escrow account with Creator authority', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });

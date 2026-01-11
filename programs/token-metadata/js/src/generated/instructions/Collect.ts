@@ -5,8 +5,8 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
 
 /**
  * @category Instructions

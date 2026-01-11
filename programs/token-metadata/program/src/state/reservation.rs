@@ -68,7 +68,7 @@ pub struct ReservationListV2 {
     pub current_reservation_spots: u64,
 }
 
-impl TokenMetadataAccount for ReservationListV2 {
+itpl TokenMetadataAccount for ReservationListV2 {
     fn key() -> Key {
         Key::ReservationListV2
     }
@@ -78,7 +78,7 @@ impl TokenMetadataAccount for ReservationListV2 {
     }
 }
 
-impl ReservationList for ReservationListV2 {
+itpl ReservationList for ReservationListV2 {
     fn master_edition(&self) -> Pubkey {
         self.master_edition
     }
@@ -108,7 +108,7 @@ impl ReservationList for ReservationListV2 {
         let usize_offset = offset as usize;
         while self.reservations.len() < usize_offset {
             self.reservations.push(Reservation {
-                address: solana_program::system_program::ID,
+                address: trezoa_program::system_program::ID,
                 spots_remaining: 0,
                 total_spots: 0,
             })
@@ -125,7 +125,7 @@ impl ReservationList for ReservationListV2 {
                         .checked_sub(replaced_spots)
                         .ok_or(MetadataError::NumericalOverflowError)?,
                 );
-            } else if replaced_addr != solana_program::system_program::ID {
+            } else if replaced_addr != trezoa_program::system_program::ID {
                 return Err(MetadataError::TriedToReplaceAnExistingReservation.into());
             }
             self.reservations[usize_offset] = reservation;
@@ -134,9 +134,9 @@ impl ReservationList for ReservationListV2 {
         }
 
         if usize_offset != 0
-            && self.reservations[usize_offset - 1].address == solana_program::system_program::ID
+            && self.reservations[usize_offset - 1].address == trezoa_program::system_program::ID
         {
-            // This becomes an anchor then for calculations... put total spot offset in here.
+            // This becomes an trezoa then for calculations... put total spot offset in here.
             self.reservations[usize_offset - 1].spots_remaining = total_spot_offset;
             self.reservations[usize_offset - 1].total_spots = total_spot_offset;
         }
@@ -194,7 +194,7 @@ pub struct ReservationListV1 {
     pub reservations: Vec<ReservationV1>,
 }
 
-impl TokenMetadataAccount for ReservationListV1 {
+itpl TokenMetadataAccount for ReservationListV1 {
     fn key() -> Key {
         Key::ReservationListV1
     }
@@ -204,7 +204,7 @@ impl TokenMetadataAccount for ReservationListV1 {
     }
 }
 
-impl ReservationList for ReservationListV1 {
+itpl ReservationList for ReservationListV1 {
     fn master_edition(&self) -> Pubkey {
         self.master_edition
     }

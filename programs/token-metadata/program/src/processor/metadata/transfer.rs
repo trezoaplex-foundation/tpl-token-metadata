@@ -1,7 +1,7 @@
 use std::fmt::Display;
 
-use mpl_utils::{assert_signer, cmp_pubkeys, token::TokenTransferCheckedParams};
-use solana_program::{
+use tpl_utils::{assert_signer, cmp_pubkeys, token::TokenTransferCheckedParams};
+use trezoa_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     program::invoke,
@@ -11,7 +11,7 @@ use solana_program::{
     system_program,
     sysvar::{self, instructions::get_instruction_relative},
 };
-use spl_token_2022::state::{Account, Mint};
+use tpl_token_2022::state::{Account, Mint};
 
 use crate::{
     assertions::{assert_keys_equal, assert_owned_by, metadata::assert_holding_amount},
@@ -37,7 +37,7 @@ pub enum TransferScenario {
     MigrationDelegate,
 }
 
-impl Display for TransferScenario {
+itpl Display for TransferScenario {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Holder => write!(f, "Owner"),
@@ -48,7 +48,7 @@ impl Display for TransferScenario {
     }
 }
 
-impl From<TransferScenario> for TokenDelegateRole {
+itpl From<TransferScenario> for TokenDelegateRole {
     fn from(delegate: TransferScenario) -> Self {
         match delegate {
             TransferScenario::TransferDelegate => TokenDelegateRole::Transfer,
@@ -59,7 +59,7 @@ impl From<TransferScenario> for TokenDelegateRole {
     }
 }
 
-impl From<TokenDelegateRole> for TransferScenario {
+itpl From<TokenDelegateRole> for TransferScenario {
     fn from(delegate: TokenDelegateRole) -> Self {
         match delegate {
             TokenDelegateRole::Transfer => TransferScenario::TransferDelegate,
@@ -103,11 +103,11 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
     assert_owned_by(ctx.accounts.metadata_info, program_id)?;
     assert_owned_by(
         ctx.accounts.mint_info,
-        ctx.accounts.spl_token_program_info.key,
+        ctx.accounts.tpl_token_program_info.key,
     )?;
     assert_owned_by(
         ctx.accounts.token_info,
-        ctx.accounts.spl_token_program_info.key,
+        ctx.accounts.tpl_token_program_info.key,
     )?;
     if let Some(owner_token_record_info) = ctx.accounts.owner_token_record_info {
         assert_owned_by(owner_token_record_info, program_id)?;
@@ -116,7 +116,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
         assert_owned_by(master_edition, program_id)?;
     }
     if let Some(authorization_rules) = ctx.accounts.authorization_rules_info {
-        assert_owned_by(authorization_rules, &mpl_token_auth_rules::ID)?;
+        assert_owned_by(authorization_rules, &tpl_token_auth_rules::ID)?;
     }
 
     // Deserialize metadata.
@@ -130,7 +130,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
                 ctx.accounts.payer_info.key,
                 ctx.accounts.destination_owner_info.key,
                 ctx.accounts.mint_info.key,
-                ctx.accounts.spl_token_program_info.key,
+                ctx.accounts.tpl_token_program_info.key,
             ),
             &[
                 ctx.accounts.payer_info.clone(),
@@ -144,7 +144,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
             ctx.accounts.mint_info,
             ctx.accounts.destination_info,
             Some(ctx.accounts.destination_owner_info),
-            ctx.accounts.spl_token_program_info,
+            ctx.accounts.tpl_token_program_info,
             metadata.token_standard,
             None, // we already checked the supply of the mint account
         )?;
@@ -173,7 +173,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
 
     // Check program IDs.
 
-    assert_token_program_matches_package(ctx.accounts.spl_token_program_info)?;
+    assert_token_program_matches_package(ctx.accounts.tpl_token_program_info)?;
 
     if ctx.accounts.spl_ata_program_info.key != &spl_associated_token_account::ID {
         return Err(ProgramError::IncorrectProgramId);
@@ -188,7 +188,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
     }
 
     if let Some(auth_rules_program) = ctx.accounts.authorization_rules_program_info {
-        if auth_rules_program.key != &mpl_token_auth_rules::ID {
+        if auth_rules_program.key != &tpl_token_auth_rules::ID {
             return Err(ProgramError::IncorrectProgramId);
         }
     }
@@ -215,7 +215,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
         amount,
         authority: ctx.accounts.authority_info.clone(),
         authority_signer_seeds: None,
-        token_program: ctx.accounts.spl_token_program_info.clone(),
+        token_program: ctx.accounts.tpl_token_program_info.clone(),
         decimals: mint.decimals,
     };
 
@@ -332,7 +332,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
 
             // We need to check whether the destination token account has a delegate set. If it does,
             // we do not allow the transfer to proceed since we do not know the type of the delegate
-            // to complete the information on the token record.
+            // to cotplete the information on the token record.
             let destination_token =
                 unpack::<Account>(&ctx.accounts.destination_info.data.borrow())?;
 
@@ -415,7 +415,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
                 token: &token,
                 master_edition_info,
                 authority_info: master_edition_info,
-                spl_token_program_info: ctx.accounts.spl_token_program_info,
+                tpl_token_program_info: ctx.accounts.tpl_token_program_info,
                 edition_bump: metadata.edition_nonce,
             })?;
 
@@ -435,14 +435,14 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
             // Don't close token record if it's a self transfer.
             if owner_token_record_info.key != destination_token_record_info.key {
                 // If the transfer authority is the holder, we need to manually clear the
-                // token delegate since it does not get cleared by the SPL token program
+                // token delegate since it does not get cleared by the TPL token program
                 // on transfer.
                 if matches!(scenario, TransferScenario::Holder)
                     && owner_token_record.delegate.is_some()
                 {
                     invoke(
-                        &spl_token_2022::instruction::revoke(
-                            ctx.accounts.spl_token_program_info.key,
+                        &tpl_token_2022::instruction::revoke(
+                            ctx.accounts.tpl_token_program_info.key,
                             ctx.accounts.token_info.key,
                             ctx.accounts.authority_info.key,
                             &[],
@@ -464,7 +464,7 @@ fn transfer_v1(program_id: &Pubkey, ctx: Context<Transfer>, args: TransferArgs) 
                 )?;
             }
         }
-        _ => mpl_utils::token::spl_token_transfer_checked(token_transfer_params).unwrap(),
+        _ => tpl_utils::token::tpl_token_transfer_checked(token_transfer_params).unwrap(),
     }
 
     Ok(())

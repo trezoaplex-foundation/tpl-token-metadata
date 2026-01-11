@@ -1,4 +1,4 @@
-import { Pda, PublicKey } from '@metaplex-foundation/umi';
+import { Pda, PublicKey } from '@trezoaplex-foundation/umi';
 import { findEditionMarkerPda } from '../generated';
 
 export function findEditionMarkerFromEditionNumberPda(

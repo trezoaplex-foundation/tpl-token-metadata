@@ -10,7 +10,7 @@ pub enum EscrowAuthority {
     Creator(Pubkey),
 }
 
-impl EscrowAuthority {
+itpl EscrowAuthority {
     pub fn to_seeds(&self) -> Vec<&[u8]> {
         match self {
             EscrowAuthority::TokenOwner => vec![&[0]],
@@ -29,7 +29,7 @@ pub struct TokenOwnedEscrow {
     pub bump: u8,
 }
 
-impl TokenMetadataAccount for TokenOwnedEscrow {
+itpl TokenMetadataAccount for TokenOwnedEscrow {
     fn key() -> Key {
         Key::TokenOwnedEscrow
     }

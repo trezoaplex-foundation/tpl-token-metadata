@@ -1,11 +1,11 @@
-use mpl_utils::assert_signer;
-use solana_program::{
+use tpl_utils::assert_signer;
+use trezoa_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     program_error::ProgramError,
     pubkey::Pubkey,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use super::{
     nonfungible::{burn_nonfungible, BurnNonFungibleArgs},
@@ -26,7 +26,7 @@ pub fn process_burn_nft<'a>(program_id: &Pubkey, accounts: &'a [AccountInfo<'a>]
     let mint_info = next_account_info(account_info_iter)?;
     let token_info = next_account_info(account_info_iter)?;
     let edition_info = next_account_info(account_info_iter)?;
-    let spl_token_program_info = next_account_info(account_info_iter)?;
+    let tpl_token_program_info = next_account_info(account_info_iter)?;
 
     let collection_metadata_info = account_info_iter.next();
 
@@ -42,7 +42,7 @@ pub fn process_burn_nft<'a>(program_id: &Pubkey, accounts: &'a [AccountInfo<'a>]
     assert_owned_by(token_info, &SPL_TOKEN_ID)?;
 
     // Check program IDs.
-    if spl_token_program_info.key != &SPL_TOKEN_ID {
+    if tpl_token_program_info.key != &SPL_TOKEN_ID {
         return Err(ProgramError::IncorrectProgramId);
     }
 
@@ -87,9 +87,9 @@ pub fn process_burn_nft<'a>(program_id: &Pubkey, accounts: &'a [AccountInfo<'a>]
         token_record_info: None,
         // This handler doesn't get system program and sysvars instructions
         // but we need them to create the Burn struct. They are not used in the burn_nonfungible handler.
-        system_program_info: spl_token_program_info,
-        sysvar_instructions_info: spl_token_program_info,
-        spl_token_program_info,
+        system_program_info: tpl_token_program_info,
+        sysvar_instructions_info: tpl_token_program_info,
+        tpl_token_program_info,
     };
     let context = Context { accounts };
 

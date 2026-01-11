@@ -1,4 +1,4 @@
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program::invoke, rent::Rent,
     sysvar::Sysvar,
 };
@@ -16,7 +16,7 @@ pub(crate) struct LevyArgs<'a> {
 }
 
 pub(crate) fn levy(args: LevyArgs) -> ProgramResult {
-    // Fund metadata account with rent + Metaplex fee.
+    // Fund metadata account with rent + Trezoaplex fee.
     let rent = Rent::get()?;
 
     // Normally we would use the account data length to calculate the rent, but
@@ -29,7 +29,7 @@ pub(crate) fn levy(args: LevyArgs) -> ProgramResult {
     let fee = get_create_fee()? + rent.minimum_balance(MAX_METADATA_LEN);
 
     invoke(
-        &solana_program::system_instruction::transfer(
+        &trezoa_program::system_instruction::transfer(
             args.payer_account_info.key,
             args.token_metadata_pda_info.key,
             fee,

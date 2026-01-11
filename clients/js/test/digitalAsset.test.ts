@@ -5,7 +5,7 @@ import {
   publicKey,
   Signer,
   some,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   CollectionArgs,

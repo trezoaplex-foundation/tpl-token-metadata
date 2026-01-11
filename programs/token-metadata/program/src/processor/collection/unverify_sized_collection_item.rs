@@ -1,5 +1,5 @@
-use mpl_utils::assert_signer;
-use solana_program::{
+use tpl_utils::assert_signer;
+use trezoa_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     pubkey::Pubkey,
@@ -57,7 +57,7 @@ pub fn unverify_sized_collection_item(
     assert_metadata_derivation(program_id, collection_metadata_info, collection_mint_info)?;
 
     // Check if the collection metadata account is burned. If it is,
-    // there's no sized data to update and the user can simply unverify
+    // there's no sized data to update and the user can sitply unverify
     // the NFT.
     //
     // This check needs to happen before the program owned check.

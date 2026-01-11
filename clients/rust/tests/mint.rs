@@ -2,34 +2,34 @@
 mod setup;
 pub use setup::*;
 
-use mpl_token_metadata::types::TokenStandard;
-use solana_program_test::*;
-use solana_pubkey::Pubkey;
-use solana_sdk::signature::{Keypair, Signer};
-use spl_token_2022_interface::extension::ExtensionType;
-use spl_token_2022_interface::state::Account;
+use tpl_token_metadata::types::TokenStandard;
+use trezoa_program_test::*;
+use trezoa_pubkey::Pubkey;
+use trezoa_sdk::signature::{Keypair, Signer};
+use tpl_token_2022_interface::extension::ExtensionType;
+use tpl_token_2022_interface::state::Account;
 
 mod mint {
 
     use super::*;
 
-    #[test_case::test_case(TokenStandard::Fungible, spl_token::ID ; "fungible with spl-token")]
-    #[test_case::test_case(TokenStandard::Fungible, spl_token_2022_interface::ID ; "fungible with spl-token-2022")]
-    #[test_case::test_case(TokenStandard::FungibleAsset, spl_token::ID ; "fungible_asset with spl-token")]
-    #[test_case::test_case(TokenStandard::FungibleAsset, spl_token_2022_interface::ID ; "fungible_asset with spl-token-2022")]
-    #[test_case::test_case(TokenStandard::NonFungible, spl_token::ID ; "non_fungible with spl-token")]
-    #[test_case::test_case(TokenStandard::NonFungible, spl_token_2022_interface::ID ; "non_fungible with spl-token-2022")]
-    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, spl_token::ID ; "programmable_non_fungible with spl-token")]
-    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, spl_token_2022_interface::ID ; "programmable_non_fungible with spl-token-2022")]
+    #[test_case::test_case(TokenStandard::Fungible, tpl_token::ID ; "fungible with tpl-token")]
+    #[test_case::test_case(TokenStandard::Fungible, tpl_token_2022_interface::ID ; "fungible with tpl-token-2022")]
+    #[test_case::test_case(TokenStandard::FungibleAsset, tpl_token::ID ; "fungible_asset with tpl-token")]
+    #[test_case::test_case(TokenStandard::FungibleAsset, tpl_token_2022_interface::ID ; "fungible_asset with tpl-token-2022")]
+    #[test_case::test_case(TokenStandard::NonFungible, tpl_token::ID ; "non_fungible with tpl-token")]
+    #[test_case::test_case(TokenStandard::NonFungible, tpl_token_2022_interface::ID ; "non_fungible with tpl-token-2022")]
+    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, tpl_token::ID ; "programmable_non_fungible with tpl-token")]
+    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, tpl_token_2022_interface::ID ; "programmable_non_fungible with tpl-token-2022")]
     #[tokio::test]
-    async fn mint(token_standard: TokenStandard, spl_token_program: Pubkey) {
+    async fn mint(token_standard: TokenStandard, tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // given a mint account with metadata
 
         let mut asset = DigitalAsset::default();
         asset
-            .create_default(&mut context, token_standard, spl_token_program)
+            .create_default(&mut context, token_standard, tpl_token_program)
             .await
             .unwrap();
 
@@ -45,7 +45,7 @@ mod mint {
                 1,
                 &payer,
                 &payer,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -53,24 +53,24 @@ mod mint {
         // then the token account is created with the correct balance
 
         let token_account = get_account(&mut context, &asset.token).await;
-        assert_eq!(token_account.owner, spl_token_program);
+        assert_eq!(token_account.owner, tpl_token_program);
 
         let token = unpack::<Account>(&token_account.data).unwrap().base;
         assert_eq!(token.amount, 1);
     }
 
-    #[test_case::test_case(TokenStandard::Fungible, spl_token::ID ; "fungible with spl-token")]
-    #[test_case::test_case(TokenStandard::Fungible, spl_token_2022_interface::ID ; "fungible with spl-token-2022")]
-    #[test_case::test_case(TokenStandard::FungibleAsset, spl_token::ID ; "fungible_asset with spl-token")]
-    #[test_case::test_case(TokenStandard::FungibleAsset, spl_token_2022_interface::ID ; "fungible_asset with spl-token-2022")]
-    #[test_case::test_case(TokenStandard::NonFungible, spl_token::ID ; "non_fungible with spl-token")]
-    #[test_case::test_case(TokenStandard::NonFungible, spl_token_2022_interface::ID ; "non_fungible with spl-token-2022")]
-    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, spl_token::ID ; "programmable_non_fungible with spl-token")]
-    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, spl_token_2022_interface::ID ; "programmable_non_fungible with spl-token-2022")]
+    #[test_case::test_case(TokenStandard::Fungible, tpl_token::ID ; "fungible with tpl-token")]
+    #[test_case::test_case(TokenStandard::Fungible, tpl_token_2022_interface::ID ; "fungible with tpl-token-2022")]
+    #[test_case::test_case(TokenStandard::FungibleAsset, tpl_token::ID ; "fungible_asset with tpl-token")]
+    #[test_case::test_case(TokenStandard::FungibleAsset, tpl_token_2022_interface::ID ; "fungible_asset with tpl-token-2022")]
+    #[test_case::test_case(TokenStandard::NonFungible, tpl_token::ID ; "non_fungible with tpl-token")]
+    #[test_case::test_case(TokenStandard::NonFungible, tpl_token_2022_interface::ID ; "non_fungible with tpl-token-2022")]
+    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, tpl_token::ID ; "programmable_non_fungible with tpl-token")]
+    #[test_case::test_case(TokenStandard::ProgrammableNonFungible, tpl_token_2022_interface::ID ; "programmable_non_fungible with tpl-token-2022")]
     #[tokio::test]
     async fn mint_with_existing_token_account(
         token_standard: TokenStandard,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let mut context = program_test().start_with_context().await;
 
@@ -78,7 +78,7 @@ mod mint {
 
         let mut asset = DigitalAsset::default();
         asset
-            .create_default(&mut context, token_standard, spl_token_program)
+            .create_default(&mut context, token_standard, tpl_token_program)
             .await
             .unwrap();
 
@@ -87,14 +87,14 @@ mod mint {
         let token = Keypair::new();
         let token_owner = Keypair::new().pubkey();
 
-        let token_manager = TokenManager { spl_token_program };
+        let token_manager = TokenManager { tpl_token_program };
         token_manager
             .create_token_account(
                 &mut context,
                 &token_owner,
                 &token,
                 &asset.mint.pubkey(),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -112,7 +112,7 @@ mod mint {
                 1,
                 &payer,
                 &payer,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -120,7 +120,7 @@ mod mint {
         // then the token account is created with the correct balance
 
         let token_account = get_account(&mut context, &asset.token).await;
-        assert_eq!(token_account.owner, spl_token_program);
+        assert_eq!(token_account.owner, tpl_token_program);
 
         let token = unpack::<Account>(&token_account.data).unwrap().base;
         assert_eq!(token.amount, 1);
@@ -163,7 +163,7 @@ mod mint_token2022 {
                 1,
                 &payer,
                 &payer,
-                spl_token_2022_interface::ID,
+                tpl_token_2022_interface::ID,
             )
             .await
             .unwrap();
@@ -171,7 +171,7 @@ mod mint_token2022 {
         // then the token account is created with the correct balance
 
         let token_account = get_account(&mut context, &asset.token).await;
-        assert_eq!(token_account.owner, spl_token_2022_interface::ID);
+        assert_eq!(token_account.owner, tpl_token_2022_interface::ID);
 
         let token = unpack::<Account>(&token_account.data).unwrap().base;
         assert_eq!(token.amount, 1);
@@ -209,7 +209,7 @@ mod mint_token2022 {
                 1,
                 &payer,
                 &payer,
-                spl_token_2022_interface::ID,
+                tpl_token_2022_interface::ID,
             )
             .await
             .unwrap();
@@ -217,7 +217,7 @@ mod mint_token2022 {
         // then the token account is created with the correct balance
 
         let token_account = get_account(&mut context, &asset.token).await;
-        assert_eq!(token_account.owner, spl_token_2022_interface::ID);
+        assert_eq!(token_account.owner, tpl_token_2022_interface::ID);
 
         let token = unpack::<Account>(&token_account.data).unwrap().base;
         assert_eq!(token.amount, 1);
@@ -255,7 +255,7 @@ mod mint_token2022 {
                 1,
                 &payer,
                 &payer,
-                spl_token_2022_interface::ID,
+                tpl_token_2022_interface::ID,
             )
             .await
             .unwrap();
@@ -263,7 +263,7 @@ mod mint_token2022 {
         // then the token account is created with the correct balance
 
         let token_account = get_account(&mut context, &asset.token).await;
-        assert_eq!(token_account.owner, spl_token_2022_interface::ID);
+        assert_eq!(token_account.owner, tpl_token_2022_interface::ID);
 
         let token = unpack::<Account>(&token_account.data).unwrap().base;
         assert_eq!(token.amount, 1);
@@ -321,7 +321,7 @@ mod mint_token2022 {
                 1,
                 &payer,
                 &payer,
-                spl_token_2022_interface::ID,
+                tpl_token_2022_interface::ID,
             )
             .await
             .unwrap();
@@ -329,7 +329,7 @@ mod mint_token2022 {
         // then the token account is created with the correct balance
 
         let token_account = get_account(&mut context, &asset.token).await;
-        assert_eq!(token_account.owner, spl_token_2022_interface::ID);
+        assert_eq!(token_account.owner, tpl_token_2022_interface::ID);
 
         let token = unpack::<Account>(&token_account.data).unwrap().base;
         assert_eq!(token.amount, 1);

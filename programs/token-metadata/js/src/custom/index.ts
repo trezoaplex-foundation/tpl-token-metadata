@@ -1,4 +1,4 @@
-import * as beet from '@metaplex-foundation/beet';
+import * as beet from '@trezoaplex-foundation/beet';
 
 const NONE_BYTE_SIZE = beet.coptionNone('').byteSize;
 

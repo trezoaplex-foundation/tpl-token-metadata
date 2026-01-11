@@ -13,8 +13,8 @@ pub use master_edition_v2::MasterEditionV2;
 pub use metadata::{assert_collection_size, Metadata};
 pub use programmable::create_default_metaplex_rule_set;
 pub use rooster_manager::*;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     account::{Account, AccountSharedData, ReadableAccount},
     program_pack::Pack,
     pubkey::Pubkey,
@@ -23,7 +23,7 @@ use solana_sdk::{
     system_instruction,
     transaction::Transaction,
 };
-use spl_token::state::Mint;
+use tpl_token::state::Mint;
 pub use token_metadata::instruction;
 use token_metadata::state::{
     CollectionDetails, MAX_EDITION_LEN, MAX_MASTER_EDITION_LEN, MAX_METADATA_LEN,
@@ -38,7 +38,7 @@ pub const SOLANA_CREATE_FEE: u64 = 10_000_000;
 
 pub fn program_test() -> ProgramTest {
     let mut program_test = ProgramTest::new("token_metadata", token_metadata::ID, None);
-    program_test.add_program("spl_token_2022", spl_token_2022::ID, None);
+    program_test.add_program("tpl_token_2022", tpl_token_2022::ID, None);
     program_test
 }
 
@@ -93,7 +93,7 @@ pub async fn burn(
             mint,
             token,
             edition,
-            spl_token::ID,
+            tpl_token::ID,
             collection_metadata,
         )],
         Some(&owner.pubkey()),
@@ -131,7 +131,7 @@ pub async fn burn_edition(
             master_edition,
             print_edition,
             edition_marker,
-            spl_token::ID,
+            tpl_token::ID,
         )],
         Some(&owner.pubkey()),
         &[owner],
@@ -150,7 +150,7 @@ pub async fn mint_tokens(
     amount: u64,
     owner: &Pubkey,
     additional_signer: Option<&Keypair>,
-    spl_token_program: &Pubkey,
+    tpl_token_program: &Pubkey,
 ) -> Result<(), BanksClientError> {
     let mut signing_keypairs = vec![&context.payer];
     if let Some(signer) = additional_signer {
@@ -158,8 +158,8 @@ pub async fn mint_tokens(
     }
 
     let tx = Transaction::new_signed_with_payer(
-        &[spl_token_2022::instruction::mint_to(
-            spl_token_program,
+        &[tpl_token_2022::instruction::mint_to(
+            tpl_token_program,
             mint,
             account,
             owner,
@@ -180,7 +180,7 @@ pub async fn create_token_account(
     account: &Keypair,
     mint: &Pubkey,
     manager: &Pubkey,
-    spl_token_program: &Pubkey,
+    tpl_token_program: &Pubkey,
 ) -> Result<(), BanksClientError> {
     let rent = context.banks_client.get_rent().await.unwrap();
 
@@ -189,12 +189,12 @@ pub async fn create_token_account(
             system_instruction::create_account(
                 &context.payer.pubkey(),
                 &account.pubkey(),
-                rent.minimum_balance(spl_token_2022::state::Account::LEN),
-                spl_token_2022::state::Account::LEN as u64,
-                spl_token_program,
+                rent.minimum_balance(tpl_token_2022::state::Account::LEN),
+                tpl_token_2022::state::Account::LEN as u64,
+                tpl_token_program,
             ),
-            spl_token_2022::instruction::initialize_account(
-                spl_token_program,
+            tpl_token_2022::instruction::initialize_account(
+                tpl_token_program,
                 &account.pubkey(),
                 mint,
                 manager,
@@ -215,7 +215,7 @@ pub async fn create_mint(
     manager: &Pubkey,
     freeze_authority: Option<&Pubkey>,
     decimals: u8,
-    spl_token_program: &Pubkey,
+    tpl_token_program: &Pubkey,
 ) -> Result<(), BanksClientError> {
     let rent = context.banks_client.get_rent().await.unwrap();
 
@@ -224,12 +224,12 @@ pub async fn create_mint(
             system_instruction::create_account(
                 &context.payer.pubkey(),
                 &mint.pubkey(),
-                rent.minimum_balance(spl_token::state::Mint::LEN),
-                spl_token::state::Mint::LEN as u64,
-                spl_token_program,
+                rent.minimum_balance(tpl_token::state::Mint::LEN),
+                tpl_token::state::Mint::LEN as u64,
+                tpl_token_program,
             ),
-            spl_token_2022::instruction::initialize_mint(
-                spl_token_program,
+            tpl_token_2022::instruction::initialize_mint(
+                tpl_token_program,
                 &mint.pubkey(),
                 manager,
                 freeze_authority,
@@ -249,7 +249,7 @@ pub trait DirtyClone {
     fn dirty_clone(&self) -> Self;
 }
 
-impl DirtyClone for Keypair {
+itpl DirtyClone for Keypair {
     fn dirty_clone(&self) -> Self {
         Keypair::from_bytes(&self.to_bytes()).unwrap()
     }
@@ -271,7 +271,7 @@ pub trait Airdrop {
 }
 
 #[async_trait]
-impl Airdrop for Keypair {
+itpl Airdrop for Keypair {
     async fn airdrop(
         &self,
         context: &mut ProgramTestContext,
@@ -293,7 +293,7 @@ impl Airdrop for Keypair {
 }
 
 #[async_trait]
-impl Airdrop for Pubkey {
+itpl Airdrop for Pubkey {
     async fn airdrop(
         &self,
         context: &mut ProgramTestContext,

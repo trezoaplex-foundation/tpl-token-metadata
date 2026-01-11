@@ -1,4 +1,4 @@
-import { generateSigner, publicKey } from '@metaplex-foundation/umi';
+import { generateSigner, publicKey } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   MetadataDelegateRecord,

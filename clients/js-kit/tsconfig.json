@@ -9,7 +9,7 @@
     "outDir": "./dist",
     "rootDir": ".",
     "strict": false,
-    "noImplicitAny": false,
+    "noItplicitAny": false,
     "strictNullChecks": false,
     "strictFunctionTypes": false,
     "strictPropertyInitialization": false,

@@ -2,39 +2,39 @@
 
 ## Developer packages
 Token Metadata
-* :crab: Rust crate: [v1.11.1](https://crates.io/crates/mpl-token-metadata/1.11.1)
-* :package: NPM package: [v2.11.1](https://www.npmjs.com/package/@metaplex-foundation/mpl-token-metadata/v/2.11.1)
+* :crab: Rust crate: [v1.11.1](https://crates.io/crates/tpl-token-metadata/1.11.1)
+* :package: NPM package: [v2.11.1](https://www.npmjs.com/package/@trezoaplex-foundation/tpl-token-metadata/v/2.11.1)
 
 Token Authorization Rules
-* :crab: Rust crate: [v1.2.0](https://crates.io/crates/mpl-token-auth-rules/1.2.0)
-* :package: NPM package: [v1.2.0](https://www.npmjs.com/package/@metaplex-foundation/mpl-token-auth-rules/v/1.2.0)
+* :crab: Rust crate: [v1.2.0](https://crates.io/crates/tpl-token-auth-rules/1.2.0)
+* :package: NPM package: [v1.2.0](https://www.npmjs.com/package/@trezoaplex-foundation/tpl-token-auth-rules/v/1.2.0)
 
 ## 📄  Technical Summary
 
 In order to support assets that can have customizable behavior, a new asset class will be introduced into Token Metadata’s `Token Standard` struct. This new token standard will allow for flexible configuration of various lifecycle rules, which will be triggered at specific actions:
 
-* [x] [`Burn`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L508-L551)<span style="font-family:'Lucida Console', monospace; font-size: 6pt"> ([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/burn.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/burn.rs))</span>
-* [x] [`Create`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L553-L571) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/create.test.ts) | [Rust](hhttps://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/create.rs))</span>
-* [x] [`Delegate`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L597-L620) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/delegate.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/delegate.rs))</span>
-* [x] [`Lock`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L642-L660) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/lock.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/lock.rs))</span>
-* [x] [`Migrate`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L682-L6993)
-* [x] [`Print`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L798-L820) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/print.rs))</span>
-* [x] [`Mint`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L573-L595) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/mint.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/mint.rs))</span>
-* [x] [`Revoke`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L622-L640) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/revoke.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/revoke.rs))</span>
-* [x] [`Transfer`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L701-L723) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/transfer.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/transfer.rs))</span>
-* [x] [`Unlock`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L662-L680) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/unlock.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/unlock.rs))</span>
-* [x] [`Update`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L725-L741) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/update.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/update.rs))</span>
-* [x] [`Unverify`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L779-L791) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/verification.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/unverify.rs))</span>
-* [x] [`Use`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L743-L762) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/uses.rs))</span>
-* [x] [`Verify`](https://github.com/metaplex-foundation/mpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L764-L777) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/js/test/verification.test.ts) | [Rust](https://github.com/metaplex-foundation/mpl-token-metadata/blob/main/programs/token-metadata/program/tests/verify.rs))</span>
+* [x] [`Burn`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L508-L551)<span style="font-family:'Lucida Console', monospace; font-size: 6pt"> ([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/burn.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/burn.rs))</span>
+* [x] [`Create`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L553-L571) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/create.test.ts) | [Rust](hhttps://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/create.rs))</span>
+* [x] [`Delegate`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L597-L620) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/delegate.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/delegate.rs))</span>
+* [x] [`Lock`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L642-L660) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/lock.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/lock.rs))</span>
+* [x] [`Migrate`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L682-L6993)
+* [x] [`Print`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L798-L820) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/print.rs))</span>
+* [x] [`Mint`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L573-L595) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/mint.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/mint.rs))</span>
+* [x] [`Revoke`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L622-L640) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/revoke.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/revoke.rs))</span>
+* [x] [`Transfer`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L701-L723) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/transfer.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/transfer.rs))</span>
+* [x] [`Unlock`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L662-L680) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/unlock.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/unlock.rs))</span>
+* [x] [`Update`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L725-L741) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/update.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/update.rs))</span>
+* [x] [`Unverify`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L779-L791) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/verification.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/unverify.rs))</span>
+* [x] [`Use`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L743-L762) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/uses.rs))</span>
+* [x] [`Verify`](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/45826f100c82bc2333116fed53f9a820a5329293/programs/token-metadata/program/src/instruction/mod.rs#L764-L777) <span style="font-family:'Lucida Console', monospace; font-size: 6pt">([TypeScript](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/js/test/verification.test.ts) | [Rust](https://github.com/trezoaplex-foundation/tpl-token-metadata/blob/main/programs/token-metadata/program/tests/verify.rs))</span>
 
 These lifecycle rules will be configured by creators – e.g., creators may choose to include rules for transfer restrictions (e.g., for royalties enforcement) or only allow updates with an additional signer present in the transaction.
 
 Interaction with assets will be provided by Token Metadata:
 
-1. Transfer instructions (and other spl-token instructions) are now sent to Token Metadata instead.
-2. Token Metadata will expose new versioned instructions under a unified and simplified API. Spl-token proxy instructions are close to the existing instruction interface with the addition of a new required `authorization_rules` account argument. E.g., `CreateMetadataAccount` and `UpdateMetadata` are replaced with `Create` and `Update`.
-3. The `authorization_rules` account can be easily discovered on-chain using account derivation or via the Metaplex Read API, an RPC indexing extension run by many existing RPC providers.
+1. Transfer instructions (and other tpl-token instructions) are now sent to Token Metadata instead.
+2. Token Metadata will expose new versioned instructions under a unified and sitplified API. Tpl-token proxy instructions are close to the existing instruction interface with the addition of a new required `authorization_rules` account argument. E.g., `CreateMetadataAccount` and `UpdateMetadata` are replaced with `Create` and `Update`.
+3. The `authorization_rules` account can be easily discovered on-chain using account derivation or via the Trezoaplex Read API, an RPC indexing extension run by many existing RPC providers.
 
 ## 🚛  Extending the `TokenStandard`
 
@@ -46,7 +46,7 @@ pub enum TokenStandard {
     NonFungible,
     /// A token with metadata that can also have attributes.
     FungibleAsset,
-    /// A token with simple metadata.
+    /// A token with sitple metadata.
     Fungible,
     /// This is a limited edition.
     NonFungibleEdition,
@@ -204,7 +204,7 @@ In general, the accounts will be added to the transaction following a pre-define
 5. payer
 ...
 ```
-When you are minting from a semi-fungible token, there is no need to pass a `masterEdition` account (semi-fungibles do not have a master edition account associated). If we simply omit the `masterEdition` account, the relative position of the remaining accounts (the accounts after the master edition) would change, resulting in the program logic to be inconsistent. One way to address this is to set another `PublicKey` value to represent a "not-set-value" to maintain the position but at the same time indicate that the master edition account was not set. This is accomplished by setting the Token Metadata program key as the `PublicKey` for any account that should be omitted. This is an efficient approach since:
+When you are minting from a semi-fungible token, there is no need to pass a `masterEdition` account (semi-fungibles do not have a master edition account associated). If we sitply omit the `masterEdition` account, the relative position of the remaining accounts (the accounts after the master edition) would change, resulting in the program logic to be inconsistent. One way to address this is to set another `PublicKey` value to represent a "not-set-value" to maintain the position but at the same time indicate that the master edition account was not set. This is accotplished by setting the Token Metadata program key as the `PublicKey` for any account that should be omitted. This is an efficient approach since:
 1. The (Token Metadata) program id is already included in the transaction by default so adding another reference to it does not take the full 32 bytes of `PublicKey` – only a single byte is used in this case;
 2. The relative position of accounts is maintained since there is a public key value for the account;
 3. The program can easily determine if the account key represents a "valid" public key or a "not-set-value".
@@ -223,21 +223,21 @@ const mintAccounts: MintInstructionAccounts = {
 Under the hood, the Token Metadata's `PROGRAM_ID` is set as the master edition account `PublicKey`. This will inform the program that the `masterEdition` account was not set and still maintain the relative position of the remaining accounts. Token Metadata includes a Rust crate and an NPM package with instruction builders that support positional optional accounts – you only need to set the "required" accounts using these builders.
 
 > **Note**
-> This is a similar approach used by Anchor v0.26 to support positional optional accounts
+> This is a similar approach used by Trezoa v0.26 to support positional optional accounts
 
 ## 🧱  Instruction Builders (Rust)
 
 > **Warning**
-> The instruction builders examples below are a draft specification.
+> The instruction builders exatples below are a draft specification.
 
 Each instruction will include an instruction builder to facilitate its creation. Each instruction has an associated builder, which will validate that all required accounts are provided and set the default values for any of the optional accounts that are not set.
 
-### Example: `Create` instruction builder
+### Exatple: `Create` instruction builder
 
 Creates the metadata account for a `ProgrammableNonFungible` asset, initializing the mint account if needed.
 
 ```rust
-use mpl_token_metadata::instruction::builders::CreateBuilder;
+use tpl_token_metadata::instruction::builders::CreateBuilder;
 
 ...
 
@@ -289,7 +289,7 @@ There are two types of delegates on Token Metadata: `TokenDelegate` and `Metadat
 
 #### Token Delegate
 
-`TokenDelegate`s are delegates that operate at the token level – i.e., they are spl-token delegates. This allows the delegate to perform operations on the token account (burn, transfer, freeze). There can only be one token delegate at a time and they do not have an individual delegate account associated – their information is stored on the `TokenRecord` account. The token record holds information about a particular token account (PDA seeds `["metadata", program id, mint id, "token_record", token account id]`):
+`TokenDelegate`s are delegates that operate at the token level – i.e., they are tpl-token delegates. This allows the delegate to perform operations on the token account (burn, transfer, freeze). There can only be one token delegate at a time and they do not have an individual delegate account associated – their information is stored on the `TokenRecord` account. The token record holds information about a particular token account (PDA seeds `["metadata", program id, mint id, "token_record", token account id]`):
 ```rust
 pub struct TokenRecord {
     pub key: Key,
@@ -320,16 +320,16 @@ pub struct TokenRecord {
 
 `TokenDelegateRole` represents the different delegate types. There are six different values and instructions are restricted depending on the token delegate role and token state values:
 
-| **Delegate** | None | `Sale` | `Transfer` | `LockedTransfer` | `Utility` | `Staking` | `Migration` | `Standard` (SPL)  |
+| **Delegate** | None | `Sale` | `Transfer` | `LockedTransfer` | `Utility` | `Staking` | `Migration` | `Standard` (TPL)  |
 | --------------------- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 🔵 `NFT` or 🟣 `pNFT` | 🔵 🟣 | 🟣 | 🟣 | 🟣 | 🟣 | 🟣 | 🟣 (only once) | 🔵 |
 | **Token State**        | 🔓 `Unlocked` | 🏠 `Listed` | 🔓 `Unlocked` | 🔐 `Locked`<br/>🔓 `Unlocked` | 🔐 `Locked`<br/>🔓 `Unlocked` | 🔐 `Locked`<br/>🔓 `Unlocked` | 🔐 `Locked`<br/>🔓 `Unlocked`| *Analogous to:* ❄️ `Frozen`<br/>☀️ `Thawn` |
 | *Owner Transfer*     | ✅  | ❌ | ✅ → None | 🔓 if `Unlocked` → None | 🔓 if `Unlocked` → None |🔓 if Unlocked → None |🔓 if `Unlocked` → None|☀️ if `Thawn` → None|
 | *Delegate Transfer*  | N/A | ✅ → None | ✅ → None | ✅ to locked address → None | ❌ | ❌ | 🔓 if `Unlocked` → None |☀️ if `Thawn` → None|
 | *Owner Burn*         | ✅  | ❌ | ✅ | 🔓 if `Unlocked` | 🔓 if `Unlocked` | 🔓 if `Unlocked` | 🔓 if `Unlocked` | ☀️ if `Thawn` (full burn) |
-| *Delegate Burn*      | N/A | ❌ | ❌ | ❌ | 🔓 if `Unlocked` | ❌ | 🔓 if `Unlocked` | ☀️ if `Thawn` (only SPL token) |
+| *Delegate Burn*      | N/A | ❌ | ❌ | ❌ | 🔓 if `Unlocked` | ❌ | 🔓 if `Unlocked` | ☀️ if `Thawn` (only TPL token) |
 | *Owner Revoke*       | ❌  | ✅ → None | ✅ → None | 🔓 if `Unlocked` → None | 🔓 if `Unlocked` → None |🔓 if `Unlocked` → None|🔓 if `Unlocked` → None|☀️ if `Thawn`|
-| *Owner Approve*      | ✅ → `Sale`, `Transfer`, `LockedTransfer`, `Staking` or `Utility` | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ → `Standard` (SPL) |
+| *Owner Approve*      | ✅ → `Sale`, `Transfer`, `LockedTransfer`, `Staking` or `Utility` | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ → `Standard` (TPL) |
 | *Owner Unlock*       | ❌  | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | *Delegate Unlock*    | N/A | ❌ | ❌ | 🔐 if `Locked` | 🔐 if `Locked` | 🔐 if `Locked` | 🔐 if `Locked` | ☀️ if `Frozen` |
 | *Owner Lock*         | ❌  | ❌ | ❌ | ❌ |  ❌ | ❌ | ❌ | ❌ |
@@ -345,7 +345,7 @@ The `LockedTransfer` delegate type is a delegate that can lock and unlock a `pNF
 
 #### Metadata Delegates
 
-`MetadataDelegate`s are delegates that operate at the metadata level. These delegates are represented by `MetadataDelegateRecord` PDA (seeds `["metadata", program id, mint id, delegate role, update authority id, delegate id]`) and do not have an associated spl-token delegate. There can be multiple instances of the same delegate.
+`MetadataDelegate`s are delegates that operate at the metadata level. These delegates are represented by `MetadataDelegateRecord` PDA (seeds `["metadata", program id, mint id, delegate role, update authority id, delegate id]`) and do not have an associated tpl-token delegate. There can be multiple instances of the same delegate.
 ```rust
 pub struct MetadataDelegateRecord {
     pub key: Key,
@@ -360,7 +360,7 @@ Currently, we have three types of metadata delegates:
 
 - `Collection`: can set and verify NFTs to a collection.
 - `Update`: can perform updates on the metadata account.
-- `Use`: allows an Actor to "use" the asset and decrement the uses counter on-chain, which is how applications can implement specific limited or tracking behaviors.
+- `Use`: allows an Actor to "use" the asset and decrement the uses counter on-chain, which is how applications can itplement specific limited or tracking behaviors.
 
 | Delegate Type | `Collection` | `Use` | `Update` |
 | --------------------- | --- | --- | --- |
@@ -371,15 +371,15 @@ Currently, we have three types of metadata delegates:
 
 ### Handling Auth Rule Set Updates with Delegates
 
-**Problem:** When interacting with programs, `pNFT`s have a configurable rule set that indicates which programs are allowed to interact with the asset. Given that a rule set can be edited at any point, this can cause issues for programs when rules change after they have become a delegate. The end result of this is that a `pNFT` could end up “stuck” in a contract, since the auth rules may have changed and the program has not changed to accomplish the requirements to interact with the asset.
+**Problem:** When interacting with programs, `pNFT`s have a configurable rule set that indicates which programs are allowed to interact with the asset. Given that a rule set can be edited at any point, this can cause issues for programs when rules change after they have become a delegate. The end result of this is that a `pNFT` could end up “stuck” in a contract, since the auth rules may have changed and the program has not changed to accotplish the requirements to interact with the asset.
 
 **Solution:** Rule sets are stored with a revision number associated – i.e., each time an edit is performed, a new revision of the rule set is created. When a delegate is set on a `pNFT`, the rule set revision on the `pNFT` will be “locked” at the current (latest) revision and it will remain locked until the `pNFT` is transferred or the delegate is revoked. This will guarantee that the delegated program will be able to interact with the `pNFT` – the revision at the delegate point will be used to validate the actions. The “lock” on the rule set revision will also be released when a `Transfer` happens, since the delegate information gets cleared, and any further interaction will then use the latest revision of the rule set.
 
 ## 📦  JS SDK
 
-Token Metadata includes a low-level Solita-based SDK, which can be used to interact with the new API. The NPM package can be found [here](https://www.npmjs.com/package/@metaplex-foundation/mpl-token-metadata/v/2.7.0).
+Token Metadata includes a low-level Solita-based SDK, which can be used to interact with the new API. The NPM package can be found [here](https://www.npmjs.com/package/@trezoaplex-foundation/tpl-token-metadata/v/2.7.0).
 
-The latest release of the [Metaplex JS SDK v0.18.0](https://github.com/metaplex-foundation/js#programmable-nfts) adds support for Programmable NFTs.
+The latest release of the [Trezoaplex JS SDK v0.18.0](https://github.com/trezoaplex-foundation/js#programmable-nfts) adds support for Programmable NFTs.
 
 ## 🏛️  Token Authorization Rules
 
@@ -387,20 +387,20 @@ There is a separate Token Authorization Rules program that provides the ability 
 
 ### Overview
 
-Authorization rules are variants of a `Rule` enum that implements a `validate()` function.
+Authorization rules are variants of a `Rule` enum that itplements a `validate()` function.
 
 There are **Primitive Rules** and **Composed Rules** that are created by combining of one or more primitive rules:
 
 - **Primitive Rules:** store any accounts or data needed for evaluation, and at runtime will produce a `true` or `false` output based on accounts and a well-defined `Payload` that are passed into the `validate()` function.
-- **Composed Rules:** return a `true` or `false` based on whether any or all of the primitive rules return `true`.  Composed rules can then be combined into higher-level composed rules that implement more complex boolean logic.  Because of the recursive definition of the `Rule` enum, calling `validate()` on a top-level composed rule will start at the top and validate at every level, down to the component primitive rules.
+- **Composed Rules:** return a `true` or `false` based on whether any or all of the primitive rules return `true`.  Composed rules can then be combined into higher-level composed rules that itplement more cotplex boolean logic.  Because of the recursive definition of the `Rule` enum, calling `validate()` on a top-level composed rule will start at the top and validate at every level, down to the component primitive rules.
 
-More details of the Token Authorization Rules program, including examples, can be found [here](https://github.com/metaplex-foundation/mpl-token-auth-rules/blob/main/README.md).
+More details of the Token Authorization Rules program, including exatples, can be found [here](https://github.com/trezoaplex-foundation/tpl-token-auth-rules/blob/main/README.md).
 
 ### Token Metadata Operations subject to Authorization Rules
 
-Several operations involving `pNFT` on Token Metadata are subject to Token Authorization Rules – depending on the rule configured, the operation will be authorized or not. The creator (`update authority`) of an asset has the flexibility to manage these rules through the [`ProgrammableConfig`](https://github.com/metaplex-foundation/metaplex-program-library/blob/ad5f39c465676299951c91f8cf9216812b884531/token-metadata/program/src/state/metadata.rs#L364-L380) on a Metadata account.
+Several operations involving `pNFT` on Token Metadata are subject to Token Authorization Rules – depending on the rule configured, the operation will be authorized or not. The creator (`update authority`) of an asset has the flexibility to manage these rules through the [`ProgrammableConfig`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/ad5f39c465676299951c91f8cf9216812b884531/token-metadata/program/src/state/metadata.rs#L364-L380) on a Metadata account.
 
-The definition of an operation follows a pattern `Operation:Scenario`, where `Operation` is the top-level action being performed and `Scenario` is a sub-categorization of the operation type. For example, in the case of `Transfer:Owner`, the top-level action is a `Transfer` being performed by the `Owner`.
+The definition of an operation follows a pattern `Operation:Scenario`, where `Operation` is the top-level action being performed and `Scenario` is a sub-categorization of the operation type. For exatple, in the case of `Transfer:Owner`, the top-level action is a `Transfer` being performed by the `Owner`.
 
 The list of operations used in Token Metadata are:
 
@@ -422,9 +422,9 @@ The list of operations used in Token Metadata are:
 
 The repository contains both Rust BPF and JavaScript/TypeScript. In order to setup the environment to run the tests, you will need to first clone the required repositories:
 
-* Token Metadata: `https://github.com/metaplex-foundation/metaplex-program-library.git` branch `master`
-* Token Authorization Rules: `https://github.com/metaplex-foundation/mpl-token-auth-rules.git`
-* Rooster (for BPF tests): `https://github.com/metaplex-foundation/rooster`
+* Token Metadata: `https://github.com/trezoaplex-foundation/trezoaplex-program-library.git` branch `master`
+* Token Authorization Rules: `https://github.com/trezoaplex-foundation/tpl-token-auth-rules.git`
+* Rooster (for BPF tests): `https://github.com/trezoaplex-foundation/rooster`
 
 This guide will assume that these repositories were cloned into a folder `$PROJECTS`.
 
@@ -432,56 +432,56 @@ This guide will assume that these repositories were cloned into a folder `$PROJE
 
 To get Rust BPF tests working, you will first need to build both Token Auth Rules and Rooster programs:
 
-* In the folder `$PROJECTS/mpl-token-auth-rules/program` execute:
+* In the folder `$PROJECTS/tpl-token-auth-rules/program` execute:
   ```
   cargo build-bpf
   ```
-  Then, copy the generated `.so` file from `$PROJECTS/mpl-token-auth-rules/program/target/deploy` into `$PROJECTS/metaplex-program-library/token-metadata/target/deploy/`
+  Then, copy the generated `.so` file from `$PROJECTS/tpl-token-auth-rules/program/target/deploy` into `$PROJECTS/trezoaplex-program-library/token-metadata/target/deploy/`
   
 * In the folder `$PROJECTS/rooster/program` execute:
   ```
   cargo build-bpf
   ```
-  Then, copy the generated `.so` file from `$PROJECTS/rooster/program/target/deploy` into `$PROJECTS/metaplex-program-library/token-metadata/target/deploy/`
+  Then, copy the generated `.so` file from `$PROJECTS/rooster/program/target/deploy` into `$PROJECTS/trezoaplex-program-library/token-metadata/target/deploy/`
 
 > **Note:**
-> The folder `$PROJECTS/metaplex-program-library/token-metadata/target/deploy/` might not exist. In this case, you will first need to build the token metadata program.
+> The folder `$PROJECTS/trezoaplex-program-library/token-metadata/target/deploy/` might not exist. In this case, you will first need to build the token metadata program.
 
-After building the programs, the BPF tests can be run from the folder `$PROJECTS/rooster/program/target/deploy` into `$PROJECTS/metaplex-program-library/token-metadata/program` by executing:
+After building the programs, the BPF tests can be run from the folder `$PROJECTS/rooster/program/target/deploy` into `$PROJECTS/trezoaplex-program-library/token-metadata/program` by executing:
 ```
 cargo test-bpf
 ```
 
 ### JavaScript/TypeScript tests
 
-The JavaScript/TypeScript use [Amman](https://github.com/metaplex-foundation/amman) to start a local validator. The first step required is to build the required programs:
+The JavaScript/TypeScript use [Amman](https://github.com/trezoaplex-foundation/amman) to start a local validator. The first step required is to build the required programs:
 
-* In the folder `$PROJECTS/mpl-token-auth-rules/program` execute:
+* In the folder `$PROJECTS/tpl-token-auth-rules/program` execute:
   ```
   cargo build-bpf
   ```
-  Then, copy the generated `.so` file from `$PROJECTS/mpl-token-auth-rules/program/target/deploy` into `$PROJECTS/metaplex-program-library/test-programs/`
+  Then, copy the generated `.so` file from `$PROJECTS/tpl-token-auth-rules/program/target/deploy` into `$PROJECTS/trezoaplex-program-library/test-programs/`
   
-* In the folder `$PROJECTS/metaplex-program-library/` execute:
+* In the folder `$PROJECTS/trezoaplex-program-library/` execute:
   ```
   ./build.sh token-metadata
   ```
-  This will compile Token Metadata and copy the `.so` file into `$PROJECTS/metaplex-program-library/test-programs/`.
+  This will compile Token Metadata and copy the `.so` file into `$PROJECTS/trezoaplex-program-library/test-programs/`.
   
-Then, you will need to navigate to the folder `$PROJECTS/metaplex-program-library/token-metadata/js/` and install the required dependencies:
+Then, you will need to navigate to the folder `$PROJECTS/trezoaplex-program-library/token-metadata/js/` and install the required dependencies:
 ```
 yarn install
 ```
-After all dependencies are installed, open a new terminal and start the Amman process. In the folder `$PROJECTS/metaplex-program-library/token-metadata/js/` execute:
+After all dependencies are installed, open a new terminal and start the Amman process. In the folder `$PROJECTS/trezoaplex-program-library/token-metadata/js/` execute:
 ```
 yarn amman:start
 ```
 The output will be similar to:
 ```
 $ amman start
-Loading config from /Users/febo/Projects/metaplex-program-library/token-metadata/js/.ammanrc.js
+Loading config from /Users/febo/Projects/trezoaplex-program-library/token-metadata/js/.ammanrc.js
 Running validator with 2 custom program(s) and 0 remote account(s) preloaded
-Launching new solana-test-validator with programs predeployed and ledger at /var/folders/xr/5y4m3g8s49qgwr1r88ctz00m0000gn/T/amman-ledger
+Launching new trezoa-test-validator with programs predeployed and ledger at /var/folders/xr/5y4m3g8s49qgwr1r88ctz00m0000gn/T/amman-ledger
 Successfully launched Relay at :::50474
 ws error: connect ECONNREFUSED 127.0.0.1:8900
 Successfully launched MockStorageServer at :::50475
@@ -489,7 +489,7 @@ ws error: connect ECONNREFUSED 127.0.0.1:8900
 up and running
 Waiting for fees to stabilize 1...
 ```
-In your second terminal, navigate to the folder `$PROJECTS/metaplex-program-library/token-metadata/js/` and execute:
+In your second terminal, navigate to the folder `$PROJECTS/trezoaplex-program-library/token-metadata/js/` and execute:
 ```
 yarn build && yarn test
 ```

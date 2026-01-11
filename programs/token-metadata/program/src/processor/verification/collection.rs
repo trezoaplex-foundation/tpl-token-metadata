@@ -1,5 +1,5 @@
-use mpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
-use solana_program::{entrypoint::ProgramResult, pubkey::Pubkey};
+use tpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
+use trezoa_program::{entrypoint::ProgramResult, pubkey::Pubkey};
 
 use crate::{
     assertions::{

@@ -1,11 +1,11 @@
 /**
  * MintV1 tests for js-kit client
  *
- * These tests connect to a local Solana validator and demonstrate:
- * - RPC connection using @solana/rpc
- * - Keypair generation using @solana/keys
+ * These tests connect to a local Trezoa validator and demonstrate:
+ * - RPC connection using @trezoa/rpc
+ * - Keypair generation using @trezoa/keys
  * - Airdrop functionality
- * - Instruction generation from Codama client
+ * - Instruction generation from Codoma client
  *
  * To run against validator:
  * 1. Build program: pnpm programs:build (from repo root)
@@ -14,8 +14,8 @@
  */
 
 import test from 'ava';
-import { generateKeyPairSigner } from '@solana/signers';
-import { fetchMint, fetchToken } from '@solana-program/token';
+import { generateKeyPairSigner } from '@trezoa/signers';
+import { fetchMint, fetchToken } from '@trezoa-program/token';
 import { TokenStandard } from '../src/generated/types';
 import {
   getCreateV1InstructionAsync,
@@ -57,7 +57,7 @@ test('it can mint multiple tokens after a Fungible is created', async (t) => {
   const authority = await generateKeyPairSigner();
   const payer = authority;
 
-  // Airdrop SOL to payer for transaction fees
+  // Airdrop TRZ to payer for transaction fees
   await airdrop(rpc, authority.address);
 
   // Create the fungible token
@@ -66,7 +66,7 @@ test('it can mint multiple tokens after a Fungible is created', async (t) => {
     authority,
     payer,
     name: 'My Fungible Token',
-    uri: 'https://example.com/my-fungible.json',
+    uri: 'https://exatple.com/my-fungible.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -119,7 +119,7 @@ test('it can mint only one token after a NonFungible is created', async (t) => {
   const authority = await generateKeyPairSigner();
   const payer = authority;
 
-  // Airdrop SOL to payer for transaction fees
+  // Airdrop TRZ to payer for transaction fees
   await airdrop(rpc, authority.address);
 
   // Create NonFungible (default token standard)
@@ -128,7 +128,7 @@ test('it can mint only one token after a NonFungible is created', async (t) => {
     authority,
     payer,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     // tokenStandard defaults to NonFungible
   });
@@ -207,7 +207,7 @@ test('it can mint only one token after a ProgrammableNonFungible is created', as
   const authority = await generateKeyPairSigner();
   const payer = authority;
 
-  // Airdrop SOL to payer for transaction fees
+  // Airdrop TRZ to payer for transaction fees
   await airdrop(rpc, authority.address);
 
   const createInstruction = await getCreateV1InstructionAsync({
@@ -215,7 +215,7 @@ test('it can mint only one token after a ProgrammableNonFungible is created', as
     authority,
     payer,
     name: 'My PNFT',
-    uri: 'https://example.com/my-pnft.json',
+    uri: 'https://exatple.com/my-pnft.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -294,7 +294,7 @@ test('it can mint multiple tokens after a FungibleAsset is created', async (t) =
   const authority = await generateKeyPairSigner();
   const payer = authority;
 
-  // Airdrop SOL to payer for transaction fees
+  // Airdrop TRZ to payer for transaction fees
   await airdrop(rpc, authority.address);
 
   const createInstruction = await getCreateV1InstructionAsync({
@@ -302,7 +302,7 @@ test('it can mint multiple tokens after a FungibleAsset is created', async (t) =
     authority,
     payer,
     name: 'My Fungible Asset',
-    uri: 'https://example.com/my-asset.json',
+    uri: 'https://exatple.com/my-asset.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.FungibleAsset,
   });
@@ -354,7 +354,7 @@ test('it can mint a new ProgrammableNonFungible with Token-2022', async (t) => {
   const authority = await generateKeyPairSigner();
   const payer = authority;
 
-  // Airdrop SOL to payer for transaction fees
+  // Airdrop TRZ to payer for transaction fees
   await airdrop(rpc, authority.address);
 
   // Create a ProgrammableNonFungible with Token-2022
@@ -363,7 +363,7 @@ test('it can mint a new ProgrammableNonFungible with Token-2022', async (t) => {
     authority,
     payer,
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     splTokenProgram: SPL_TOKEN_2022_PROGRAM_ADDRESS,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
@@ -377,7 +377,7 @@ test('it can mint a new ProgrammableNonFungible with Token-2022', async (t) => {
     authority,
   ]);
 
-  // Derive the associated token account from SPL Token 2022
+  // Derive the associated token account from TPL Token 2022
   const [tokenAddress] = await findAssociatedTokenPda({
     mint: mint.address,
     owner: authority.address,
@@ -411,7 +411,7 @@ test('it can mint a new ProgrammableNonFungible with Token-2022', async (t) => {
   const tokenAccount = await fetchToken(rpc, tokenAddress);
   t.is(tokenAccount.data.amount, 1n, 'Token account should have 1 token');
 
-  // Verify the mint account is owned by SPL Token-2022 Program
+  // Verify the mint account is owned by TPL Token-2022 Program
   const accountInfo = await rpc.getAccountInfo(mint.address, { encoding: 'base64' }).send();
   t.truthy(accountInfo.value, 'Mint account should exist');
   if (accountInfo.value) {

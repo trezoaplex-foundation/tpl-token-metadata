@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Key, keyBeet } from '../types/Key';
 
 /**
@@ -26,7 +26,7 @@ export type EditionMarkerV2Args = {
  * @category Accounts
  * @category generated
  */
-export class EditionMarkerV2 implements EditionMarkerV2Args {
+export class EditionMarkerV2 itplements EditionMarkerV2Args {
   private constructor(readonly key: Key, readonly ledger: Uint8Array) {}
 
   /**
@@ -74,7 +74,7 @@ export class EditionMarkerV2 implements EditionMarkerV2Args {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, editionMarkerV2Beet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, editionMarkerV2Beet);
   }
 
   /**

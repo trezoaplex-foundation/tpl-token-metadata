@@ -4,12 +4,12 @@ import {
   fetchMint,
   fetchToken,
   findAssociatedTokenPda,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   percentAmount,
   publicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { TokenStandard, createV1, mintV1 } from '../src';
 import { SPL_TOKEN_2022_PROGRAM_ID, createUmi } from './_setup';
@@ -21,7 +21,7 @@ test('it can mint only one token after a NonFungible is created', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -62,7 +62,7 @@ test('it can mint only one token after a ProgrammableNonFungible is created', as
   await createV1(umi, {
     mint,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   }).sendAndConfirm(umi);
@@ -104,7 +104,7 @@ test('it can mint multiple tokens after a Fungible is created', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     tokenStandard: TokenStandard.Fungible,
   }).sendAndConfirm(umi);
@@ -135,7 +135,7 @@ test('it can mint multiple tokens after a FungibleAsset is created', async (t) =
   await createV1(umi, {
     mint,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     tokenStandard: TokenStandard.FungibleAsset,
   }).sendAndConfirm(umi);
@@ -168,13 +168,13 @@ test('it can mint a new ProgrammableNonFungible with Token-2022', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     splTokenProgram: SPL_TOKEN_2022_PROGRAM_ID,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   }).sendAndConfirm(umi);
 
-  // And we derive the associated token account from SPL Token 2022.
+  // And we derive the associated token account from TPL Token 2022.
   const token = findAssociatedTokenPda(umi, {
     mint: mint.publicKey,
     owner: umi.identity.publicKey,
@@ -197,7 +197,7 @@ test('it can mint a new ProgrammableNonFungible with Token-2022', async (t) => {
   const tokenAccount = await fetchToken(umi, token);
   t.like(tokenAccount, <Token>{ publicKey: publicKey(token), amount: 1n });
 
-  // And the SPL Token-2022 Program is the owner of the mint account.
+  // And the TPL Token-2022 Program is the owner of the mint account.
   const account = await umi.rpc.getAccount(mint.publicKey);
   t.true(account.exists);
 

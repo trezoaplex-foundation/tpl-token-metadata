@@ -1,15 +1,15 @@
-use mpl_token_metadata::{
+use tpl_token_metadata::{
     accounts::{MasterEdition, Metadata, TokenRecord},
     instructions::{CreateV1Builder, MintV1Builder},
     types::{PrintSupply, TokenStandard},
 };
-use solana_program::pubkey::Pubkey;
-use solana_program_test::{BanksClientError, ProgramTestContext};
-use solana_sdk::{
+use trezoa_program::pubkey::Pubkey;
+use trezoa_program_test::{BanksClientError, ProgramTestContext};
+use trezoa_sdk::{
     signature::{Keypair, Signer},
     transaction::Transaction,
 };
-use spl_token_2022_interface::extension::ExtensionType;
+use tpl_token_2022_interface::extension::ExtensionType;
 
 use crate::setup::TokenManager;
 
@@ -20,7 +20,7 @@ pub struct DigitalAsset {
     pub token: Pubkey,
 }
 
-impl Default for DigitalAsset {
+itpl Default for DigitalAsset {
     fn default() -> Self {
         Self {
             mint: Keypair::new(),
@@ -31,7 +31,7 @@ impl Default for DigitalAsset {
     }
 }
 
-impl DigitalAsset {
+itpl DigitalAsset {
     #[allow(clippy::too_many_arguments)]
     pub async fn create(
         &mut self,
@@ -41,7 +41,7 @@ impl DigitalAsset {
         token_standard: TokenStandard,
         update_authority: &Keypair,
         payer: &Keypair,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         self.metadata = Metadata::find_pda(&self.mint.pubkey()).0;
         self.master_edition = MasterEdition::find_pda(&self.mint.pubkey()).0;
@@ -60,7 +60,7 @@ impl DigitalAsset {
             .name(name)
             .uri(uri)
             .token_standard(token_standard)
-            .spl_token_program(Some(spl_token_program))
+            .tpl_token_program(Some(tpl_token_program))
             .instruction();
 
         let tx = Transaction::new_signed_with_payer(
@@ -79,13 +79,13 @@ impl DigitalAsset {
         amount: u64,
         update_authority: &Keypair,
         payer: &Keypair,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         if self.token == Pubkey::default() {
             self.token = spl_associated_token_account::get_associated_token_address_with_program_id(
                 token_owner,
                 &self.mint.pubkey(),
-                &spl_token_program,
+                &tpl_token_program,
             );
         }
         let token_record = TokenRecord::find_pda(&self.mint.pubkey(), &self.token).0;
@@ -100,7 +100,7 @@ impl DigitalAsset {
             .authority(update_authority.pubkey())
             .payer(payer.pubkey())
             .amount(amount)
-            .spl_token_program(spl_token_program)
+            .tpl_token_program(tpl_token_program)
             .instruction();
 
         let tx = Transaction::new_signed_with_payer(
@@ -121,7 +121,7 @@ impl DigitalAsset {
         token_owner: &Pubkey,
         amount: u64,
         payer: &Keypair,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         self.create(
             context,
@@ -130,7 +130,7 @@ impl DigitalAsset {
             token_standard,
             update_authority,
             payer,
-            spl_token_program,
+            tpl_token_program,
         )
         .await?;
 
@@ -140,7 +140,7 @@ impl DigitalAsset {
             amount,
             update_authority,
             payer,
-            spl_token_program,
+            tpl_token_program,
         )
         .await?;
 
@@ -151,7 +151,7 @@ impl DigitalAsset {
         &mut self,
         context: &mut ProgramTestContext,
         token_standard: TokenStandard,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let mint_pubkey = self.mint.pubkey();
         let payer_pubkey = context.payer.pubkey();
@@ -173,7 +173,7 @@ impl DigitalAsset {
             .seller_fee_basis_points(500)
             .token_standard(token_standard)
             .print_supply(PrintSupply::Zero)
-            .spl_token_program(Some(spl_token_program))
+            .tpl_token_program(Some(tpl_token_program))
             .instruction();
 
         let tx = Transaction::new_signed_with_payer(
@@ -225,7 +225,7 @@ impl DigitalAsset {
             .seller_fee_basis_points(500)
             .token_standard(token_standard)
             .print_supply(PrintSupply::Zero)
-            .spl_token_program(Some(spl_token_2022_interface::ID))
+            .tpl_token_program(Some(tpl_token_2022_interface::ID))
             .instruction();
 
         let tx = Transaction::new_signed_with_payer(

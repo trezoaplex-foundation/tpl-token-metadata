@@ -17,14 +17,14 @@ import {
   none,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   mapSerializer,
   option,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { findMetadataDelegateRecordPda, findMetadataPda } from '../accounts';
 import {
   PickPartial,
@@ -135,7 +135,7 @@ export function updateAsCollectionItemDelegateV2(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
 
@@ -241,7 +241,7 @@ export function updateAsCollectionItemDelegateV2(
     if (resolvedAccounts.authorizationRules.value) {
       resolvedAccounts.authorizationRulesProgram.value =
         context.programs.getPublicKey(
-          'mplTokenAuthRules',
+          'tplTokenAuthRules',
           'auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg'
         );
       resolvedAccounts.authorizationRulesProgram.isWritable = false;

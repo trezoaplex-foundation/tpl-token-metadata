@@ -13,7 +13,7 @@ import {
   dataEnum,
   struct,
   u64,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 export type PrintArgs =
   | { __kind: 'V1'; edition: bigint }

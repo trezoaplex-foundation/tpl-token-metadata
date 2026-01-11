@@ -1,5 +1,5 @@
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { keyBeet } from '../generated/types/Key';
 import { TokenRecord } from '../generated/accounts/TokenRecord';
 import { tokenDelegateRoleBeet, tokenStateBeet } from '../generated';
@@ -32,7 +32,7 @@ export function deserialize(buf: Buffer, offset = 0): [TokenRecord, number] {
   cursor += ruleSetRevisionDelta;
 
   // delegate
-  const [delegate, delegateDelta] = tryReadOption(beet.coption(beetSolana.publicKey), buf, cursor);
+  const [delegate, delegateDelta] = tryReadOption(beet.coption(beetTrezoa.publicKey), buf, cursor);
   cursor += delegateDelta;
 
   // delegateRole
@@ -45,7 +45,7 @@ export function deserialize(buf: Buffer, offset = 0): [TokenRecord, number] {
 
   // lockedTransfer (could be missing)
   const [lockedTransfer, lockedTransferDelta, lockedTransferCorrupted] = tryReadOption(
-    beet.coption(beetSolana.publicKey),
+    beet.coption(beetTrezoa.publicKey),
     buf,
     cursor,
   );

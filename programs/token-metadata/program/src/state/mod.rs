@@ -32,13 +32,13 @@ pub use fee::*;
 pub use master_edition::*;
 pub use metadata::*;
 pub use migrate::*;
-use mpl_utils::resize_or_reallocate_account_raw;
+use tpl_utils::resize_or_reallocate_account_raw;
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 pub use programmable::*;
 pub use reservation::*;
 use shank::ShankAccount;
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program_error::ProgramError, pubkey,
     pubkey::Pubkey,
 };
@@ -63,13 +63,13 @@ pub const DISCRIMINATOR_INDEX: usize = 0;
 pub enum TokenStandard {
     NonFungible,                    // This is a master edition
     FungibleAsset,                  // A token with metadata that can also have attributes
-    Fungible,                       // A token with simple metadata
+    Fungible,                       // A token with sitple metadata
     NonFungibleEdition,             // This is a limited edition
     ProgrammableNonFungible,        // NonFungible with programmable configuration
     ProgrammableNonFungibleEdition, // NonFungible with programmable configuration
 }
 
-impl From<u8> for TokenStandard {
+itpl From<u8> for TokenStandard {
     fn from(value: u8) -> Self {
         match value {
             0 => TokenStandard::NonFungible,
@@ -179,10 +179,10 @@ where
 
 /// Trait for resizable accounts.
 ///
-/// Implementing this trait for a type will automatically allow the use of the `save` method,
+/// Itplementing this trait for a type will automatically allow the use of the `save` method,
 /// which can modify the size of an account.
 ///
-/// A type implementing this trait must specify the `from_bytes` method, since an account can
+/// A type itplementing this trait must specify the `from_bytes` method, since an account can
 /// have variable size.
 pub trait Resizable: TokenMetadataAccount + BorshSerialize {
     /// Saves the information to the specified account, resizing the account if needed.

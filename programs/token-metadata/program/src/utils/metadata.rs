@@ -1,9 +1,9 @@
 use borsh::{maybestd::io::Error as BorshError, BorshDeserialize, BorshSerialize};
-use mpl_utils::{
+use tpl_utils::{
     create_or_allocate_account_raw,
     token::{get_mint_authority, SPL_TOKEN_PROGRAM_IDS},
 };
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program_option::COption, pubkey::Pubkey,
 };
 
@@ -25,8 +25,8 @@ use crate::{
 // AqH29mZfQFgRpfwaPoTMWSKJ5kqauoc1FwVBRksZyQrt
 //
 // IMPORTANT NOTE
-// This allows the upgrade authority of the Token Metadata program to create metadata for SPL tokens.
-// This only allows the upgrade authority to do create general metadata for the SPL token, it does not
+// This allows the upgrade authority of the Token Metadata program to create metadata for TPL tokens.
+// This only allows the upgrade authority to do create general metadata for the TPL token, it does not
 // allow the upgrade authority to add or change creators.
 pub const SEED_AUTHORITY: Pubkey = Pubkey::new_from_array([
     0x92, 0x17, 0x2c, 0xc4, 0x72, 0x5d, 0xc0, 0x41, 0xf9, 0xdd, 0x8c, 0x51, 0x52, 0x60, 0x04, 0x26,
@@ -73,7 +73,7 @@ pub fn process_create_metadata_accounts_logic(
     let existing_mint_authority = get_mint_authority(mint_info)?;
 
     // IMPORTANT NOTE:
-    // This allows the Metaplex Foundation to Create but not update metadata for SPL tokens that
+    // This allows the Trezoaplex Foundation to Create but not update metadata for TPL tokens that
     // have not populated their metadata.
     assert_mint_authority_matches_mint(&existing_mint_authority, mint_authority_info).or_else(
         |e| {
@@ -203,12 +203,12 @@ pub fn process_create_metadata_accounts_logic(
 }
 
 // Custom deserialization function to handle NFTs with corrupted data.
-// This function is used in a custom deserialization implementation for the
+// This function is used in a custom deserialization itplementation for the
 // `Metadata` struct, so should never have `msg` macros used in it as it may be used client side
 // either in tests or client code.
 //
 // It does not check `Key` type or account length and should only be used through the custom functions
-// `from_account_info` and `deserialize` implemented on the Metadata struct.
+// `from_account_info` and `deserialize` itplemented on the Metadata struct.
 pub fn meta_deser_unchecked(buf: &mut &[u8]) -> Result<Metadata, BorshError> {
     // Metadata corruption shouldn't appear until after edition_nonce.
     let key: Key = BorshDeserialize::deserialize(buf)?;
@@ -325,13 +325,13 @@ pub fn clean_write_resize_metadata<'a>(
 
 #[cfg(test)]
 pub mod tests {
-    use solana_program::pubkey;
+    use trezoa_program::pubkey;
 
     use super::*;
     pub use crate::{state::Creator, utils::puff_out_data_fields};
 
     // Pesky Penguins #8060 (NOOT!)
-    // Corrupted data that can't be deserialized with the standard BoshDeserialization implementation.
+    // Corrupted data that can't be deserialized with the standard BoshDeserialization itplementation.
     pub fn pesky_data() -> &'static [u8] {
         &[
             4, 12, 25, 250, 103, 242, 3, 129, 143, 173, 110, 204, 157, 11, 1, 247, 211, 138, 199,

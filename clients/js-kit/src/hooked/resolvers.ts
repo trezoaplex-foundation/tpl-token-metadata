@@ -1,10 +1,10 @@
 /**
- * Resolver functions for Codama-generated instructions
+ * Resolver functions for Codoma-generated instructions
  * These are called by the generated instruction builders to compute default values
  */
 
-import type { Address } from '@solana/addresses';
-import type { OptionOrNullable } from '@solana/kit';
+import type { Address } from '@trezoa/addresses';
+import type { OptionOrNullable } from '@trezoa/kit';
 import type { TokenStandard } from '../generated/types/tokenStandard';
 import type { CollectionDetailsArgs } from '../generated/types/collectionDetails';
 import type { PrintSupplyArgs } from '../generated/types/printSupply';

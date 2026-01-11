@@ -1,12 +1,12 @@
-use mpl_utils::{assert_derivation_with_bump, assert_signer, cmp_pubkeys};
-use solana_program::{
+use tpl_utils::{assert_derivation_with_bump, assert_signer, cmp_pubkeys};
+use trezoa_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     program::{invoke, invoke_signed},
     program_option::COption,
     pubkey::Pubkey,
 };
-use spl_token_2022::state::{Account, Mint as MintAccount};
+use tpl_token_2022::state::{Account, Mint as MintAccount};
 
 use crate::{
     assertions::{
@@ -68,10 +68,10 @@ pub fn mint_v1(program_id: &Pubkey, ctx: Context<Mint>, args: MintArgs) -> Progr
         return Err(MetadataError::MintMismatch.into());
     }
 
-    assert_token_program_matches_package(ctx.accounts.spl_token_program_info)?;
+    assert_token_program_matches_package(ctx.accounts.tpl_token_program_info)?;
     assert_owned_by(
         ctx.accounts.mint_info,
-        ctx.accounts.spl_token_program_info.key,
+        ctx.accounts.tpl_token_program_info.key,
     )?;
     let mint = unpack_initialized::<MintAccount>(&ctx.accounts.mint_info.data.borrow())?;
 
@@ -126,7 +126,7 @@ pub fn mint_v1(program_id: &Pubkey, ctx: Context<Mint>, args: MintArgs) -> Progr
                 ctx.accounts.payer_info.key,
                 token_owner_info.key,
                 ctx.accounts.mint_info.key,
-                ctx.accounts.spl_token_program_info.key,
+                ctx.accounts.tpl_token_program_info.key,
             ),
             &[
                 ctx.accounts.payer_info.clone(),
@@ -140,7 +140,7 @@ pub fn mint_v1(program_id: &Pubkey, ctx: Context<Mint>, args: MintArgs) -> Progr
             ctx.accounts.mint_info,
             ctx.accounts.token_info,
             ctx.accounts.token_owner_info,
-            ctx.accounts.spl_token_program_info,
+            ctx.accounts.tpl_token_program_info,
             metadata.token_standard,
             None, // we already checked the supply of the mint account
         )?;
@@ -236,14 +236,14 @@ pub fn mint_v1(program_id: &Pubkey, ctx: Context<Mint>, args: MintArgs) -> Progr
                     ctx.accounts.mint_info.clone(),
                     ctx.accounts.token_info.clone(),
                     master_edition_info.clone(),
-                    ctx.accounts.spl_token_program_info.clone(),
+                    ctx.accounts.tpl_token_program_info.clone(),
                     metadata.edition_nonce,
                 )?;
             }
 
             invoke_signed(
-                &spl_token_2022::instruction::mint_to(
-                    ctx.accounts.spl_token_program_info.key,
+                &tpl_token_2022::instruction::mint_to(
+                    ctx.accounts.tpl_token_program_info.key,
                     ctx.accounts.mint_info.key,
                     ctx.accounts.token_info.key,
                     master_edition_info.key,
@@ -267,15 +267,15 @@ pub fn mint_v1(program_id: &Pubkey, ctx: Context<Mint>, args: MintArgs) -> Progr
                     ctx.accounts.mint_info.clone(),
                     ctx.accounts.token_info.clone(),
                     master_edition_info.clone(),
-                    ctx.accounts.spl_token_program_info.clone(),
+                    ctx.accounts.tpl_token_program_info.clone(),
                     metadata.edition_nonce,
                 )?;
             }
         }
         _ => {
             invoke(
-                &spl_token_2022::instruction::mint_to(
-                    ctx.accounts.spl_token_program_info.key,
+                &tpl_token_2022::instruction::mint_to(
+                    ctx.accounts.tpl_token_program_info.key,
                     ctx.accounts.mint_info.key,
                     ctx.accounts.token_info.key,
                     ctx.accounts.authority_info.key,

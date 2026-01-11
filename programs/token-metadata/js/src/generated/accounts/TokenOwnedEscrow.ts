@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
+import * as beet from '@trezoaplex-foundation/beet';
 import { Key, keyBeet } from '../types/Key';
 import { EscrowAuthority, escrowAuthorityBeet } from '../types/EscrowAuthority';
 
@@ -29,7 +29,7 @@ export type TokenOwnedEscrowArgs = {
  * @category Accounts
  * @category generated
  */
-export class TokenOwnedEscrow implements TokenOwnedEscrowArgs {
+export class TokenOwnedEscrow itplements TokenOwnedEscrowArgs {
   private constructor(
     readonly key: Key,
     readonly baseToken: web3.PublicKey,
@@ -82,7 +82,7 @@ export class TokenOwnedEscrow implements TokenOwnedEscrowArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, tokenOwnedEscrowBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, tokenOwnedEscrowBeet);
   }
 
   /**
@@ -156,7 +156,7 @@ export const tokenOwnedEscrowBeet = new beet.FixableBeetStruct<
 >(
   [
     ['key', keyBeet],
-    ['baseToken', beetSolana.publicKey],
+    ['baseToken', beetTrezoa.publicKey],
     ['authority', escrowAuthorityBeet],
     ['bump', beet.u8],
   ],

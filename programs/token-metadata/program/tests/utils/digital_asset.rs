@@ -1,7 +1,7 @@
 use borsh::BorshDeserialize;
-use solana_program::{program_option::COption, program_pack::Pack, pubkey::Pubkey};
-use solana_program_test::{BanksClientError, ProgramTestContext};
-use solana_sdk::{
+use trezoa_program::{program_option::COption, program_pack::Pack, pubkey::Pubkey};
+use trezoa_program_test::{BanksClientError, ProgramTestContext};
+use trezoa_sdk::{
     account::AccountSharedData,
     compute_budget::ComputeBudgetInstruction,
     signature::{Keypair, Signer},
@@ -10,7 +10,7 @@ use solana_sdk::{
 use spl_associated_token_account::{
     get_associated_token_address_with_program_id, instruction::create_associated_token_account,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 use token_metadata::{
     instruction::{
         self,
@@ -48,7 +48,7 @@ pub const DEFAULT_NAME: &str = "Digital Asset";
 pub const DEFAULT_SYMBOL: &str = "DA";
 pub const DEFAULT_URI: &str = "https://digital.asset.org";
 
-// This represents a generic Metaplex Digital asset of various Token Standards.
+// This represents a generic Trezoaplex Digital asset of various Token Standards.
 // It is used to abstract away the various accounts that are created for a given
 // Digital Asset. Since different asset types have different accounts, care
 // should be taken that appropriate handlers update appropriate accounts, such as when
@@ -63,13 +63,13 @@ pub struct DigitalAsset {
     pub edition_num: Option<u64>,
 }
 
-impl Default for DigitalAsset {
+itpl Default for DigitalAsset {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl DigitalAsset {
+itpl DigitalAsset {
     pub fn new() -> Self {
         let mint = Keypair::new();
         let mint_pubkey = mint.pubkey();
@@ -101,7 +101,7 @@ impl DigitalAsset {
         args: BurnArgs,
         parent_asset: Option<DigitalAsset>,
         collection_metadata: Option<Pubkey>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let md = self.get_metadata(context).await;
         let token_standard = md.token_standard.unwrap();
@@ -112,7 +112,7 @@ impl DigitalAsset {
             .metadata(self.metadata)
             .mint(self.mint.pubkey())
             .token(self.token.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         if let Some(parent_asset) = parent_asset {
             builder.master_edition_mint(parent_asset.mint.pubkey());
@@ -262,7 +262,7 @@ impl DigitalAsset {
         context: &mut ProgramTestContext,
         token_standard: TokenStandard,
         authorization_rules: Option<Pubkey>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let creators = Some(vec![Creator {
             address: context.payer.pubkey(),
@@ -282,7 +282,7 @@ impl DigitalAsset {
             None,
             authorization_rules,
             PrintSupply::Zero,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
     }
@@ -301,7 +301,7 @@ impl DigitalAsset {
         collection_details: Option<CollectionDetails>,
         authorization_rules: Option<Pubkey>,
         print_supply: PrintSupply,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let mut asset = AssetData::new(token_standard, name, symbol, uri);
         asset.seller_fee_basis_points = seller_fee_basis_points;
@@ -321,7 +321,7 @@ impl DigitalAsset {
             .authority(payer_pubkey)
             .payer(payer_pubkey)
             .update_authority(payer_pubkey)
-            .spl_token_program(spl_token_program)
+            .tpl_token_program(tpl_token_program)
             .initialize_mint(true)
             .update_authority_as_signer(true);
 
@@ -382,13 +382,13 @@ impl DigitalAsset {
         authorization_rules: Option<Pubkey>,
         authorization_data: Option<AuthorizationData>,
         amount: u64,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let payer_pubkey = context.payer.pubkey();
         let (token, _) = Pubkey::find_program_address(
             &[
                 &payer_pubkey.to_bytes(),
-                &spl_token_program.to_bytes(),
+                &tpl_token_program.to_bytes(),
                 &self.mint.pubkey().to_bytes(),
             ],
             &spl_associated_token_account::ID,
@@ -411,7 +411,7 @@ impl DigitalAsset {
             .mint(self.mint.pubkey())
             .payer(payer_pubkey)
             .authority(payer_pubkey)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         if let Some(edition) = self.edition {
             builder.master_edition(edition);
@@ -451,14 +451,14 @@ impl DigitalAsset {
         authorization_rules: Option<Pubkey>,
         authorization_data: Option<AuthorizationData>,
         amount: u64,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         // creates the metadata
         self.create(
             context,
             token_standard,
             authorization_rules,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -468,7 +468,7 @@ impl DigitalAsset {
             authorization_rules,
             authorization_data,
             amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
     }
@@ -482,7 +482,7 @@ impl DigitalAsset {
         authorization_data: Option<AuthorizationData>,
         amount: u64,
         print_supply: PrintSupply,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         // creates the metadata
 
@@ -504,7 +504,7 @@ impl DigitalAsset {
             None,
             authorization_rules,
             print_supply,
-            spl_token_program,
+            tpl_token_program,
         )
         .await?;
 
@@ -514,7 +514,7 @@ impl DigitalAsset {
             authorization_rules,
             authorization_data,
             amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
     }
@@ -528,7 +528,7 @@ impl DigitalAsset {
         authorization_data: Option<AuthorizationData>,
         amount: u64,
         creators: Option<Vec<Creator>>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         // creates the metadata
         self.create_advanced(
@@ -543,7 +543,7 @@ impl DigitalAsset {
             None,
             authorization_rules,
             PrintSupply::Zero,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -554,7 +554,7 @@ impl DigitalAsset {
             authorization_rules,
             authorization_data,
             amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
     }
@@ -568,7 +568,7 @@ impl DigitalAsset {
         authorization_data: Option<AuthorizationData>,
         amount: u64,
         collection: Option<Collection>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         // creates the metadata
         self.create_advanced(
@@ -583,7 +583,7 @@ impl DigitalAsset {
             None,
             authorization_rules,
             PrintSupply::Zero,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -594,7 +594,7 @@ impl DigitalAsset {
             authorization_rules,
             authorization_data,
             amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
     }
@@ -608,7 +608,7 @@ impl DigitalAsset {
         authorization_data: Option<AuthorizationData>,
         amount: u64,
         collection_details: Option<CollectionDetails>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         // creates the metadata
         self.create_advanced(
@@ -623,7 +623,7 @@ impl DigitalAsset {
             collection_details,
             authorization_rules,
             PrintSupply::Zero,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -634,7 +634,7 @@ impl DigitalAsset {
             authorization_rules,
             authorization_data,
             amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
     }
@@ -643,7 +643,7 @@ impl DigitalAsset {
         &mut self,
         context: &mut ProgramTestContext,
         print_supply: PrintSupply,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         // creates the metadata
         self.create_advanced(
@@ -658,13 +658,13 @@ impl DigitalAsset {
             None,
             None,
             print_supply,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
 
         // mints tokens
-        self.mint(context, None, None, 1, spl_token_program).await
+        self.mint(context, None, None, 1, tpl_token_program).await
     }
 
     pub async fn delegate(
@@ -673,7 +673,7 @@ impl DigitalAsset {
         payer: Keypair,
         delegate: Pubkey,
         args: DelegateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<Option<Pubkey>, BanksClientError> {
         let mut builder = DelegateBuilder::new();
         builder
@@ -682,7 +682,7 @@ impl DigitalAsset {
             .metadata(self.metadata)
             .payer(payer.pubkey())
             .authority(payer.pubkey())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let mut delegate_or_token_record = None;
 
@@ -796,7 +796,7 @@ impl DigitalAsset {
         }) = metadata.programmable_config
         {
             builder.authorization_rules(rule_set);
-            builder.authorization_rules_program(mpl_token_auth_rules::ID);
+            builder.authorization_rules_program(tpl_token_auth_rules::ID);
         }
 
         let compute_ix = ComputeBudgetInstruction::set_compute_unit_limit(400_000);
@@ -818,7 +818,7 @@ impl DigitalAsset {
         &self,
         context: &mut ProgramTestContext,
         edition_num: u64,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<DigitalAsset, BanksClientError> {
         let print_mint = Keypair::new();
         let print_token = Keypair::new();
@@ -831,7 +831,7 @@ impl DigitalAsset {
             &context.payer.pubkey(),
             Some(&context.payer.pubkey()),
             0,
-            &spl_token_program,
+            &tpl_token_program,
         )
         .await?;
         create_token_account(
@@ -839,7 +839,7 @@ impl DigitalAsset {
             &print_token,
             &print_mint.pubkey(),
             &context.payer.pubkey(),
-            &spl_token_program,
+            &tpl_token_program,
         )
         .await?;
         mint_tokens(
@@ -849,7 +849,7 @@ impl DigitalAsset {
             1,
             &context.payer.pubkey(),
             None,
-            &spl_token_program,
+            &tpl_token_program,
         )
         .await?;
 
@@ -878,7 +878,7 @@ impl DigitalAsset {
             .banks_client
             .process_transaction_with_commitment(
                 tx,
-                solana_sdk::commitment_config::CommitmentLevel::Confirmed,
+                trezoa_sdk::commitment_config::CommitmentLevel::Confirmed,
             )
             .await
             .unwrap();
@@ -907,7 +907,7 @@ impl DigitalAsset {
         approver: Keypair,
         delegate: Pubkey,
         args: RevokeArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let mut builder = RevokeBuilder::new();
         builder
@@ -916,7 +916,7 @@ impl DigitalAsset {
             .metadata(self.metadata)
             .payer(approver.pubkey())
             .authority(approver.pubkey())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         match args {
             // Token delegates.
@@ -1035,7 +1035,7 @@ impl DigitalAsset {
     pub async fn transfer(
         &mut self,
         params: TransferParams<'_>,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let TransferParams {
             context,
@@ -1058,13 +1058,13 @@ impl DigitalAsset {
                 &authority.pubkey(),
                 &destination_owner,
                 &self.mint.pubkey(),
-                &spl_token_program,
+                &tpl_token_program,
             ));
 
             get_associated_token_address_with_program_id(
                 &destination_owner,
                 &self.mint.pubkey(),
-                &spl_token_program,
+                &tpl_token_program,
             )
         };
 
@@ -1078,7 +1078,7 @@ impl DigitalAsset {
             .metadata(self.metadata)
             .payer(payer.pubkey())
             .mint(self.mint.pubkey())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         if let Some(record) = self.token_record {
             builder.owner_token_record(record);
@@ -1100,7 +1100,7 @@ impl DigitalAsset {
 
         if let Some(authorization_rules) = authorization_rules {
             builder.authorization_rules(authorization_rules);
-            builder.authorization_rules_program(mpl_token_auth_rules::ID);
+            builder.authorization_rules_program(tpl_token_auth_rules::ID);
         }
 
         let transfer_ix = builder.build(args).unwrap().instruction();
@@ -1127,7 +1127,7 @@ impl DigitalAsset {
         delegate: Keypair,
         token_record: Option<Pubkey>,
         payer: Keypair,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let mut builder = LockBuilder::new();
         builder
@@ -1135,7 +1135,7 @@ impl DigitalAsset {
             .mint(self.mint.pubkey())
             .metadata(self.metadata)
             .payer(payer.pubkey())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         if let Some(token_record) = token_record {
             builder.token_record(token_record);
@@ -1172,7 +1172,7 @@ impl DigitalAsset {
         delegate: Keypair,
         token_record: Option<Pubkey>,
         payer: Keypair,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
         let mut builder = UnlockBuilder::new();
         builder
@@ -1180,7 +1180,7 @@ impl DigitalAsset {
             .mint(self.mint.pubkey())
             .metadata(self.metadata)
             .payer(payer.pubkey())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         if let Some(token_record) = token_record {
             builder.token_record(token_record);
@@ -1370,7 +1370,7 @@ impl DigitalAsset {
                 self.programmable_non_fungigble_accounts_closed(context)
                     .await?;
             }
-            _ => unimplemented!(),
+            _ => unitplemented!(),
         }
 
         Ok(())

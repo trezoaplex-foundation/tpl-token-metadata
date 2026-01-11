@@ -1,13 +1,13 @@
 import {
   approveTokenDelegate,
   findAssociatedTokenPda,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   none,
   publicKey,
   some,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   DigitalAssetWithToken,
@@ -81,7 +81,7 @@ test('it can revoke a locked transfer delegate for a ProgrammableNonFungible', a
 
 OG_TOKEN_STANDARDS.forEach((tokenStandard) => {
   test(`it cannot revoke a locked transfer delegate for a ${tokenStandard}`, async (t) => {
-    // Given an asset with an SPL delegate.
+    // Given an asset with an TPL delegate.
     const umi = await createUmi();
     const owner = generateSigner(umi);
     const lockedTransferDelegate = generateSigner(umi).publicKey;

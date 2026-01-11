@@ -2,9 +2,9 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program::pubkey::Pubkey;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program::pubkey::Pubkey;
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
@@ -14,8 +14,8 @@ use utils::*;
 mod process_legacy_instruction {
 
     use borsh::BorshDeserialize;
-    use solana_program::program_pack::Pack;
-    use spl_token_2022::state::Account;
+    use trezoa_program::program_pack::Pack;
+    use tpl_token_2022::state::Account;
     use token_metadata::{
         error::MetadataError,
         instruction::{sign_metadata, DelegateArgs},
@@ -25,10 +25,10 @@ mod process_legacy_instruction {
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn programmable_nft_in_legacy_processor(spl_token_program: Pubkey) {
+    async fn programmable_nft_in_legacy_processor(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -39,7 +39,7 @@ mod process_legacy_instruction {
                 &mut context,
                 TokenStandard::ProgrammableNonFungible,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -50,7 +50,7 @@ mod process_legacy_instruction {
         let (token, _) = Pubkey::find_program_address(
             &[
                 &payer_pubkey.to_bytes(),
-                &spl_token::ID.to_bytes(),
+                &tpl_token::ID.to_bytes(),
                 &asset.mint.pubkey().to_bytes(),
             ],
             &spl_associated_token_account::ID,
@@ -58,7 +58,7 @@ mod process_legacy_instruction {
         asset.token = Some(token);
 
         asset
-            .mint(&mut context, None, None, 1, spl_token_program)
+            .mint(&mut context, None, None, 1, tpl_token_program)
             .await
             .unwrap();
 
@@ -92,9 +92,9 @@ mod process_legacy_instruction {
         assert_custom_error!(error, MetadataError::InstructionNotSupported);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn thaw_programmable_nft(spl_token_program: Pubkey) {
+    async fn thaw_programmable_nft(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -107,7 +107,7 @@ mod process_legacy_instruction {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -128,7 +128,7 @@ mod process_legacy_instruction {
         assert_eq!(token_account.mint, asset.mint.pubkey());
         assert_eq!(token_account.owner, context.payer.pubkey());
 
-        // creates a transfer delegate so we have a SPL Token delegate in place
+        // creates a transfer delegate so we have a TPL Token delegate in place
 
         let delegate = Keypair::new();
         let delegate_pubkey = delegate.pubkey();
@@ -144,7 +144,7 @@ mod process_legacy_instruction {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -180,7 +180,7 @@ mod process_legacy_instruction {
         let token_account = Account::unpack(&account.data).unwrap();
         assert!(token_account.is_frozen());
 
-        // tries to freeze (this would normally fail at the SPL Token level, but we
+        // tries to freeze (this would normally fail at the TPL Token level, but we
         // should get our custom error first)
 
         let freeze_ix = token_metadata::instruction::freeze_delegated_account(

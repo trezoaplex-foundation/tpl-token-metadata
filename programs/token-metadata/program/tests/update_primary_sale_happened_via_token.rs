@@ -2,8 +2,8 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
@@ -75,7 +75,7 @@ mod update_primary_sale_happened_via_token {
             &payer_pubkey,
             None,
             0,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -84,7 +84,7 @@ mod update_primary_sale_happened_via_token {
             &fake_token_account,
             &fake_mint.pubkey(),
             &payer_pubkey,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -95,7 +95,7 @@ mod update_primary_sale_happened_via_token {
             10000000,
             &payer_pubkey,
             None,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();

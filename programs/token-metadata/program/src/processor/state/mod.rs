@@ -2,12 +2,12 @@ mod lock;
 mod unlock;
 
 pub use lock::*;
-use mpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
-use solana_program::{
+use tpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program::invoke,
     program_error::ProgramError, pubkey::Pubkey, system_program, sysvar,
 };
-use spl_token_2022::{
+use tpl_token_2022::{
     instruction::{freeze_account, thaw_account},
     state::{Account, Mint},
 };
@@ -37,7 +37,7 @@ pub(crate) struct ToggleAccounts<'a> {
     token_record_info: Option<&'a AccountInfo<'a>>,
     system_program_info: &'a AccountInfo<'a>,
     sysvar_instructions_info: &'a AccountInfo<'a>,
-    spl_token_program_info: Option<&'a AccountInfo<'a>>,
+    tpl_token_program_info: Option<&'a AccountInfo<'a>>,
 }
 
 pub(crate) fn toggle_asset_state(
@@ -146,10 +146,10 @@ pub(crate) fn toggle_asset_state(
         )
         .map_err(|_| MetadataError::BorshSerializationError.into())
     } else {
-        let spl_token_program_info = match accounts.spl_token_program_info {
-            Some(spl_token_program_info) => {
-                assert_token_program_matches_package(spl_token_program_info)?;
-                spl_token_program_info
+        let tpl_token_program_info = match accounts.tpl_token_program_info {
+            Some(tpl_token_program_info) => {
+                assert_token_program_matches_package(tpl_token_program_info)?;
+                tpl_token_program_info
             }
             None => {
                 return Err(MetadataError::MissingSplTokenProgram.into());
@@ -161,12 +161,12 @@ pub(crate) fn toggle_asset_state(
         // authority and we allow lock/unlock if the authority is a delegate; for
         // fungibles, the authority must match the freeze authority of the mint
         if let Some(edition_info) = accounts.edition_info {
-            // check whether the authority is an spl-token delegate or not
+            // check whether the authority is an tpl-token delegate or not
             assert_delegated_tokens(
                 accounts.authority_info,
                 accounts.mint_info,
                 accounts.token_info,
-                spl_token_program_info.key,
+                tpl_token_program_info.key,
             )
             .map_err(|error| {
                 let custom: ProgramError = MetadataError::InvalidDelegate.into();
@@ -185,7 +185,7 @@ pub(crate) fn toggle_asset_state(
                         accounts.mint_info.clone(),
                         accounts.token_info.clone(),
                         edition_info.clone(),
-                        spl_token_program_info.clone(),
+                        tpl_token_program_info.clone(),
                         metadata.edition_nonce,
                     )
                 }
@@ -196,7 +196,7 @@ pub(crate) fn toggle_asset_state(
                         accounts.mint_info.clone(),
                         accounts.token_info.clone(),
                         edition_info.clone(),
-                        spl_token_program_info.clone(),
+                        tpl_token_program_info.clone(),
                         metadata.edition_nonce,
                     )
                 }
@@ -211,11 +211,11 @@ pub(crate) fn toggle_asset_state(
 
             match to {
                 TokenState::Locked => {
-                    // for fungible assets, we invoke spl-token directly
+                    // for fungible assets, we invoke tpl-token directly
                     // since we have the freeze authority
                     invoke(
                         &freeze_account(
-                            spl_token_program_info.key,
+                            tpl_token_program_info.key,
                             accounts.token_info.key,
                             accounts.mint_info.key,
                             accounts.authority_info.key,
@@ -229,11 +229,11 @@ pub(crate) fn toggle_asset_state(
                     )
                 }
                 TokenState::Unlocked => {
-                    // for fungible assets, we invoke spl-token directly
+                    // for fungible assets, we invoke tpl-token directly
                     // since we have the freeze authority
                     invoke(
                         &thaw_account(
-                            spl_token_program_info.key,
+                            tpl_token_program_info.key,
                             accounts.token_info.key,
                             accounts.mint_info.key,
                             accounts.authority_info.key,

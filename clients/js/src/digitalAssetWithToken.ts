@@ -7,7 +7,7 @@ import {
   RpcGetAccountsOptions,
   chunk,
   zipMap,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   deserializeToken,
   fetchAllTokenByOwner,
@@ -16,7 +16,7 @@ import {
   findAssociatedTokenPda,
   findLargestTokensByMint,
   Token,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import { deserializeDigitalAsset, DigitalAsset } from './digitalAsset';
 import {
   deserializeTokenRecord,

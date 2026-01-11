@@ -4,7 +4,7 @@ use crate::types::MetadataDelegateRole;
 
 pub type MetadataDelegateRoleSeed = MetadataDelegateRole;
 
-impl Display for MetadataDelegateRole {
+itpl Display for MetadataDelegateRole {
     fn fmt(&self, f: &mut Formatter) -> Result {
         let message = match self {
             MetadataDelegateRole::AuthorityItem => "authority_item_delegate".to_string(),

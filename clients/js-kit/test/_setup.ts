@@ -2,17 +2,17 @@
  * Test setup utilities for js-kit client
  */
 
-import type { Address } from '@solana/addresses';
-import { createSolanaRpc, type Rpc } from '@solana/rpc';
-import type { SolanaRpcApi } from '@solana/rpc';
-import { createSolanaRpcSubscriptions, type RpcSubscriptions } from '@solana/rpc-subscriptions';
-import type { SolanaRpcSubscriptionsApi } from '@solana/rpc-subscriptions';
-import { airdropFactory, lamports } from '@solana/kit';
+import type { Address } from '@trezoa/addresses';
+import { createTrezoaRpc, type Rpc } from '@trezoa/rpc';
+import type { TrezoaRpcApi } from '@trezoa/rpc';
+import { createTrezoaRpcSubscriptions, type RpcSubscriptions } from '@trezoa/rpc-subscriptions';
+import type { TrezoaRpcSubscriptionsApi } from '@trezoa/rpc-subscriptions';
+import { airdropFactory, lamports } from '@trezoa/kit';
 
 // Re-export transaction utilities
 export { sendAndConfirm, sendAndConfirmInstructions } from './_transaction';
 // Re-export account fetchers from official package
-export { fetchMint, fetchToken } from '@solana-program/token';
+export { fetchMint, fetchToken } from '@trezoa-program/token';
 // Re-export program addresses and PDAs from hooked folder
 export {
   findAssociatedTokenPda,
@@ -21,17 +21,17 @@ export {
   SPL_ASSOCIATED_TOKEN_PROGRAM_ADDRESS,
 } from '../src/hooked/pdas';
 // Re-export signer generation
-export { generateKeyPairSigner as createKeypair } from '@solana/signers';
+export { generateKeyPairSigner as createKeypair } from '@trezoa/signers';
 
 const LOCAL_VALIDATOR_URL = 'http://127.0.0.1:8899';
 const LOCAL_VALIDATOR_WS_URL = 'ws://127.0.0.1:8900';
 
-export function createRpc(): Rpc<SolanaRpcApi> {
-  return createSolanaRpc(LOCAL_VALIDATOR_URL);
+export function createRpc(): Rpc<TrezoaRpcApi> {
+  return createTrezoaRpc(LOCAL_VALIDATOR_URL);
 }
 
-export function createRpcSubscriptions(): RpcSubscriptions<SolanaRpcSubscriptionsApi> {
-  return createSolanaRpcSubscriptions(LOCAL_VALIDATOR_WS_URL);
+export function createRpcSubscriptions(): RpcSubscriptions<TrezoaRpcSubscriptionsApi> {
+  return createTrezoaRpcSubscriptions(LOCAL_VALIDATOR_WS_URL);
 }
 
 export function basisPoints(percent: number): number {
@@ -50,7 +50,7 @@ export async function canRunTests(): Promise<boolean> {
 
 export function getSkipMessage(): string {
   return `
-Local Solana validator is not running.
+Local Trezoa validator is not running.
 
 To run these tests:
 1. Start the local validator from the repository root:
@@ -64,7 +64,7 @@ The validator should be running at ${LOCAL_VALIDATOR_URL}
 }
 
 export async function airdrop(
-  rpc: Rpc<SolanaRpcApi>,
+  rpc: Rpc<TrezoaRpcApi>,
   recipient: Address,
   amount: bigint = 10_000_000_000n
 ): Promise<void> {

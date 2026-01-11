@@ -2,25 +2,25 @@
 pub mod setup;
 pub use setup::*;
 
-use solana_program::pubkey::Pubkey;
-use solana_program_test::*;
-use solana_sdk::signature::{Keypair, Signer};
-use solana_sdk::transaction::Transaction;
+use trezoa_program::pubkey::Pubkey;
+use trezoa_program_test::*;
+use trezoa_sdk::signature::{Keypair, Signer};
+use trezoa_sdk::transaction::Transaction;
 
-use mpl_token_metadata::instructions::DelegateStandardV1Builder;
-use mpl_token_metadata::instructions::LockV1Builder;
-use mpl_token_metadata::types::TokenStandard;
+use tpl_token_metadata::instructions::DelegateStandardV1Builder;
+use tpl_token_metadata::instructions::LockV1Builder;
+use tpl_token_metadata::types::TokenStandard;
 
 mod lock {
 
-    use spl_token_2022_interface::state::Account;
+    use tpl_token_2022_interface::state::Account;
 
     use super::*;
 
-    #[test_case::test_case(spl_token::ID ; "spl-token")]
-    #[test_case::test_case(spl_token_2022_interface::ID ; "spl-token-2022")]
+    #[test_case::test_case(tpl_token::ID ; "tpl-token")]
+    #[test_case::test_case(tpl_token_2022_interface::ID ; "tpl-token-2022")]
     #[tokio::test]
-    async fn delegate_lock_nonfungible(spl_token_program: Pubkey) {
+    async fn delegate_lock_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // given a non-fungible asset and a token
@@ -38,7 +38,7 @@ mod lock {
                 &token_owner.pubkey(),
                 1,
                 &payer,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -54,7 +54,7 @@ mod lock {
             .mint(asset.mint.pubkey())
             .delegate(delegate.pubkey())
             .authority(token_owner.pubkey())
-            .spl_token_program(Some(spl_token_program))
+            .tpl_token_program(Some(tpl_token_program))
             .payer(payer.pubkey())
             .amount(1)
             .instruction();
@@ -75,7 +75,7 @@ mod lock {
             .edition(Some(asset.master_edition))
             .mint(asset.mint.pubkey())
             .token(asset.token)
-            .spl_token_program(Some(spl_token_program))
+            .tpl_token_program(Some(tpl_token_program))
             .payer(payer.pubkey())
             .instruction();
 

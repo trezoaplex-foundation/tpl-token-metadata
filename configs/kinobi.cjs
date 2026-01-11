@@ -1,5 +1,5 @@
 const path = require("path");
-const k = require("@metaplex-foundation/kinobi");
+const k = require("@trezoaplex-foundation/kinobi");
 
 // Paths.
 const clientDir = path.join(__dirname, "..", "clients");
@@ -1063,7 +1063,7 @@ kinobi.update(
 // Render JavaScript.
 const jsDir = path.join(clientDir, "js", "src", "generated");
 const prettier = require(path.join(clientDir, "js", ".prettierrc.json"));
-const { pdaLinkNode } = require("@metaplex-foundation/kinobi");
+const { pdaLinkNode } = require("@trezoaplex-foundation/kinobi");
 kinobi.accept(k.renderJavaScriptVisitor(jsDir, { prettier }));
 
 // Render Rust.

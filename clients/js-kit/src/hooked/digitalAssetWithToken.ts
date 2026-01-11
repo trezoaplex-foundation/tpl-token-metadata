@@ -6,19 +6,19 @@
  * about a specific token account holding the asset.
  */
 
-import type { Address } from '@solana/addresses';
+import type { Address } from '@trezoa/addresses';
 import type {
   EncodedAccount,
   FetchAccountConfig,
   Rpc,
-} from '@solana/kit';
+} from '@trezoa/kit';
 import {
   assertAccountExists,
   fetchEncodedAccounts,
   decodeAccount,
-} from '@solana/kit';
-import type { Token } from '@solana-program/token';
-import { getTokenDecoder } from '@solana-program/token';
+} from '@trezoa/kit';
+import type { Token } from '@trezoa-program/token';
+import { getTokenDecoder } from '@trezoa-program/token';
 import {
   deserializeDigitalAsset,
   type DigitalAsset,
@@ -38,11 +38,11 @@ import { findAssociatedTokenPda } from './pdas';
  * A digital asset with token account information
  *
  * Extends DigitalAsset to include:
- * - token: The SPL token account data
+ * - token: The TPL token account data
  * - tokenRecord: Optional token record (for Programmable NFTs)
  */
 export type DigitalAssetWithToken<TMint extends string = string> = DigitalAsset<TMint> & {
-  /** The SPL token account */
+  /** The TPL token account */
   token: Token;
   /** The token record (for Programmable NFTs) */
   tokenRecord?: TokenRecord;
@@ -60,7 +60,7 @@ export type DigitalAssetWithToken<TMint extends string = string> = DigitalAsset<
  * @param config - Optional fetch configuration
  * @returns The digital asset with token data
  *
- * @example
+ * @exatple
  * ```ts
  * const asset = await fetchDigitalAssetWithToken(rpc, mintAddress, tokenAddress);
  * console.log('Owner:', asset.token.owner);
@@ -118,7 +118,7 @@ export async function fetchDigitalAssetWithToken<TMint extends string = string>(
  * @param config - Optional fetch configuration
  * @returns The digital asset with token data
  *
- * @example
+ * @exatple
  * ```ts
  * const asset = await fetchDigitalAssetWithAssociatedToken(
  *   rpc,

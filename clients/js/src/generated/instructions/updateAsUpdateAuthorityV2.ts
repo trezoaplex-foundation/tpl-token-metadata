@@ -17,7 +17,7 @@ import {
   none,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   bool,
@@ -26,7 +26,7 @@ import {
   publicKey as publicKeySerializer,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { findMetadataPda } from '../accounts';
 import {
   ResolvedAccount,
@@ -177,7 +177,7 @@ export function updateAsUpdateAuthorityV2(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
 
@@ -267,7 +267,7 @@ export function updateAsUpdateAuthorityV2(
     if (resolvedAccounts.authorizationRules.value) {
       resolvedAccounts.authorizationRulesProgram.value =
         context.programs.getPublicKey(
-          'mplTokenAuthRules',
+          'tplTokenAuthRules',
           'auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg'
         );
       resolvedAccounts.authorizationRulesProgram.isWritable = false;

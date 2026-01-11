@@ -2,7 +2,7 @@ import {
   publicKey,
   transactionBuilder,
   TransactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { TokenStandard, createV1, mintV1 } from './generated';
 
 export const createAndMint = (

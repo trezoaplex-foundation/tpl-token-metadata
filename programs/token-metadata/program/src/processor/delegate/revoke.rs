@@ -1,9 +1,9 @@
-use mpl_utils::{assert_signer, close_account_raw, cmp_pubkeys, token::SPL_TOKEN_PROGRAM_IDS};
-use solana_program::{
+use tpl_utils::{assert_signer, close_account_raw, cmp_pubkeys, token::SPL_TOKEN_PROGRAM_IDS};
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program::invoke,
     program_error::ProgramError, program_option::COption, pubkey::Pubkey, system_program, sysvar,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use crate::{
     assertions::{
@@ -166,7 +166,7 @@ fn revoke_other_delegate_v1(
                 // ownership for token
                 assert_owner_in(token_info, &SPL_TOKEN_PROGRAM_IDS)?;
 
-                // authority must be the owner of the token account: spl-token required the
+                // authority must be the owner of the token account: tpl-token required the
                 // token owner to set a delegate
                 let token = unpack::<Account>(&token_info.try_borrow_data()?)?;
                 if token.owner != *ctx.accounts.authority_info.key {
@@ -230,8 +230,8 @@ fn revoke_persistent_delegate_v1(
         }
     };
 
-    let spl_token_program_info = match ctx.accounts.spl_token_program_info {
-        Some(spl_token_program_info) => spl_token_program_info,
+    let tpl_token_program_info = match ctx.accounts.tpl_token_program_info {
+        Some(tpl_token_program_info) => tpl_token_program_info,
         None => {
             return Err(MetadataError::MissingSplTokenProgram.into());
         }
@@ -245,8 +245,8 @@ fn revoke_persistent_delegate_v1(
     // ownership
 
     assert_owned_by(ctx.accounts.metadata_info, program_id)?;
-    assert_owned_by(ctx.accounts.mint_info, spl_token_program_info.key)?;
-    assert_owned_by(token_info, spl_token_program_info.key)?;
+    assert_owned_by(ctx.accounts.mint_info, tpl_token_program_info.key)?;
+    assert_owned_by(token_info, tpl_token_program_info.key)?;
 
     // key match
 
@@ -255,7 +255,7 @@ fn revoke_persistent_delegate_v1(
         ctx.accounts.sysvar_instructions_info.key,
         &sysvar::instructions::ID,
     )?;
-    assert_token_program_matches_package(spl_token_program_info)?;
+    assert_token_program_matches_package(tpl_token_program_info)?;
 
     // account relationships
 
@@ -264,7 +264,7 @@ fn revoke_persistent_delegate_v1(
         return Err(MetadataError::MintMismatch.into());
     }
 
-    // authority must be the owner of the token account: spl-token required the
+    // authority must be the owner of the token account: tpl-token required the
     // token owner to revoke a delegate
     let token = unpack::<Account>(&token_info.try_borrow_data()?)?;
     if token.owner != *ctx.accounts.authority_info.key {
@@ -333,7 +333,7 @@ fn revoke_persistent_delegate_v1(
                     ctx.accounts.mint_info.clone(),
                     token_info.clone(),
                     master_edition_info.clone(),
-                    spl_token_program_info.clone(),
+                    tpl_token_program_info.clone(),
                     metadata.edition_nonce,
                 )?;
 
@@ -345,7 +345,7 @@ fn revoke_persistent_delegate_v1(
                         token: &token,
                         master_edition_info,
                         authority_info: master_edition_info,
-                        spl_token_program_info,
+                        tpl_token_program_info,
                         edition_bump: metadata.edition_nonce,
                     })?;
                 }
@@ -360,10 +360,10 @@ fn revoke_persistent_delegate_v1(
         }
     }
 
-    // revokes the spl-token delegate
+    // revokes the tpl-token delegate
     invoke(
-        &spl_token_2022::instruction::revoke(
-            spl_token_program_info.key,
+        &tpl_token_2022::instruction::revoke(
+            tpl_token_program_info.key,
             token_info.key,
             ctx.accounts.authority_info.key,
             &[],
@@ -381,7 +381,7 @@ fn revoke_persistent_delegate_v1(
                 ctx.accounts.mint_info.clone(),
                 token_info.clone(),
                 master_edition_info.clone(),
-                spl_token_program_info.clone(),
+                tpl_token_program_info.clone(),
                 metadata.edition_nonce,
             )?;
         } else {

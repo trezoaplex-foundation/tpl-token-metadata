@@ -4,16 +4,16 @@ mod token_manager;
 
 pub use digital_asset::*;
 pub use dirty_clone::*;
-use spl_token_2022_interface::extension::{BaseState, StateWithExtensions};
+use tpl_token_2022_interface::extension::{BaseState, StateWithExtensions};
 pub use token_manager::*;
 
-use solana_program::{program_error::ProgramError, pubkey::Pubkey};
-use solana_program_test::{ProgramTest, ProgramTestContext};
-use solana_sdk::{account::Account, program_pack::Pack};
+use trezoa_program::{program_error::ProgramError, pubkey::Pubkey};
+use trezoa_program_test::{ProgramTest, ProgramTestContext};
+use trezoa_sdk::{account::Account, program_pack::Pack};
 
 pub fn program_test() -> ProgramTest {
-    let mut program_test = ProgramTest::new("token_metadata", mpl_token_metadata::ID, None);
-    program_test.add_program("spl_token_2022", spl_token_2022_interface::ID, None);
+    let mut program_test = ProgramTest::new("token_metadata", tpl_token_metadata::ID, None);
+    program_test.add_program("tpl_token_2022", tpl_token_2022_interface::ID, None);
     program_test
 }
 
@@ -40,10 +40,10 @@ pub fn unpack<S: BaseState + Pack>(
 macro_rules! assert_custom_instruction_error {
     ($ix:expr, $error:expr, $matcher:pat) => {
         match $error {
-            solana_program_test::BanksClientError::TransactionError(
-                solana_sdk::transaction::TransactionError::InstructionError(
+            trezoa_program_test::BanksClientError::TransactionError(
+                trezoa_sdk::transaction::TransactionError::InstructionError(
                     $ix,
-                    solana_sdk::instruction::InstructionError::Custom(x),
+                    trezoa_sdk::instruction::InstructionError::Custom(x),
                 ),
             ) => match num_traits::FromPrimitive::from_i32(x as i32) {
                 Some($matcher) => assert!(true),

@@ -3,8 +3,8 @@ pub mod utils;
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     account::AccountSharedData,
     instruction::InstructionError,
     signature::Keypair,
@@ -74,7 +74,7 @@ async fn successfully_update_nonfungible_edition() {
         .await
         .unwrap();
 
-    let edition = EditionMarker::new(&test_nft, &master_edition, 1, spl_token::ID);
+    let edition = EditionMarker::new(&test_nft, &master_edition, 1, tpl_token::ID);
     edition.create(&mut context).await.unwrap();
 
     let mut md_account = get_account(&mut context, &edition.new_metadata_pubkey).await;

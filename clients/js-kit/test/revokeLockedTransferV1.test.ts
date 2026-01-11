@@ -56,7 +56,7 @@ test('it can revoke a locked transfer delegate for a ProgrammableNonFungible', a
     authority: owner,
     payer: owner,
     name: 'Test PNFT',
-    uri: 'https://example.com/pnft.json',
+    uri: 'https://exatple.com/pnft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -166,7 +166,7 @@ test('it cannot revoke a locked transfer delegate for a NonFungible', async (t) 
     authority: owner,
     payer: owner,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -218,7 +218,7 @@ test('it cannot revoke a locked transfer delegate for a Fungible', async (t) => 
     authority,
     payer: authority,
     name: 'Test Token',
-    uri: 'https://example.com/token.json',
+    uri: 'https://exatple.com/token.json',
     sellerFeeBasisPoints: basisPoints(2),
   });
 
@@ -266,7 +266,7 @@ test('it cannot revoke a locked transfer delegate for a FungibleAsset', async (t
     authority,
     payer: authority,
     name: 'Test Asset',
-    uri: 'https://example.com/asset.json',
+    uri: 'https://exatple.com/asset.json',
     sellerFeeBasisPoints: basisPoints(3),
   });
 

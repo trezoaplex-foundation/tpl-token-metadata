@@ -2,8 +2,8 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{instruction::InstructionError, transaction::TransactionError};
+use trezoa_program_test::*;
+use trezoa_sdk::{instruction::InstructionError, transaction::TransactionError};
 use token_metadata::error::MetadataError;
 use utils::*;
 

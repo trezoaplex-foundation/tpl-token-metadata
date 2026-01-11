@@ -3,18 +3,18 @@ import {
   createMintWithAssociatedToken,
   fetchMint,
   Mint,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   addAmounts,
   generateSigner,
   none,
   percentAmount,
   publicKey,
-  sol,
+  trz,
   some,
   subtractAmounts,
-} from '@metaplex-foundation/umi';
-import { generateSignerWithSol } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { generateSignerWithSol } from '@trezoaplex-foundation/umi-bundle-tests';
 import test from 'ava';
 import {
   collectionDetails,
@@ -44,7 +44,7 @@ test('it can create a new NonFungible', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -67,7 +67,7 @@ test('it can create a new NonFungible', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.NonFungible),
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -98,7 +98,7 @@ test('it can create a new ProgrammableNonFungible', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   }).sendAndConfirm(umi);
@@ -123,7 +123,7 @@ test('it can create a new ProgrammableNonFungible', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.ProgrammableNonFungible),
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -154,7 +154,7 @@ test('it can create a new Fungible', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My Fungible',
-    uri: 'https://example.com/my-fungible.json',
+    uri: 'https://exatple.com/my-fungible.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     tokenStandard: TokenStandard.Fungible,
   }).sendAndConfirm(umi);
@@ -178,7 +178,7 @@ test('it can create a new Fungible', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.Fungible),
     name: 'My Fungible',
-    uri: 'https://example.com/my-fungible.json',
+    uri: 'https://exatple.com/my-fungible.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -201,7 +201,7 @@ test('it can create a new FungibleAsset', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My Fungible Asset',
-    uri: 'https://example.com/my-fungible-asset.json',
+    uri: 'https://exatple.com/my-fungible-asset.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     tokenStandard: TokenStandard.FungibleAsset,
   }).sendAndConfirm(umi);
@@ -225,7 +225,7 @@ test('it can create a new FungibleAsset', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.FungibleAsset),
     name: 'My Fungible Asset',
-    uri: 'https://example.com/my-fungible-asset.json',
+    uri: 'https://exatple.com/my-fungible-asset.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -248,7 +248,7 @@ test('it can create a collection and defaults to collectionV2', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My Collection NFT',
-    uri: 'https://example.com/my-collection-nft.json',
+    uri: 'https://exatple.com/my-collection-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     isCollection: true,
   }).sendAndConfirm(umi);
@@ -273,7 +273,7 @@ test('it can create a collectionV1 NonFungible', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My Collection NFT',
-    uri: 'https://example.com/my-collection-nft.json',
+    uri: 'https://exatple.com/my-collection-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     isCollection: true,
     collectionDetails: some(collectionDetails('V1', { size: 0n })),
@@ -297,7 +297,7 @@ test('it can create a collectionV2 NonFungible', async (t) => {
   await createV1(umi, {
     mint,
     name: 'My Collection NFT',
-    uri: 'https://example.com/my-collection-nft.json',
+    uri: 'https://exatple.com/my-collection-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     isCollection: true,
     collectionDetails: collectionDetails('V2', {
@@ -326,7 +326,7 @@ test('it can create a NonFungible from an existing mint', async (t) => {
   await createV1(umi, {
     mint: mint.publicKey,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -350,7 +350,7 @@ test('it can create a ProgrammableNonFungible from an existing mint', async (t) 
     mint: mint.publicKey,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -379,7 +379,7 @@ test('it cannot create a programmableNonFungible from an existing mint with supp
     mint: mint.publicKey,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -391,13 +391,13 @@ test('an explicit payer can be used for storage fees', async (t) => {
   // Given a new mint Signer and an explicit payer.
   const umi = await createUmi();
   const mint = generateSigner(umi);
-  const payer = await generateSignerWithSol(umi, sol(10));
+  const payer = await generateSignerWithSol(umi, trz(10));
 
   // When we create a new NonFungible using the explicit payer.
   const builder = createV1(umi, {
     mint,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     payer,
   });
@@ -405,9 +405,9 @@ test('an explicit payer can be used for storage fees', async (t) => {
 
   // Then the payer has paid the storage fees.
   const storageFees = await builder.getRentCreatedOnChain(umi);
-  const totalFees = addAmounts(storageFees, sol(0.01)); // Create fee.
+  const totalFees = addAmounts(storageFees, trz(0.01)); // Create fee.
   const payerBalance = await umi.rpc.getBalance(payer.publicKey);
-  t.deepEqual(payerBalance, subtractAmounts(sol(10), totalFees));
+  t.deepEqual(payerBalance, subtractAmounts(trz(10), totalFees));
 });
 
 test('it can create a new ProgrammableNonFungible with Token-2022', async (t) => {
@@ -419,7 +419,7 @@ test('it can create a new ProgrammableNonFungible with Token-2022', async (t) =>
   await createV1(umi, {
     mint,
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
     splTokenProgram: SPL_TOKEN_2022_PROGRAM_ID,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
@@ -445,7 +445,7 @@ test('it can create a new ProgrammableNonFungible with Token-2022', async (t) =>
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.ProgrammableNonFungible),
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -466,7 +466,7 @@ test('it can create a new ProgrammableNonFungible with Token-2022', async (t) =>
     maxSupply: some(0n),
   });
 
-  // And the SPL Token-2022 Program is the owner of the mint account.
+  // And the TPL Token-2022 Program is the owner of the mint account.
   const account = await umi.rpc.getAccount(mint.publicKey);
   t.true(account.exists);
 

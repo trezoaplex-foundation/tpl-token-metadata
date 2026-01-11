@@ -1,7 +1,7 @@
 #![cfg(feature = "test-bpf")]
 pub mod utils;
 
-use solana_program_test::*;
+use trezoa_program_test::*;
 use utils::*;
 
 #[cfg(feature = "resize")]
@@ -11,8 +11,8 @@ mod resize {
         RuleSetToggle, UpdateArgs, UsesToggle,
     };
     use num_traits::FromPrimitive;
-    use solana_program::{native_token::LAMPORTS_PER_SOL, pubkey::Pubkey};
-    use solana_sdk::{
+    use trezoa_program::{native_token::LAMPORTS_PER_TRZ, pubkey::Pubkey};
+    use trezoa_sdk::{
         instruction::InstructionError,
         pubkey,
         signature::{read_keypair_file, Keypair},
@@ -28,14 +28,14 @@ mod resize {
     const RESIZE_DESTINATION: Pubkey = pubkey!("46mjNQBwXLCDCM7YiDQSPVdNZ4dLdZf79tTPRkT1wkF6");
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
         ]
     )]
     #[tokio::test]
-    async fn resize_with_payer(spl_token_program: Pubkey, token_standard: TokenStandard) {
+    async fn resize_with_payer(tpl_token_program: Pubkey, token_standard: TokenStandard) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
 
@@ -46,7 +46,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -58,7 +58,7 @@ mod resize {
                 .mint(nft.mint.pubkey())
                 .payer(context.payer.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -112,14 +112,14 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
         ]
     )]
     #[tokio::test]
-    async fn resize_nft_as_owner(spl_token_program: Pubkey, token_standard: TokenStandard) {
+    async fn resize_nft_as_owner(tpl_token_program: Pubkey, token_standard: TokenStandard) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
         let update_authority = Keypair::new();
@@ -132,7 +132,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -170,7 +170,7 @@ mod resize {
                 .payer(destination.pubkey())
                 .authority(context.payer.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -224,7 +224,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
@@ -232,13 +232,13 @@ mod resize {
     )]
     #[tokio::test]
     async fn resize_with_payer_and_authority(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         token_standard: TokenStandard,
     ) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
 
-        let funding = 10 * LAMPORTS_PER_SOL;
+        let funding = 10 * LAMPORTS_PER_TRZ;
         let payer = Keypair::new();
         payer.airdrop(&mut context, funding).await.unwrap();
 
@@ -249,7 +249,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -264,7 +264,7 @@ mod resize {
                 .payer(payer.pubkey())
                 .authority(context.payer.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -318,7 +318,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::FungibleAsset,
@@ -330,15 +330,15 @@ mod resize {
     #[ignore]
     // Used for local QA testing and requires a keypair so excluded from CI.
     async fn resize_with_resize_authority(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         token_standard: TokenStandard,
     ) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
 
-        let funding = 10 * LAMPORTS_PER_SOL;
+        let funding = 10 * LAMPORTS_PER_TRZ;
         let authority = read_keypair_file(
-            "/Users/kelliott/Metaplex/Keys/ResizebfwTEZTLbHbctTByvXYECKTJQXnMWG8g9XLix.json",
+            "/Users/kelliott/Trezoaplex/Keys/ResizebfwTEZTLbHbctTByvXYECKTJQXnMWG8g9XLix.json",
         )
         .unwrap();
         authority.airdrop(&mut context, funding).await.unwrap();
@@ -355,7 +355,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -381,7 +381,7 @@ mod resize {
                 .payer(RESIZE_DESTINATION)
                 .authority(authority.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -435,7 +435,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::FungibleAsset,
@@ -447,15 +447,15 @@ mod resize {
     #[ignore]
     // Used for local QA testing and requires a keypair so excluded from CI.
     async fn cannot_resize_with_resize_authority_and_wrong_destination(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         token_standard: TokenStandard,
     ) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
 
-        let funding = 10 * LAMPORTS_PER_SOL;
+        let funding = 10 * LAMPORTS_PER_TRZ;
         let authority = read_keypair_file(
-            "/Users/kelliott/Metaplex/Keys/ResizebfwTEZTLbHbctTByvXYECKTJQXnMWG8g9XLix.json",
+            "/Users/kelliott/Trezoaplex/Keys/ResizebfwTEZTLbHbctTByvXYECKTJQXnMWG8g9XLix.json",
         )
         .unwrap();
         authority.airdrop(&mut context, funding).await.unwrap();
@@ -467,7 +467,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -493,7 +493,7 @@ mod resize {
                 .payer(context.payer.pubkey())
                 .authority(authority.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -513,7 +513,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
@@ -521,7 +521,7 @@ mod resize {
     )]
     #[tokio::test]
     async fn cannot_resize_wrong_metadata(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         token_standard: TokenStandard,
     ) {
         // Create NFTs and then collect the fees from the metadata accounts.
@@ -533,7 +533,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -546,7 +546,7 @@ mod resize {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -560,7 +560,7 @@ mod resize {
                 .mint(nft.mint.pubkey())
                 .payer(context.payer.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -580,14 +580,14 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
         ]
     )]
     #[tokio::test]
-    async fn cannot_resize_wrong_edition(spl_token_program: Pubkey, token_standard: TokenStandard) {
+    async fn cannot_resize_wrong_edition(tpl_token_program: Pubkey, token_standard: TokenStandard) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
         let mut nft = DigitalAsset::new();
@@ -597,7 +597,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -610,7 +610,7 @@ mod resize {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -624,7 +624,7 @@ mod resize {
                 .mint(nft.mint.pubkey())
                 .payer(context.payer.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -644,14 +644,14 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
         ]
     )]
     #[tokio::test]
-    async fn cannot_resize_wrong_mint(spl_token_program: Pubkey, token_standard: TokenStandard) {
+    async fn cannot_resize_wrong_mint(tpl_token_program: Pubkey, token_standard: TokenStandard) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
         let mut nft = DigitalAsset::new();
@@ -661,7 +661,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -674,7 +674,7 @@ mod resize {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -688,7 +688,7 @@ mod resize {
                 .mint(other_nft.mint.pubkey())
                 .payer(context.payer.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -708,7 +708,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
@@ -716,7 +716,7 @@ mod resize {
     )]
     #[tokio::test]
     async fn cannot_resize_wrong_edition_wrong_mint(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         token_standard: TokenStandard,
     ) {
         // Create NFTs and then collect the fees from the metadata accounts.
@@ -728,7 +728,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -741,7 +741,7 @@ mod resize {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -755,7 +755,7 @@ mod resize {
                 .mint(other_nft.mint.pubkey())
                 .payer(context.payer.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -775,7 +775,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             // Fungible resizes don't care about the token account.
             TokenStandard::NonFungible,
@@ -783,7 +783,7 @@ mod resize {
         ]
     )]
     #[tokio::test]
-    async fn cannot_resize_wrong_token(spl_token_program: Pubkey, token_standard: TokenStandard) {
+    async fn cannot_resize_wrong_token(tpl_token_program: Pubkey, token_standard: TokenStandard) {
         // Create NFTs and then collect the fees from the metadata accounts.
         let mut context = program_test().start_with_context().await;
         let mut nft = DigitalAsset::new();
@@ -793,7 +793,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -806,7 +806,7 @@ mod resize {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -820,7 +820,7 @@ mod resize {
                 .mint(nft.mint.pubkey())
                 .payer(context.payer.pubkey())
                 .token(other_nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -840,7 +840,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::NonFungible,
             TokenStandard::ProgrammableNonFungible,
@@ -848,7 +848,7 @@ mod resize {
     )]
     #[tokio::test]
     async fn cannot_resize_nonfungible_as_update_authority(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         token_standard: TokenStandard,
     ) {
         // Create NFTs and then collect the fees from the metadata accounts.
@@ -860,7 +860,7 @@ mod resize {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -897,7 +897,7 @@ mod resize {
                 .payer(context.payer.pubkey())
                 .authority(update_authority.pubkey())
                 .token(nft.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],
@@ -917,7 +917,7 @@ mod resize {
     }
 
     #[test_case::test_matrix(
-        [spl_token::id(), spl_token_2022::id()],
+        [tpl_token::id(), tpl_token_2022::id()],
         [
             TokenStandard::Fungible,
             TokenStandard::FungibleAsset,
@@ -925,7 +925,7 @@ mod resize {
     )]
     #[tokio::test]
     async fn cannot_resize_fungible_as_update_authority(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
         token_standard: TokenStandard,
     ) {
         // Create NFTs and then collect the fees from the metadata accounts.
@@ -938,7 +938,7 @@ mod resize {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -974,7 +974,7 @@ mod resize {
                 .payer(context.payer.pubkey())
                 .authority(update_authority.pubkey())
                 .token(fungible.token.unwrap())
-                .system_program(solana_program::system_program::ID)
+                .system_program(trezoa_program::system_program::ID)
                 .build()
                 .unwrap()
                 .instruction()],

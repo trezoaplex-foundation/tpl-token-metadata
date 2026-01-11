@@ -3,9 +3,9 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program::pubkey::Pubkey;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program::pubkey::Pubkey;
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::Keypair,
     signer::Signer,
@@ -22,15 +22,15 @@ use token_metadata::{
 use utils::*;
 
 mod pnft {
-    use solana_program::system_instruction;
+    use trezoa_program::system_instruction;
     use token_metadata::{instruction::TransferArgs, pda::find_token_record_account};
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_burn(spl_token_program: Pubkey) {
+    async fn owner_burn(tpl_token_program: Pubkey) {
         // The owner of the token can burn it.
         let mut context = program_test().start_with_context().await;
 
@@ -45,7 +45,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -67,14 +67,14 @@ mod pnft {
                 authorization_rules: None,
                 args,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
 
         let args = BurnArgs::V1 { amount: 1 };
 
-        da.burn(&mut context, owner, args, None, None, spl_token_program)
+        da.burn(&mut context, owner, args, None, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -82,10 +82,10 @@ mod pnft {
         da.assert_burned(&mut context).await.unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_same_as_ua_can_burn(spl_token_program: Pubkey) {
+    async fn owner_same_as_ua_can_burn(tpl_token_program: Pubkey) {
         // When the owner is the same as the update authority, the owner can burn.
         let mut context = program_test().start_with_context().await;
 
@@ -98,14 +98,14 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
 
         let args = BurnArgs::V1 { amount: 1 };
 
-        da.burn(&mut context, owner, args, None, None, spl_token_program)
+        da.burn(&mut context, owner, args, None, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -113,10 +113,10 @@ mod pnft {
         da.assert_burned(&mut context).await.unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn update_authority_cannot_burn(spl_token_program: Pubkey) {
+    async fn update_authority_cannot_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let update_authority = context.payer.dirty_clone();
@@ -130,7 +130,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -152,7 +152,7 @@ mod pnft {
                 authorization_rules: None,
                 args,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -167,7 +167,7 @@ mod pnft {
                 args,
                 None,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -175,10 +175,10 @@ mod pnft {
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn utility_delegate_burn(spl_token_program: Pubkey) {
+    async fn utility_delegate_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let payer = context.payer.dirty_clone();
@@ -192,7 +192,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -205,14 +205,14 @@ mod pnft {
                 amount: 1,
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
 
         let args = BurnArgs::V1 { amount: 1 };
 
-        da.burn(&mut context, delegate, args, None, None, spl_token_program)
+        da.burn(&mut context, delegate, args, None, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -220,10 +220,10 @@ mod pnft {
         da.assert_burned(&mut context).await.unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn staking_delegate_cannot_burn(spl_token_program: Pubkey) {
+    async fn staking_delegate_cannot_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let payer = context.payer.dirty_clone();
@@ -237,7 +237,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -250,7 +250,7 @@ mod pnft {
                 amount: 1,
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -258,17 +258,17 @@ mod pnft {
         let args = BurnArgs::V1 { amount: 1 };
 
         let err = da
-            .burn(&mut context, delegate, args, None, None, spl_token_program)
+            .burn(&mut context, delegate, args, None, None, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn sale_delegate_cannot_burn(spl_token_program: Pubkey) {
+    async fn sale_delegate_cannot_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let payer = context.payer.dirty_clone();
@@ -282,7 +282,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -295,7 +295,7 @@ mod pnft {
                 amount: 1,
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -303,17 +303,17 @@ mod pnft {
         let args = BurnArgs::V1 { amount: 1 };
 
         let err = da
-            .burn(&mut context, delegate, args, None, None, spl_token_program)
+            .burn(&mut context, delegate, args, None, None, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn locked_transfer_delegate_cannot_burn(spl_token_program: Pubkey) {
+    async fn locked_transfer_delegate_cannot_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let payer = context.payer.dirty_clone();
@@ -327,7 +327,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -341,7 +341,7 @@ mod pnft {
                 locked_address: delegate.pubkey(),
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -349,17 +349,17 @@ mod pnft {
         let args = BurnArgs::V1 { amount: 1 };
 
         let err = da
-            .burn(&mut context, delegate, args, None, None, spl_token_program)
+            .burn(&mut context, delegate, args, None, None, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_burn_token_account_must_match_mint(spl_token_program: Pubkey) {
+    async fn owner_burn_token_account_must_match_mint(tpl_token_program: Pubkey) {
         // Try to burn NFT with a token account that does not match the mint.
         let mut context = program_test().start_with_context().await;
 
@@ -372,7 +372,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -385,7 +385,7 @@ mod pnft {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -399,7 +399,7 @@ mod pnft {
             .edition(da.edition.unwrap())
             .mint(da.mint.pubkey())
             .token(other_da.token.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -419,10 +419,10 @@ mod pnft {
         assert_custom_error!(err, MetadataError::MintMismatch);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn delegate_burn_token_account_must_match_mint(spl_token_program: Pubkey) {
+    async fn delegate_burn_token_account_must_match_mint(tpl_token_program: Pubkey) {
         // Try to burn NFT with a token account that does not match the mint.
         let mut context = program_test().start_with_context().await;
 
@@ -437,7 +437,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -450,7 +450,7 @@ mod pnft {
                 amount: 1,
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -483,10 +483,10 @@ mod pnft {
             &new_wallet_token.pubkey(),
             100_000_000,
             165,
-            &spl_token_program,
+            &tpl_token_program,
         );
-        let init_token_ix = spl_token_2022::instruction::initialize_account(
-            &spl_token_program,
+        let init_token_ix = tpl_token_2022::instruction::initialize_account(
+            &tpl_token_program,
             &new_wallet_token.pubkey(),
             &da.mint.pubkey(),
             &new_wallet.pubkey(),
@@ -503,7 +503,7 @@ mod pnft {
             .mint(da.mint.pubkey())
             .token(new_wallet_token.pubkey())
             .token_record(da.token_record.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -536,10 +536,10 @@ mod pnft {
             &new_wallet_token.pubkey(),
             100_000_000,
             165,
-            &spl_token_program,
+            &tpl_token_program,
         );
-        let init_token_ix = spl_token_2022::instruction::initialize_account(
-            &spl_token_program,
+        let init_token_ix = tpl_token_2022::instruction::initialize_account(
+            &tpl_token_program,
             &new_wallet_token.pubkey(),
             &da.mint.pubkey(),
             &new_wallet.pubkey(),
@@ -558,7 +558,7 @@ mod pnft {
             .mint(da.mint.pubkey())
             .token(new_wallet_token.pubkey())
             .token_record(new_wallet_token_record) // Match token and record so we bypass this check.
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let transaction = Transaction::new_signed_with_payer(
             &[create_token_ix, init_token_ix, burn_ix.clone()],
@@ -589,10 +589,10 @@ mod pnft {
             &new_wallet_token.pubkey(),
             100_000_000,
             165,
-            &spl_token_program,
+            &tpl_token_program,
         );
-        let init_token_ix = spl_token_2022::instruction::initialize_account(
-            &spl_token_program,
+        let init_token_ix = tpl_token_2022::instruction::initialize_account(
+            &tpl_token_program,
             &new_wallet_token.pubkey(),
             &da.mint.pubkey(),
             &new_wallet.pubkey(),
@@ -619,7 +619,7 @@ mod pnft {
             .mint(da.mint.pubkey())
             .token(new_wallet_token.pubkey())
             .token_record(fake_token_record.pubkey())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -649,10 +649,10 @@ mod pnft {
         assert_custom_error_ix!(3, err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_burn_metadata_must_match_mint(spl_token_program: Pubkey) {
+    async fn owner_burn_metadata_must_match_mint(tpl_token_program: Pubkey) {
         // Try to burn NFT with a metadata account that does not match the mint.
         let mut context = program_test().start_with_context().await;
 
@@ -665,7 +665,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -678,7 +678,7 @@ mod pnft {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -692,7 +692,7 @@ mod pnft {
             .edition(da.edition.unwrap())
             .mint(da.mint.pubkey())
             .token(da.token.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -712,10 +712,10 @@ mod pnft {
         assert_custom_error!(err, MetadataError::MintMismatch);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn delegate_burn_metadata_must_match_mint(spl_token_program: Pubkey) {
+    async fn delegate_burn_metadata_must_match_mint(tpl_token_program: Pubkey) {
         // Try to burn NFT with a metadata that does not match the mint.
         let mut context = program_test().start_with_context().await;
 
@@ -730,7 +730,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -743,7 +743,7 @@ mod pnft {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -756,7 +756,7 @@ mod pnft {
                 amount: 1,
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -771,7 +771,7 @@ mod pnft {
             .mint(da.mint.pubkey())
             .token(da.token.unwrap())
             .token_record(da.token_record.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -791,10 +791,10 @@ mod pnft {
         assert_custom_error_ix!(0, err, MetadataError::MintMismatch);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_burn_edition_must_match_mint(spl_token_program: Pubkey) {
+    async fn owner_burn_edition_must_match_mint(tpl_token_program: Pubkey) {
         // Try to burn NFT with an edition account that does not match the mint.
         let mut context = program_test().start_with_context().await;
 
@@ -807,7 +807,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -820,7 +820,7 @@ mod pnft {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -835,7 +835,7 @@ mod pnft {
             .mint(da.mint.pubkey())
             .token(da.token.unwrap())
             .token_record(da.token_record.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -855,10 +855,10 @@ mod pnft {
         assert_custom_error!(err, MetadataError::DerivedKeyInvalid);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn delegate_burn_edition_must_match_mint(spl_token_program: Pubkey) {
+    async fn delegate_burn_edition_must_match_mint(tpl_token_program: Pubkey) {
         // Try to burn NFT with an edition account that does not match the mint.
         let mut context = program_test().start_with_context().await;
 
@@ -873,7 +873,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -886,7 +886,7 @@ mod pnft {
                 amount: 1,
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -899,7 +899,7 @@ mod pnft {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -914,7 +914,7 @@ mod pnft {
             .mint(da.mint.pubkey())
             .token(da.token.unwrap())
             .token_record(da.token_record.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -934,10 +934,10 @@ mod pnft {
         assert_custom_error!(err, MetadataError::DerivedKeyInvalid);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_burn_token_record_must_match(spl_token_program: Pubkey) {
+    async fn owner_burn_token_record_must_match(tpl_token_program: Pubkey) {
         // The token record must match the token.
         let mut context = program_test().start_with_context().await;
 
@@ -952,7 +952,7 @@ mod pnft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -966,7 +966,7 @@ mod pnft {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -988,7 +988,7 @@ mod pnft {
                 authorization_rules: None,
                 args,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1004,7 +1004,7 @@ mod pnft {
             .mint(da.mint.pubkey())
             .token(da.token.unwrap())
             .token_record(da_other.token_record.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -1024,10 +1024,10 @@ mod pnft {
         assert_custom_error!(err, MetadataError::InvalidTokenRecord);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn invalid_close_authority_fails(spl_token_program: Pubkey) {
+    async fn invalid_close_authority_fails(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -1040,7 +1040,7 @@ mod pnft {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1062,7 +1062,7 @@ mod pnft {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1074,7 +1074,7 @@ mod pnft {
         let args = BurnArgs::V1 { amount: 1 };
 
         let err = asset
-            .burn(&mut context, delegate, args, None, None, spl_token_program)
+            .burn(&mut context, delegate, args, None, None, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -1088,10 +1088,10 @@ mod pnft_edition {
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn burn_nonfungible_edition(spl_token_program: Pubkey) {
+    async fn burn_nonfungible_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
         let mut nft = DigitalAsset::default();
 
@@ -1102,7 +1102,7 @@ mod pnft_edition {
             None,
             1,
             PrintSupply::Unlimited,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1111,7 +1111,7 @@ mod pnft_edition {
 
         let nft_master_edition = MasterEditionV2::new_from_asset(&nft);
         let nft_edition_marker =
-            EditionMarker::new_from_asset(&nft, &nft_master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&nft, &nft_master_edition, 1, tpl_token_program);
         nft_edition_marker
             .create_from_asset(&mut context)
             .await
@@ -1142,7 +1142,7 @@ mod pnft_edition {
             .master_edition_token(nft.token.unwrap())
             .master_edition(nft_master_edition.pubkey)
             .edition_marker(nft_edition_marker.pubkey)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -1188,9 +1188,9 @@ mod pnft_edition {
         assert!(print_edition_account.is_none());
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn burn_edition_nft_in_separate_wallet(spl_token_program: Pubkey) {
+    async fn burn_edition_nft_in_separate_wallet(tpl_token_program: Pubkey) {
         // Burn a print edition that is in a separate wallet, so owned by a different account
         // than the master edition nft.
         let mut context = program_test().start_with_context().await;
@@ -1204,14 +1204,14 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Unlimited,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
 
         let master_edition = MasterEditionV2::new_from_asset(&original_nft);
         let mut print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         // Transfer to new owner.
@@ -1236,7 +1236,7 @@ mod pnft_edition {
         let new_owner_token_account = get_associated_token_address_with_program_id(
             &new_owner_pubkey,
             &print_edition.mint.pubkey(),
-            &spl_token_program,
+            &tpl_token_program,
         );
         let owner_token_record_pda =
             find_token_record_account(&print_edition.mint.pubkey(), &print_edition.token.pubkey());
@@ -1257,7 +1257,7 @@ mod pnft_edition {
             .master_edition(master_edition.pubkey)
             .edition_marker(print_edition.pubkey)
             .token_record(owner_token_record_pda.0)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -1294,7 +1294,7 @@ mod pnft_edition {
             .master_edition(master_edition.pubkey)
             .edition_marker(print_edition.pubkey)
             .token_record(new_owner_token_record_pda.0)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -1318,10 +1318,10 @@ mod pnft_edition {
         assert!(print_edition.exists_on_chain(&mut context).await);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn only_owner_can_burn_edition(spl_token_program: Pubkey) {
+    async fn only_owner_can_burn_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut original_nft = DigitalAsset::default();
@@ -1334,14 +1334,14 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Unlimited,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
 
         let master_edition = MasterEditionV2::new_from_asset(&original_nft);
         let print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -1363,7 +1363,7 @@ mod pnft_edition {
             .master_edition_token(original_nft.token.unwrap())
             .master_edition(master_edition.pubkey)
             .edition_marker(print_edition.pubkey)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let default_args = BurnPrintArgs::default(&not_owner);
 
@@ -1380,17 +1380,17 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn update_authority_cannot_burn_edition(spl_token_program: Pubkey) {
+    async fn update_authority_cannot_burn_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut original_nft = DigitalAsset::default();
@@ -1402,7 +1402,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Unlimited,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1419,7 +1419,7 @@ mod pnft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -1438,17 +1438,17 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    pub async fn invalid_print_edition(spl_token_program: Pubkey) {
+    pub async fn invalid_print_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut original_nft = DigitalAsset::default();
@@ -1460,7 +1460,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Unlimited,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1468,7 +1468,7 @@ mod pnft_edition {
         let master_edition = MasterEditionV2::new_from_asset(&original_nft);
 
         let print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -1486,7 +1486,7 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn_asset(&mut context, args, spl_token_program)
+            .burn_asset(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -1498,7 +1498,7 @@ mod pnft_edition {
         // because the derivation will be incorrect.
 
         let second_print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, tpl_token_program);
         second_print_edition
             .create_from_asset(&mut context)
             .await
@@ -1517,7 +1517,7 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn_asset(&mut context, args, spl_token_program)
+            .burn_asset(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -1525,10 +1525,10 @@ mod pnft_edition {
         assert_custom_error!(err, MetadataError::DerivedKeyInvalid);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    pub async fn invalid_edition_marker(spl_token_program: Pubkey) {
+    pub async fn invalid_edition_marker(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut original_nft = DigitalAsset::default();
@@ -1540,7 +1540,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Unlimited,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1548,7 +1548,7 @@ mod pnft_edition {
         let master_edition = MasterEditionV2::new_from_asset(&original_nft);
 
         let print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -1566,7 +1566,7 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn_asset(&mut context, args, spl_token_program)
+            .burn_asset(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -1578,7 +1578,7 @@ mod pnft_edition {
         // so will pass that check but will fail with IncorrectEditionMarker.
 
         let second_print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, tpl_token_program);
         second_print_edition
             .create_from_asset(&mut context)
             .await
@@ -1597,16 +1597,16 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn_asset(&mut context, args, spl_token_program)
+            .burn_asset(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidEditionMarker);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn master_supply_is_decremented(spl_token_program: Pubkey) {
+    pub async fn master_supply_is_decremented(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut original_nft = DigitalAsset::default();
@@ -1618,7 +1618,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Limited(10),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1626,7 +1626,7 @@ mod pnft_edition {
         let master_edition = MasterEditionV2::new_from_asset(&original_nft);
 
         let print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         let master_edition_account = context
@@ -1643,7 +1643,7 @@ mod pnft_edition {
         assert!(master_edition_struct.max_supply == Some(10));
 
         let mut second_print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, tpl_token_program);
         second_print_edition
             .create_from_asset(&mut context)
             .await
@@ -1676,7 +1676,7 @@ mod pnft_edition {
         let new_owner_token_account = get_associated_token_address_with_program_id(
             &user.pubkey(),
             &second_print_edition.mint.pubkey(),
-            &spl_token_program,
+            &tpl_token_program,
         );
 
         let payer = &context.payer.dirty_clone();
@@ -1685,7 +1685,7 @@ mod pnft_edition {
 
         // Master edition owner burning.
         print_edition
-            .burn_asset(&mut context, burn_print_args, spl_token_program)
+            .burn_asset(&mut context, burn_print_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -1712,7 +1712,7 @@ mod pnft_edition {
 
         // Second owner burning.
         second_print_edition
-            .burn_asset(&mut context, burn_print_args, spl_token_program)
+            .burn_asset(&mut context, burn_print_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -1730,9 +1730,9 @@ mod pnft_edition {
         assert!(master_edition_struct.supply == 0);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn edition_mask_changed_correctly(spl_token_program: Pubkey) {
+    pub async fn edition_mask_changed_correctly(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut original_nft = DigitalAsset::default();
@@ -1744,7 +1744,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Limited(10),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1779,7 +1779,7 @@ mod pnft_edition {
 
         // Burn the second one
         print_editions[1]
-            .burn_asset(&mut context, default_args.clone(), spl_token_program)
+            .burn_asset(&mut context, default_args.clone(), tpl_token_program)
             .await
             .unwrap();
         context.warp_to_slot(end_slot + 10).unwrap();
@@ -1801,7 +1801,7 @@ mod pnft_edition {
 
         // Burn the last one
         print_editions[9]
-            .burn_asset(&mut context, default_args, spl_token_program)
+            .burn_asset(&mut context, default_args, tpl_token_program)
             .await
             .unwrap();
         context.warp_to_slot(end_slot + 15).unwrap();
@@ -1822,9 +1822,9 @@ mod pnft_edition {
         assert!(ledger[1] == 0b1100_0000);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn reprint_burned_edition(spl_token_program: Pubkey) {
+    pub async fn reprint_burned_edition(tpl_token_program: Pubkey) {
         // Reprinting a burned edition should work when the owner is the same for
         // the master edition and print edition. Otherwise, it should fail.
         let mut context = program_test().start_with_context().await;
@@ -1838,7 +1838,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Limited(10),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1846,12 +1846,12 @@ mod pnft_edition {
         let master_edition = MasterEditionV2::new_from_asset(&original_nft);
 
         let print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         // Print a new edition and transfer to a user.
         let mut user_print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, tpl_token_program);
         user_print_edition
             .create_from_asset(&mut context)
             .await
@@ -1871,7 +1871,7 @@ mod pnft_edition {
         let new_owner_token_account = get_associated_token_address_with_program_id(
             &user.pubkey(),
             &user_print_edition.mint.pubkey(),
-            &spl_token_program,
+            &tpl_token_program,
         );
 
         // Metadata, Print Edition and token account exist.
@@ -1884,7 +1884,7 @@ mod pnft_edition {
 
         // Burn owner's edition.
         print_edition
-            .burn_asset(&mut context, owner_burn_args, spl_token_program)
+            .burn_asset(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -1897,7 +1897,7 @@ mod pnft_edition {
 
         // Burn owner's edition.
         user_print_edition
-            .burn_asset(&mut context, user_burn_args, spl_token_program)
+            .burn_asset(&mut context, user_burn_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -1907,7 +1907,7 @@ mod pnft_edition {
 
         // Reprint owner's burned edition
         let print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -1915,7 +1915,7 @@ mod pnft_edition {
 
         // Reprint user's burned edition: this should fail.
         let user_print_edition =
-            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new_from_asset(&original_nft, &master_edition, 2, tpl_token_program);
         let err = user_print_edition
             .create_from_asset(&mut context)
             .await
@@ -1924,10 +1924,10 @@ mod pnft_edition {
         assert_custom_error!(err, MetadataError::AlreadyInitialized);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn cannot_modify_wrong_master_edition(spl_token_program: Pubkey) {
+    async fn cannot_modify_wrong_master_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // Someone else's NFT
@@ -1940,7 +1940,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Limited(10),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1954,7 +1954,7 @@ mod pnft_edition {
             .unwrap();
 
         let other_print_edition =
-            EditionMarker::new_from_asset(&other_nft, &other_master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&other_nft, &other_master_edition, 1, tpl_token_program);
         other_print_edition
             .create_from_asset(&mut context)
             .await
@@ -1969,7 +1969,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Limited(10),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1977,7 +1977,7 @@ mod pnft_edition {
         let master_edition = MasterEditionV2::new_from_asset(&our_nft);
 
         let print_edition =
-            EditionMarker::new_from_asset(&our_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&our_nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -1994,17 +1994,17 @@ mod pnft_edition {
 
         // We pass in our edition NFT and someone else's master edition and try to modify their supply.
         let err = print_edition
-            .burn_asset(&mut context, owner_burn_args, spl_token_program)
+            .burn_asset(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::PrintEditionDoesNotMatchMasterEdition);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn mint_mismatches(spl_token_program: Pubkey) {
+    async fn mint_mismatches(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let mut nft = DigitalAsset::default();
@@ -2015,7 +2015,7 @@ mod pnft_edition {
             None,
             1,
             PrintSupply::Limited(10),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2023,10 +2023,10 @@ mod pnft_edition {
         let master_edition = MasterEditionV2::new_from_asset(&nft);
 
         let print_edition =
-            EditionMarker::new_from_asset(&nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&nft, &master_edition, 1, tpl_token_program);
         print_edition.create_from_asset(&mut context).await.unwrap();
         let second_print_edition =
-            EditionMarker::new_from_asset(&nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new_from_asset(&nft, &master_edition, 2, tpl_token_program);
         second_print_edition
             .create_from_asset(&mut context)
             .await
@@ -2043,7 +2043,7 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn_asset(&mut context, owner_burn_args, spl_token_program)
+            .burn_asset(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -2060,7 +2060,7 @@ mod pnft_edition {
                 None,
                 1,
                 PrintSupply::Limited(10),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2074,7 +2074,7 @@ mod pnft_edition {
         };
 
         let err = print_edition
-            .burn_asset(&mut context, owner_burn_args, spl_token_program)
+            .burn_asset(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -2085,10 +2085,10 @@ mod pnft_edition {
 mod nft {
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn burn_nonfungible(spl_token_program: Pubkey) {
+    async fn burn_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let owner = context.payer.dirty_clone();
@@ -2100,14 +2100,14 @@ mod nft {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
 
         let args = BurnArgs::V1 { amount: 1 };
 
-        da.burn(&mut context, owner, args, None, None, spl_token_program)
+        da.burn(&mut context, owner, args, None, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -2115,9 +2115,9 @@ mod nft {
         da.assert_burned(&mut context).await.unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn burning_decrements_collection_size(spl_token_program: Pubkey) {
+    async fn burning_decrements_collection_size(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let owner = context.payer.dirty_clone();
@@ -2234,7 +2234,7 @@ mod nft {
             BurnArgs::V1 { amount: 1 },
             None,
             Some(collection_parent_nft.pubkey),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2256,9 +2256,9 @@ mod nft {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn burn_unsized_collection_item(spl_token_program: Pubkey) {
+    async fn burn_unsized_collection_item(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let owner = context.payer.dirty_clone();
@@ -2331,15 +2331,15 @@ mod nft {
             BurnArgs::V1 { amount: 1 },
             None,
             Some(collection_parent_nft.pubkey),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn burn_unsized_collection_item_with_burned_parent(spl_token_program: Pubkey) {
+    async fn burn_unsized_collection_item_with_burned_parent(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // Create a Collection Parent NFT without the CollectionDetails struct
@@ -2432,7 +2432,7 @@ mod nft {
                 BurnArgs::V1 { amount: 1 },
                 None,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2445,7 +2445,7 @@ mod nft {
                 BurnArgs::V1 { amount: 1 },
                 None,
                 Some(Pubkey::new_unique()),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -2461,7 +2461,7 @@ mod nft {
                 BurnArgs::V1 { amount: 1 },
                 None,
                 Some(dummy_collection_parent_nft.pubkey),
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -2475,27 +2475,27 @@ mod nft {
             BurnArgs::V1 { amount: 1 },
             None,
             Some(collection_metadata),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn fail_to_burn_master_edition_with_existing_prints(spl_token_program: Pubkey) {
+    async fn fail_to_burn_master_edition_with_existing_prints(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let owner = context.payer.dirty_clone();
 
         let mut original_nft = DigitalAsset::new();
         original_nft
-            .create_and_mint_nonfungible(&mut context, PrintSupply::Limited(10), spl_token_program)
+            .create_and_mint_nonfungible(&mut context, PrintSupply::Limited(10), tpl_token_program)
             .await
             .unwrap();
 
         let print_nft = original_nft
-            .print_edition(&mut context, 1, spl_token_program)
+            .print_edition(&mut context, 1, tpl_token_program)
             .await
             .unwrap();
 
@@ -2527,7 +2527,7 @@ mod nft {
                 BurnArgs::V1 { amount: 1 },
                 None,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -2535,9 +2535,9 @@ mod nft {
         assert_custom_error!(err, MetadataError::MasterEditionHasPrints);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn require_md_account_to_burn_collection_nft(spl_token_program: Pubkey) {
+    async fn require_md_account_to_burn_collection_nft(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let owner = context.payer.dirty_clone();
@@ -2652,7 +2652,7 @@ mod nft {
                 BurnArgs::V1 { amount: 1 },
                 None,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -2660,9 +2660,9 @@ mod nft {
         assert_custom_error!(err, MetadataError::MissingCollectionMetadata);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn only_owner_can_burn(spl_token_program: Pubkey) {
+    async fn only_owner_can_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let test_metadata = Metadata::new();
@@ -2712,7 +2712,7 @@ mod nft {
                 BurnArgs::V1 { amount: 1 },
                 None,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -2721,9 +2721,9 @@ mod nft {
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn update_authority_cannot_burn(spl_token_program: Pubkey) {
+    async fn update_authority_cannot_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let name = "Test".to_string();
@@ -2798,7 +2798,7 @@ mod nft {
                 BurnArgs::V1 { amount: 1 },
                 None,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -2806,9 +2806,9 @@ mod nft {
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn cannot_burn_with_invalid_parents(spl_token_program: Pubkey) {
+    pub async fn cannot_burn_with_invalid_parents(tpl_token_program: Pubkey) {
         // Create two master editions and try burn the second with the first
         // as the parent accounts. This is using the handler wrong and would be
         // confusing for it to succeed even though it could, so it fails.
@@ -2829,7 +2829,7 @@ mod nft {
 
         // We need a valid edition marker for this test.
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         let second_master_edition = MasterEditionV2::new(&second_nft);
@@ -2853,7 +2853,7 @@ mod nft {
             .master_edition_token(original_nft.token.pubkey())
             .master_edition(master_edition.pubkey)
             .edition_marker(print_edition.pubkey)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -2879,15 +2879,15 @@ mod nft_edition {
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn burn_nonfungible_edition(spl_token_program: Pubkey) {
+    async fn burn_nonfungible_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let nft = Metadata::new();
         let nft_master_edition = MasterEditionV2::new(&nft);
         let nft_edition_marker =
-            EditionMarker::new(&nft, &nft_master_edition, 1, spl_token_program);
+            EditionMarker::new(&nft, &nft_master_edition, 1, tpl_token_program);
 
         let payer_key = context.payer.pubkey();
 
@@ -2937,7 +2937,7 @@ mod nft_edition {
             .master_edition_token(nft.token.pubkey())
             .master_edition(nft_master_edition.pubkey)
             .edition_marker(nft_edition_marker.pubkey)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -2983,9 +2983,9 @@ mod nft_edition {
         assert!(print_edition_account.is_none());
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn burn_edition_nft_in_separate_wallet(spl_token_program: Pubkey) {
+    async fn burn_edition_nft_in_separate_wallet(tpl_token_program: Pubkey) {
         // Burn a print edition that is in a separate wallet, so owned by a different account
         // than the master edition nft.
         let mut context = program_test().start_with_context().await;
@@ -2999,7 +2999,7 @@ mod nft_edition {
             .await
             .unwrap();
         let mut print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         // Transfer to new owner.
@@ -3044,7 +3044,7 @@ mod nft_edition {
         let new_owner_token_account = get_associated_token_address_with_program_id(
             &new_owner_pubkey,
             &print_edition.mint.pubkey(),
-            &spl_token_program,
+            &tpl_token_program,
         );
 
         let err = burn_edition(
@@ -3080,7 +3080,7 @@ mod nft_edition {
             .master_edition_token(original_nft.token.pubkey())
             .master_edition(master_edition.pubkey)
             .edition_marker(print_edition.pubkey)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 
@@ -3100,9 +3100,9 @@ mod nft_edition {
         assert!(!print_edition.exists_on_chain(&mut context).await);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn only_owner_can_burn_edition(spl_token_program: Pubkey) {
+    async fn only_owner_can_burn_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3114,7 +3114,7 @@ mod nft_edition {
             .await
             .unwrap();
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -3136,7 +3136,7 @@ mod nft_edition {
             .master_edition_token(original_nft.token.pubkey())
             .master_edition(master_edition.pubkey)
             .edition_marker(print_edition.pubkey)
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let default_args = BurnPrintArgs::default(&not_owner);
 
@@ -3153,16 +3153,16 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn update_authority_cannot_burn_edition(spl_token_program: Pubkey) {
+    async fn update_authority_cannot_burn_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3184,7 +3184,7 @@ mod nft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -3203,16 +3203,16 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn no_master_edition(spl_token_program: Pubkey) {
+    pub async fn no_master_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3225,11 +3225,11 @@ mod nft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         let second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token_program);
         second_print_edition.create(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -3247,16 +3247,16 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::NotAMasterEdition);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn invalid_master_edition(spl_token_program: Pubkey) {
+    async fn invalid_master_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3269,7 +3269,7 @@ mod nft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -3287,7 +3287,7 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -3320,16 +3320,16 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidMasterEdition);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn invalid_print_edition(spl_token_program: Pubkey) {
+    pub async fn invalid_print_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3342,7 +3342,7 @@ mod nft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -3360,7 +3360,7 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -3372,7 +3372,7 @@ mod nft_edition {
         // because the derivation will be incorrect.
 
         let second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token_program);
         second_print_edition.create(&mut context).await.unwrap();
 
         let args = BurnPrintArgs {
@@ -3388,16 +3388,16 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidPrintEdition);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn invalid_edition_marker(spl_token_program: Pubkey) {
+    pub async fn invalid_edition_marker(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3410,7 +3410,7 @@ mod nft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -3428,7 +3428,7 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -3440,7 +3440,7 @@ mod nft_edition {
         // so will pass that check but will fail with IncorrectEditionMarker.
 
         let second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token_program);
         second_print_edition.create(&mut context).await.unwrap();
 
         let args = BurnPrintArgs {
@@ -3456,16 +3456,16 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, args, spl_token_program)
+            .burn(&mut context, args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::InvalidEditionMarker);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn master_supply_is_decremented(spl_token_program: Pubkey) {
+    pub async fn master_supply_is_decremented(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3478,7 +3478,7 @@ mod nft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         let master_edition_account = context
@@ -3495,7 +3495,7 @@ mod nft_edition {
         assert!(master_edition_struct.max_supply == Some(10));
 
         let mut second_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token_program);
         second_print_edition.create(&mut context).await.unwrap();
 
         let master_edition_account = context
@@ -3525,7 +3525,7 @@ mod nft_edition {
         let new_owner_token_account = get_associated_token_address_with_program_id(
             &user.pubkey(),
             &second_print_edition.mint.pubkey(),
-            &spl_token_program,
+            &tpl_token_program,
         );
 
         let payer = &context.payer.dirty_clone();
@@ -3534,7 +3534,7 @@ mod nft_edition {
 
         // Master edition owner burning.
         print_edition
-            .burn(&mut context, burn_print_args, spl_token_program)
+            .burn(&mut context, burn_print_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -3561,7 +3561,7 @@ mod nft_edition {
 
         // Second owner burning.
         second_print_edition
-            .burn(&mut context, burn_print_args, spl_token_program)
+            .burn(&mut context, burn_print_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -3579,9 +3579,9 @@ mod nft_edition {
         assert!(master_edition_struct.supply == 0);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn edition_mask_changed_correctly(spl_token_program: Pubkey) {
+    pub async fn edition_mask_changed_correctly(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let original_nft = Metadata::new();
@@ -3619,7 +3619,7 @@ mod nft_edition {
 
         // Burn the second one
         print_editions[1]
-            .burn(&mut context, default_args.clone(), spl_token_program)
+            .burn(&mut context, default_args.clone(), tpl_token_program)
             .await
             .unwrap();
 
@@ -3640,7 +3640,7 @@ mod nft_edition {
 
         // Burn the last one
         print_editions[9]
-            .burn(&mut context, default_args, spl_token_program)
+            .burn(&mut context, default_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -3660,9 +3660,9 @@ mod nft_edition {
         assert!(ledger[1] == 0b1100_0000);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    pub async fn reprint_burned_edition(spl_token_program: Pubkey) {
+    pub async fn reprint_burned_edition(tpl_token_program: Pubkey) {
         // Reprinting a burned edition should work when the owner is the same for
         // the master edition and print edition. Otherwise, it should fail.
         let mut context = program_test().start_with_context().await;
@@ -3677,12 +3677,12 @@ mod nft_edition {
             .unwrap();
 
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         // Print a new edition and transfer to a user.
         let mut user_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token_program);
         user_print_edition.create(&mut context).await.unwrap();
 
         let user = Keypair::new();
@@ -3699,7 +3699,7 @@ mod nft_edition {
         let new_owner_token_account = get_associated_token_address_with_program_id(
             &user.pubkey(),
             &user_print_edition.mint.pubkey(),
-            &spl_token_program,
+            &tpl_token_program,
         );
 
         // Metadata, Print Edition and token account exist.
@@ -3712,7 +3712,7 @@ mod nft_edition {
 
         // Burn owner's edition.
         print_edition
-            .burn(&mut context, owner_burn_args, spl_token_program)
+            .burn(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -3725,7 +3725,7 @@ mod nft_edition {
 
         // Burn owner's edition.
         user_print_edition
-            .burn(&mut context, user_burn_args, spl_token_program)
+            .burn(&mut context, user_burn_args, tpl_token_program)
             .await
             .unwrap();
 
@@ -3735,7 +3735,7 @@ mod nft_edition {
 
         // Reprint owner's burned edition
         let print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 1, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         // Metadata, Print Edition and token account exist.
@@ -3743,15 +3743,15 @@ mod nft_edition {
 
         // Reprint user's burned edition: this should fail.
         let user_print_edition =
-            EditionMarker::new(&original_nft, &master_edition, 2, spl_token_program);
+            EditionMarker::new(&original_nft, &master_edition, 2, tpl_token_program);
         let err = user_print_edition.create(&mut context).await.unwrap_err();
 
         assert_custom_error!(err, MetadataError::AlreadyInitialized);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn cannot_modify_wrong_master_edition(spl_token_program: Pubkey) {
+    async fn cannot_modify_wrong_master_edition(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // Someone else's NFT
@@ -3771,7 +3771,7 @@ mod nft_edition {
             .unwrap();
 
         let other_print_edition =
-            EditionMarker::new(&other_nft, &other_master_edition, 1, spl_token_program);
+            EditionMarker::new(&other_nft, &other_master_edition, 1, tpl_token_program);
         other_print_edition.create(&mut context).await.unwrap();
 
         let our_nft = Metadata::new();
@@ -3783,7 +3783,7 @@ mod nft_edition {
             .await
             .unwrap();
 
-        let print_edition = EditionMarker::new(&our_nft, &master_edition, 1, spl_token_program);
+        let print_edition = EditionMarker::new(&our_nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -3800,16 +3800,16 @@ mod nft_edition {
 
         // We pass in our edition NFT and someone else's master edition and try to modify their supply.
         let err = print_edition
-            .burn(&mut context, owner_burn_args, spl_token_program)
+            .burn(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap_err();
 
         assert_custom_error!(err, MetadataError::PrintEditionDoesNotMatchMasterEdition);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
     #[tokio::test]
-    async fn mint_mismatches(spl_token_program: Pubkey) {
+    async fn mint_mismatches(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let nft = Metadata::new();
@@ -3821,9 +3821,9 @@ mod nft_edition {
             .await
             .unwrap();
 
-        let print_edition = EditionMarker::new(&nft, &master_edition, 1, spl_token_program);
+        let print_edition = EditionMarker::new(&nft, &master_edition, 1, tpl_token_program);
         print_edition.create(&mut context).await.unwrap();
-        let second_print_edition = EditionMarker::new(&nft, &master_edition, 2, spl_token_program);
+        let second_print_edition = EditionMarker::new(&nft, &master_edition, 2, tpl_token_program);
         second_print_edition.create(&mut context).await.unwrap();
 
         let payer = &context.payer.dirty_clone();
@@ -3837,7 +3837,7 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, owner_burn_args, spl_token_program)
+            .burn(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -3861,7 +3861,7 @@ mod nft_edition {
         };
 
         let err = print_edition
-            .burn(&mut context, owner_burn_args, spl_token_program)
+            .burn(&mut context, owner_burn_args, tpl_token_program)
             .await
             .unwrap_err();
 
@@ -3870,22 +3870,22 @@ mod nft_edition {
 }
 
 mod fungible {
-    use mpl_utils::token::unpack;
-    use solana_program::native_token::LAMPORTS_PER_SOL;
-    use spl_token_2022::state::Account;
+    use tpl_utils::token::unpack;
+    use trezoa_program::native_token::LAMPORTS_PER_TRZ;
+    use tpl_token_2022::state::Account;
     use token_metadata::instruction::TransferArgs;
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_burn(spl_token_program: Pubkey) {
+    async fn owner_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let update_authority = context.payer.dirty_clone();
         let owner = Keypair::new();
-        owner.airdrop(&mut context, LAMPORTS_PER_SOL).await.unwrap();
+        owner.airdrop(&mut context, LAMPORTS_PER_TRZ).await.unwrap();
 
         let initial_amount = 10;
         let burn_amount = 1;
@@ -3897,7 +3897,7 @@ mod fungible {
             None,
             None,
             initial_amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3919,7 +3919,7 @@ mod fungible {
                 authorization_rules: None,
                 args,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3934,7 +3934,7 @@ mod fungible {
             args,
             None,
             None,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3957,7 +3957,7 @@ mod fungible {
             amount: burn_remaining,
         };
 
-        da.burn(&mut context, owner, args, None, None, spl_token_program)
+        da.burn(&mut context, owner, args, None, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -3971,16 +3971,16 @@ mod fungible {
         assert!(token_account.is_none());
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn only_owner_can_burn(spl_token_program: Pubkey) {
+    async fn only_owner_can_burn(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let not_owner = Keypair::new();
 
         not_owner
-            .airdrop(&mut context, LAMPORTS_PER_SOL)
+            .airdrop(&mut context, LAMPORTS_PER_TRZ)
             .await
             .unwrap();
 
@@ -3994,7 +3994,7 @@ mod fungible {
             None,
             None,
             initial_amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -4010,7 +4010,7 @@ mod fungible {
                 args,
                 None,
                 None,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -4018,10 +4018,10 @@ mod fungible {
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn owner_token_must_match_mint(spl_token_program: Pubkey) {
+    async fn owner_token_must_match_mint(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         let owner = context.payer.dirty_clone();
@@ -4035,7 +4035,7 @@ mod fungible {
             None,
             None,
             initial_amount,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -4048,7 +4048,7 @@ mod fungible {
                 None,
                 None,
                 initial_amount,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -4063,7 +4063,7 @@ mod fungible {
             .metadata(da.metadata)
             .mint(da.mint.pubkey())
             .token(other_da.token.unwrap())
-            .spl_token_program(spl_token_program);
+            .tpl_token_program(tpl_token_program);
 
         let burn_ix = builder.build(args).unwrap().instruction();
 

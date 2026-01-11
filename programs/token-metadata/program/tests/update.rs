@@ -2,14 +2,14 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program::pubkey::Pubkey;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program::pubkey::Pubkey;
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 use token_metadata::{
     error::MetadataError,
     instruction::{
@@ -27,21 +27,21 @@ use utils::{DigitalAsset, *};
 mod update {
 
     use borsh::BorshDeserialize;
-    use mpl_utils::token::unpack;
+    use tpl_utils::token::unpack;
     use token_metadata::state::PrintSupply;
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_by_update_authority(spl_token_program: Pubkey) {
+    async fn success_update_by_update_authority(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -111,16 +111,16 @@ mod update {
         assert_eq!(metadata.data.uri, new_uri);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_by_items_authority_item_delegate(spl_token_program: Pubkey) {
+    async fn success_update_by_items_authority_item_delegate(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -140,7 +140,7 @@ mod update {
                 DelegateArgs::AuthorityItemV1 {
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -196,17 +196,17 @@ mod update {
         assert!(!metadata.is_mutable);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     #[allow(deprecated)]
-    async fn fail_change_update_authority_by_authority_item_delegate(spl_token_program: Pubkey) {
+    async fn fail_change_update_authority_by_authority_item_delegate(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -226,7 +226,7 @@ mod update {
                 DelegateArgs::AuthorityItemV1 {
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -280,10 +280,10 @@ mod update {
         );
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_by_items_collection_delegate(spl_token_program: Pubkey) {
+    async fn success_update_by_items_collection_delegate(tpl_token_program: Pubkey) {
         let delegate_args = DelegateArgs::CollectionV1 {
             authorization_data: None,
         };
@@ -305,15 +305,15 @@ mod update {
             delegate_args,
             new_collection,
             update_args,
-            spl_token_program,
+            tpl_token_program,
         )
         .await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_by_items_collection_item_delegate(spl_token_program: Pubkey) {
+    async fn success_update_by_items_collection_item_delegate(tpl_token_program: Pubkey) {
         let delegate_args = DelegateArgs::CollectionItemV1 {
             authorization_data: None,
         };
@@ -335,7 +335,7 @@ mod update {
             delegate_args,
             new_collection,
             update_args,
-            spl_token_program,
+            tpl_token_program,
         )
         .await;
     }
@@ -344,14 +344,14 @@ mod update {
         delegate_args: DelegateArgs,
         collection: Collection,
         update_args: UpdateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -367,7 +367,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -403,10 +403,10 @@ mod update {
         assert_eq!(metadata.collection, Some(collection));
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_by_items_data_delegate(spl_token_program: Pubkey) {
+    async fn success_update_by_items_data_delegate(tpl_token_program: Pubkey) {
         let delegate_args = DelegateArgs::DataV1 {
             authorization_data: None,
         };
@@ -414,15 +414,15 @@ mod update {
         success_update_data_by_items_delegate(
             delegate_args,
             UpdateArgs::default_as_data_delegate(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_by_items_data_item_delegate(spl_token_program: Pubkey) {
+    async fn success_update_by_items_data_item_delegate(tpl_token_program: Pubkey) {
         let delegate_args = DelegateArgs::DataItemV1 {
             authorization_data: None,
         };
@@ -430,7 +430,7 @@ mod update {
         success_update_data_by_items_delegate(
             delegate_args,
             UpdateArgs::default_as_data_item_delegate(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await;
     }
@@ -438,14 +438,14 @@ mod update {
     async fn success_update_data_by_items_delegate(
         delegate_args: DelegateArgs,
         mut update_args: UpdateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -474,7 +474,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -533,12 +533,12 @@ mod update {
         assert_eq!(metadata.data.uri, new_uri);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_pfnt_config_by_update_authority(spl_token_program: Pubkey) {
+    async fn success_update_pfnt_config_by_update_authority(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -556,7 +556,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -609,12 +609,12 @@ mod update {
         assert_eq!(metadata.programmable_config, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_pfnt_config_no_token_in_account(spl_token_program: Pubkey) {
+    async fn fail_update_pfnt_config_no_token_in_account(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -632,7 +632,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -662,7 +662,7 @@ mod update {
                 authorization_rules: None,
                 args,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -734,12 +734,12 @@ mod update {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_pfnt_config_token_and_mint_mismatch(spl_token_program: Pubkey) {
+    async fn fail_update_pfnt_config_token_and_mint_mismatch(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -757,7 +757,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data.clone()),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -782,7 +782,7 @@ mod update {
                 Some(authorization_rules),
                 Some(auth_data),
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -838,12 +838,12 @@ mod update {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_pfnt_config_metadata_and_mint_mismatch(spl_token_program: Pubkey) {
+    async fn fail_update_pfnt_config_metadata_and_mint_mismatch(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -861,7 +861,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data.clone()),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -886,7 +886,7 @@ mod update {
                 Some(authorization_rules),
                 Some(auth_data),
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -942,12 +942,12 @@ mod update {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_pfnt_config_by_update_authority_wrong_edition(spl_token_program: Pubkey) {
+    async fn fail_update_pfnt_config_by_update_authority_wrong_edition(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -965,7 +965,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data.clone()),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -990,7 +990,7 @@ mod update {
                 Some(authorization_rules),
                 Some(auth_data),
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1046,10 +1046,10 @@ mod update {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_pnft_by_items_programmable_config_delegate(spl_token_program: Pubkey) {
+    async fn success_update_pnft_by_items_programmable_config_delegate(tpl_token_program: Pubkey) {
         let delegate_args = DelegateArgs::ProgrammableConfigV1 {
             authorization_data: None,
         };
@@ -1062,14 +1062,14 @@ mod update {
             _ => panic!("Unexpected enum variant"),
         }
 
-        success_update_pnft_by_items_delegate(delegate_args, update_args, spl_token_program).await;
+        success_update_pnft_by_items_delegate(delegate_args, update_args, tpl_token_program).await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn success_update_pnft_by_items_programmable_config_item_delegate(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let delegate_args = DelegateArgs::ProgrammableConfigItemV1 {
             authorization_data: None,
@@ -1083,16 +1083,16 @@ mod update {
             _ => panic!("Unexpected enum variant"),
         }
 
-        success_update_pnft_by_items_delegate(delegate_args, update_args, spl_token_program).await;
+        success_update_pnft_by_items_delegate(delegate_args, update_args, tpl_token_program).await;
     }
 
     async fn success_update_pnft_by_items_delegate(
         delegate_args: DelegateArgs,
         update_args: UpdateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1110,7 +1110,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1135,7 +1135,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -1172,86 +1172,86 @@ mod update {
         assert_eq!(metadata.programmable_config, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_authority_item_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_authority_item_delegate(tpl_token_program: Pubkey) {
         let args = DelegateArgs::AuthorityItemV1 {
             authorization_data: None,
         };
 
-        fail_update_by_items_delegate(args, spl_token_program).await;
+        fail_update_by_items_delegate(args, tpl_token_program).await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_collection_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_collection_delegate(tpl_token_program: Pubkey) {
         let args = DelegateArgs::CollectionV1 {
             authorization_data: None,
         };
 
-        fail_update_by_items_delegate(args, spl_token_program).await;
+        fail_update_by_items_delegate(args, tpl_token_program).await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_data_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_data_delegate(tpl_token_program: Pubkey) {
         let args = DelegateArgs::DataV1 {
             authorization_data: None,
         };
 
-        fail_update_by_items_delegate(args, spl_token_program).await;
+        fail_update_by_items_delegate(args, tpl_token_program).await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_programmable_config_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_programmable_config_delegate(tpl_token_program: Pubkey) {
         let args = DelegateArgs::ProgrammableConfigV1 {
             authorization_data: None,
         };
 
-        fail_update_by_items_delegate(args, spl_token_program).await;
+        fail_update_by_items_delegate(args, tpl_token_program).await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_data_item_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_data_item_delegate(tpl_token_program: Pubkey) {
         let args = DelegateArgs::DataItemV1 {
             authorization_data: None,
         };
 
-        fail_update_by_items_delegate(args, spl_token_program).await;
+        fail_update_by_items_delegate(args, tpl_token_program).await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_collection_item_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_collection_item_delegate(tpl_token_program: Pubkey) {
         let args = DelegateArgs::CollectionItemV1 {
             authorization_data: None,
         };
 
-        fail_update_by_items_delegate(args, spl_token_program).await;
+        fail_update_by_items_delegate(args, tpl_token_program).await;
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_programmable_config_item_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_programmable_config_item_delegate(tpl_token_program: Pubkey) {
         let args = DelegateArgs::ProgrammableConfigItemV1 {
             authorization_data: None,
         };
 
-        fail_update_by_items_delegate(args, spl_token_program).await;
+        fail_update_by_items_delegate(args, tpl_token_program).await;
     }
 
-    async fn fail_update_by_items_delegate(delegate_args: DelegateArgs, spl_token_program: Pubkey) {
+    async fn fail_update_by_items_delegate(delegate_args: DelegateArgs, tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1269,7 +1269,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1283,7 +1283,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -1328,12 +1328,12 @@ mod update {
         assert_custom_error!(err, MetadataError::InvalidUpdateArgs);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_items_persistent_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_by_items_persistent_delegate(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1345,7 +1345,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1363,7 +1363,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -1407,12 +1407,12 @@ mod update {
         assert_custom_error!(err, MetadataError::InvalidAuthorityType);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_by_holder(spl_token_program: Pubkey) {
+    async fn fail_update_by_holder(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1424,7 +1424,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1449,7 +1449,7 @@ mod update {
                 authorization_rules: None,
                 args,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1492,10 +1492,10 @@ mod update {
         assert_custom_error!(err, MetadataError::FeatureNotSupported);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_token_standard(spl_token_program: Pubkey) {
+    async fn success_update_token_standard(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1508,7 +1508,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1533,10 +1533,10 @@ mod update {
         assert_eq!(metadata.token_standard, Some(TokenStandard::Fungible));
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_token_standard_to_same(spl_token_program: Pubkey) {
+    async fn success_update_token_standard_to_same(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1549,7 +1549,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1574,10 +1574,10 @@ mod update {
         assert_eq!(metadata.token_standard, Some(TokenStandard::NonFungible));
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_invalid_update_token_standard(spl_token_program: Pubkey) {
+    async fn fail_invalid_update_token_standard(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1590,7 +1590,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1618,10 +1618,10 @@ mod update {
         assert_eq!(metadata.token_standard, Some(TokenStandard::FungibleAsset));
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_to_verified_collection(spl_token_program: Pubkey) {
+    async fn fail_update_to_verified_collection(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1634,7 +1634,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1670,10 +1670,10 @@ mod update {
         assert_eq!(metadata.collection, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_set_collection_by_collections_collection_delegate(spl_token_program: Pubkey) {
+    async fn success_set_collection_by_collections_collection_delegate(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
@@ -1688,7 +1688,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1705,7 +1705,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -1719,7 +1719,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1769,11 +1769,11 @@ mod update {
         assert_eq!(metadata.collection, Some(new_collection));
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn success_clear_existing_collection_by_collections_collection_delegate(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let context = &mut program_test().start_with_context().await;
 
@@ -1789,7 +1789,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1806,7 +1806,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -1827,7 +1827,7 @@ mod update {
             None,
             1,
             collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1874,11 +1874,11 @@ mod update {
         assert_eq!(metadata.collection, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn success_update_existing_collection_by_collections_collection_delegate(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let context = &mut program_test().start_with_context().await;
 
@@ -1894,7 +1894,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -1911,7 +1911,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -1931,7 +1931,7 @@ mod update {
             None,
             1,
             initial_collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -1984,11 +1984,11 @@ mod update {
         assert_eq!(metadata.collection, Some(new_collection));
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn fail_set_collection_by_collections_collection_item_delegate(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let context = &mut program_test().start_with_context().await;
 
@@ -2004,7 +2004,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2021,7 +2021,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2035,7 +2035,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2091,10 +2091,10 @@ mod update {
         assert_eq!(metadata.collection, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_set_collection_delegate_update_authority_mismatch(spl_token_program: Pubkey) {
+    async fn fail_set_collection_delegate_update_authority_mismatch(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         // Create a collection parent NFT or pNFT with the CollectionDetails struct populated.
@@ -2107,7 +2107,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2153,7 +2153,7 @@ mod update {
                 old_update_authority,
                 fail_delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -2172,7 +2172,7 @@ mod update {
                 new_collection_update_authority,
                 pass_delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2186,7 +2186,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2242,33 +2242,33 @@ mod update {
         assert_eq!(metadata.collection, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn fail_set_collection_by_collections_programmable_config_delegate(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let delegate_args = DelegateArgs::ProgrammableConfigV1 {
             authorization_data: None,
         };
 
-        fail_set_collection_by_collections_delegate(delegate_args, spl_token_program).await
+        fail_set_collection_by_collections_delegate(delegate_args, tpl_token_program).await
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_set_collection_by_collections_data_delegate(spl_token_program: Pubkey) {
+    async fn fail_set_collection_by_collections_data_delegate(tpl_token_program: Pubkey) {
         let delegate_args = DelegateArgs::DataV1 {
             authorization_data: None,
         };
 
-        fail_set_collection_by_collections_delegate(delegate_args, spl_token_program).await
+        fail_set_collection_by_collections_delegate(delegate_args, tpl_token_program).await
     }
 
     async fn fail_set_collection_by_collections_delegate(
         delegate_args: DelegateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let context = &mut program_test().start_with_context().await;
 
@@ -2284,7 +2284,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2298,7 +2298,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2312,7 +2312,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2368,33 +2368,33 @@ mod update {
         assert_eq!(metadata.collection, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn fail_set_collection_by_collections_programmable_config_item_delegate(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let delegate_args = DelegateArgs::ProgrammableConfigItemV1 {
             authorization_data: None,
         };
 
-        fail_set_collection_by_collections_item_delegate(delegate_args, spl_token_program).await
+        fail_set_collection_by_collections_item_delegate(delegate_args, tpl_token_program).await
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_set_collection_by_collections_data_item_delegate(spl_token_program: Pubkey) {
+    async fn fail_set_collection_by_collections_data_item_delegate(tpl_token_program: Pubkey) {
         let delegate_args = DelegateArgs::DataItemV1 {
             authorization_data: None,
         };
 
-        fail_set_collection_by_collections_item_delegate(delegate_args, spl_token_program).await
+        fail_set_collection_by_collections_item_delegate(delegate_args, tpl_token_program).await
     }
 
     async fn fail_set_collection_by_collections_item_delegate(
         delegate_args: DelegateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let context = &mut program_test().start_with_context().await;
 
@@ -2410,7 +2410,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2424,7 +2424,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2438,7 +2438,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2494,11 +2494,11 @@ mod update {
         assert_eq!(metadata.collection, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn success_update_prog_config_by_collections_prog_config_delegate_v2_args(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         // Change programmable config, removing the RuleSet.
         let mut args = UpdateArgs::default_as_programmable_config_delegate();
@@ -2509,15 +2509,15 @@ mod update {
             _ => panic!("Unexpected enum variant"),
         }
 
-        success_update_prog_config_by_collections_prog_config_delegate(args, spl_token_program)
+        success_update_prog_config_by_collections_prog_config_delegate(args, tpl_token_program)
             .await
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn success_update_prog_config_by_collections_prog_config_delegate_v1_args(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         // Change programmable config, removing the RuleSet.
         let mut args = UpdateArgs::default_v1();
@@ -2526,16 +2526,16 @@ mod update {
             _ => panic!("Unexpected enum variant"),
         }
 
-        success_update_prog_config_by_collections_prog_config_delegate(args, spl_token_program)
+        success_update_prog_config_by_collections_prog_config_delegate(args, tpl_token_program)
             .await
     }
 
     async fn success_update_prog_config_by_collections_prog_config_delegate(
         update_args: UpdateArgs,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         // Create a collection parent NFT or pNFT with the CollectionDetails struct populated.
@@ -2548,7 +2548,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2566,7 +2566,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2592,7 +2592,7 @@ mod update {
             Some(auth_data),
             1,
             collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2642,12 +2642,12 @@ mod update {
         assert_eq!(metadata.programmable_config, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_update_data_by_collections_data_delegate(spl_token_program: Pubkey) {
+    async fn success_update_data_by_collections_data_delegate(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         // Create a collection parent NFT or pNFT with the CollectionDetails struct populated.
@@ -2660,7 +2660,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2678,7 +2678,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2704,7 +2704,7 @@ mod update {
             Some(auth_data),
             1,
             collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2783,14 +2783,14 @@ mod update {
         assert_eq!(metadata.data.uri, new_uri);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn fail_update_prog_config_by_col_prog_config_delegate_wrong_v1_args(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         // Create a collection parent NFT or pNFT with the CollectionDetails struct populated.
@@ -2803,7 +2803,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2821,7 +2821,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2847,7 +2847,7 @@ mod update {
             Some(auth_data),
             1,
             collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -2907,14 +2907,14 @@ mod update {
         assert!(!metadata.primary_sale_happened);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
     async fn fail_update_by_col_prog_config_delegate_using_new_collection_in_v1_args(
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         // Create a collection parent NFT or pNFT with the CollectionDetails struct populated.
@@ -2927,7 +2927,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -2945,7 +2945,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -2971,7 +2971,7 @@ mod update {
             Some(auth_data),
             1,
             collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3033,16 +3033,16 @@ mod update {
         assert_eq!(metadata.collection, collection);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn update_invalid_rule_set(spl_token_program: Pubkey) {
+    async fn update_invalid_rule_set(tpl_token_program: Pubkey) {
         // Currently users can add an invalid rule set to their pNFT which will effectively
-        // prevent it from being updated again because it either won't be owned by the mpl-token-auth rules
+        // prevent it from being updated again because it either won't be owned by the tpl-token-auth rules
         // program or it won't be a valid rule set to call validate on.
         // We relax the check a little to let users fix invalid rule sets.
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let invalid_rule_set = Pubkey::new_unique();
@@ -3062,7 +3062,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3118,7 +3118,7 @@ mod update {
             panic!("Missing rule set programmable config");
         }
 
-        // Now we pass in a valid authorization rules account owned by mpl-token-auth-rules
+        // Now we pass in a valid authorization rules account owned by tpl-token-auth-rules
         // but which does not match the pubkey we are passing in to set as the rule set value.
         // This will fail with an "InvalidAuthorizationRules" error.
         let mut builder = UpdateBuilder::new();
@@ -3195,13 +3195,13 @@ mod update {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn cannot_update_rule_set_when_delegate_set(spl_token_program: Pubkey) {
+    async fn cannot_update_rule_set_when_delegate_set(tpl_token_program: Pubkey) {
         // When a delegate is set, the rule set cannot be updated.
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         program_test.set_compute_max_units(400_000);
         let context = &mut program_test.start_with_context().await;
 
@@ -3223,7 +3223,7 @@ mod update {
             Some(authorization_rules),
             Some(auth_data),
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3250,7 +3250,7 @@ mod update {
                 amount: 1,
                 authorization_data: None,
             },
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3332,10 +3332,10 @@ mod update {
         assert_custom_error!(err, MetadataError::CannotUpdateAssetWithDelegate);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn none_does_not_erase_verified_creators(spl_token_program: Pubkey) {
+    async fn none_does_not_erase_verified_creators(tpl_token_program: Pubkey) {
         // When passing in `None` for the creators field, it should not erase the verified creators.
         let context = &mut program_test().start_with_context().await;
 
@@ -3343,7 +3343,7 @@ mod update {
 
         let mut da = DigitalAsset::new();
         // This creates with update authority as a verified creator.
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -3391,10 +3391,10 @@ mod update {
         assert_custom_error!(err, MetadataError::CannotRemoveVerifiedCreator);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn set_creators_to_none_with_no_verified_creators(spl_token_program: Pubkey) {
+    async fn set_creators_to_none_with_no_verified_creators(tpl_token_program: Pubkey) {
         // When passing in `None` for the creators field, it should set the creators
         // field to `None` if there are no verified creators.
         let context = &mut program_test().start_with_context().await;
@@ -3409,7 +3409,7 @@ mod update {
             None,
             None,
             1,
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3487,16 +3487,16 @@ mod update {
         assert_eq!(metadata.data.creators, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn cannot_set_primary_sale_back_to_false(spl_token_program: Pubkey) {
+    async fn cannot_set_primary_sale_back_to_false(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -3589,16 +3589,16 @@ mod update {
         assert!(metadata.primary_sale_happened);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn can_update_data_and_is_mutable_same_instruction(spl_token_program: Pubkey) {
+    async fn can_update_data_and_is_mutable_same_instruction(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -3674,16 +3674,16 @@ mod update {
         assert!(!metadata.is_mutable);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn cannot_set_is_mutable_back_to_true(spl_token_program: Pubkey) {
+    async fn cannot_set_is_mutable_back_to_true(tpl_token_program: Pubkey) {
         let context = &mut program_test().start_with_context().await;
 
         let update_authority = Keypair::from_bytes(&context.payer.to_bytes()).unwrap();
 
         let mut da = DigitalAsset::new();
-        da.create(context, TokenStandard::NonFungible, None, spl_token_program)
+        da.create(context, TokenStandard::NonFungible, None, tpl_token_program)
             .await
             .unwrap();
 
@@ -3769,12 +3769,12 @@ mod update {
         assert!(!metadata.is_mutable);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_data_by_collections_collection_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_data_by_collections_collection_delegate(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         // Create a collection parent NFT or pNFT with the CollectionDetails struct populated.
@@ -3787,7 +3787,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -3805,7 +3805,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -3831,7 +3831,7 @@ mod update {
             Some(auth_data),
             1,
             collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -3925,12 +3925,12 @@ mod update {
         );
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn fail_update_prog_config_by_collections_collection_delegate(spl_token_program: Pubkey) {
+    async fn fail_update_prog_config_by_collections_collection_delegate(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         // Create a collection parent NFT or pNFT with the CollectionDetails struct populated.
@@ -3943,7 +3943,7 @@ mod update {
                 None,
                 1,
                 DEFAULT_COLLECTION_DETAILS,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -3961,7 +3961,7 @@ mod update {
                 update_authority,
                 delegate.pubkey(),
                 delegate_args,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap()
@@ -3987,7 +3987,7 @@ mod update {
             Some(auth_data),
             1,
             collection.clone(),
-            spl_token_program,
+            tpl_token_program,
         )
         .await
         .unwrap();
@@ -4060,12 +4060,12 @@ mod update {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn success_printed_pnft_rule_set_update(spl_token_program: Pubkey) {
+    async fn success_printed_pnft_rule_set_update(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         let context = &mut program_test.start_with_context().await;
 
         let mut asset = DigitalAsset::new();
@@ -4077,14 +4077,14 @@ mod update {
                 None,
                 1,
                 PrintSupply::Unlimited,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
 
         let test_master_edition = MasterEditionV2::new_from_asset(&asset);
         let test_edition_marker =
-            EditionMarker::new_from_asset(&asset, &test_master_edition, 1, spl_token_program);
+            EditionMarker::new_from_asset(&asset, &test_master_edition, 1, tpl_token_program);
 
         test_edition_marker
             .create_from_asset(context)

@@ -6,4 +6,4 @@ imports_granularity = "Crate"
 group_imports = "StdExternalCrate"
 reorder_imports = true
 reorder_modules = true
-reorder_impl_items = false
+reorder_itpl_items = false

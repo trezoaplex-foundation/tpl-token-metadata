@@ -1,5 +1,5 @@
 use borsh::{BorshDeserialize, BorshSerialize};
-use solana_program::{
+use trezoa_program::{
     instruction::{AccountMeta, Instruction},
     pubkey::Pubkey,
     system_program,
@@ -182,7 +182,7 @@ pub enum UpdateArgs {
     },
 }
 
-impl UpdateArgs {
+itpl UpdateArgs {
     pub fn default_v1() -> Self {
         Self::V1 {
             new_update_authority: None,
@@ -265,7 +265,7 @@ impl UpdateArgs {
     }
 }
 
-//-- Toggle implementations
+//-- Toggle itplementations
 
 #[repr(C)]
 #[cfg_attr(feature = "serde-feature", derive(Serialize, Deserialize))]
@@ -277,7 +277,7 @@ pub enum CollectionToggle {
     Set(Collection),
 }
 
-impl CollectionToggle {
+itpl CollectionToggle {
     pub fn is_some(&self) -> bool {
         matches!(self, CollectionToggle::Clear | CollectionToggle::Set(_))
     }
@@ -313,7 +313,7 @@ pub enum UsesToggle {
     Set(Uses),
 }
 
-impl UsesToggle {
+itpl UsesToggle {
     pub fn is_some(&self) -> bool {
         matches!(self, UsesToggle::Clear | UsesToggle::Set(_))
     }
@@ -349,7 +349,7 @@ pub enum CollectionDetailsToggle {
     Set(CollectionDetails),
 }
 
-impl CollectionDetailsToggle {
+itpl CollectionDetailsToggle {
     pub fn is_some(&self) -> bool {
         matches!(
             self,
@@ -388,7 +388,7 @@ pub enum RuleSetToggle {
     Set(Pubkey),
 }
 
-impl RuleSetToggle {
+itpl RuleSetToggle {
     pub fn is_some(&self) -> bool {
         matches!(self, RuleSetToggle::Clear | RuleSetToggle::Set(_))
     }
@@ -414,7 +414,7 @@ impl RuleSetToggle {
     }
 }
 
-//-- End Toggle implementation
+//-- End Toggle itplementation
 
 #[repr(C)]
 #[cfg_attr(feature = "serde-feature", derive(Serialize, Deserialize))]
@@ -619,7 +619,7 @@ pub fn update_primary_sale_happened_via_token(
     }
 }
 
-//-- Instruction Builders trait implementation
+//-- Instruction Builders trait itplementation
 
 /// Builds the instruction to create metadata and associated accounts.
 ///
@@ -633,9 +633,9 @@ pub fn update_primary_sale_happened_via_token(
 ///   5. `[signer]` Update authority
 ///   6. `[]` System program
 ///   7. `[]` Instructions sysvar account
-///   8. `[]` SPL Token program
-impl InstructionBuilder for super::builders::Create {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+///   8. `[]` TPL Token program
+itpl InstructionBuilder for super::builders::Create {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let accounts = vec![
             AccountMeta::new(self.metadata, false),
             // checks whether we have a master edition
@@ -650,7 +650,7 @@ impl InstructionBuilder for super::builders::Create {
             AccountMeta::new_readonly(self.update_authority, self.update_authority_as_signer),
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program.unwrap_or(SPL_TOKEN_ID), false),
+            AccountMeta::new_readonly(self.tpl_token_program.unwrap_or(SPL_TOKEN_ID), false),
         ];
 
         Instruction {
@@ -678,12 +678,12 @@ impl InstructionBuilder for super::builders::Create {
 ///   8. `[signer, writable]` Payer
 ///   9. `[]` System program
 ///   10. `[]` Instructions sysvar account
-///   11. `[]` SPL Token program
-///   12. `[]` SPL Associated Token Account program
+///   11. `[]` TPL Token program
+///   12. `[]` TPL Associated Token Account program
 ///   13. `[optional]` Token Authorization Rules program
 ///   14. `[optional]` Token Authorization Rules account
-impl InstructionBuilder for super::builders::Mint {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Mint {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let mut accounts = vec![
             AccountMeta::new(self.token, false),
             AccountMeta::new_readonly(self.token_owner.unwrap_or(crate::ID), false),
@@ -704,12 +704,12 @@ impl InstructionBuilder for super::builders::Mint {
             AccountMeta::new(self.payer, true),
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program, false),
+            AccountMeta::new_readonly(self.tpl_token_program, false),
             AccountMeta::new_readonly(self.spl_ata_program, false),
         ];
         // Optional authorization rules accounts
         if let Some(rules) = &self.authorization_rules {
-            accounts.push(AccountMeta::new_readonly(mpl_token_auth_rules::ID, false));
+            accounts.push(AccountMeta::new_readonly(tpl_token_auth_rules::ID, false));
             accounts.push(AccountMeta::new_readonly(*rules, false));
         } else {
             accounts.push(AccountMeta::new_readonly(crate::ID, false));
@@ -743,12 +743,12 @@ impl InstructionBuilder for super::builders::Mint {
 ///   10. `[signer, writable]` Payer
 ///   11. `[]` System Program
 ///   12. `[]` Instructions sysvar account
-///   13. `[]` SPL Token Program
-///   14. `[]` SPL Associated Token Account program
+///   13. `[]` TPL Token Program
+///   14. `[]` TPL Associated Token Account program
 ///   15. `[optional]` Token Authorization Rules Program
 ///   16. `[optional]` Token Authorization Rules account
-impl InstructionBuilder for super::builders::Transfer {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Transfer {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let mut accounts = vec![
             AccountMeta::new(self.token, false),
             AccountMeta::new_readonly(self.token_owner, false),
@@ -771,7 +771,7 @@ impl InstructionBuilder for super::builders::Transfer {
             AccountMeta::new(self.payer, true),
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program, false),
+            AccountMeta::new_readonly(self.tpl_token_program, false),
             AccountMeta::new_readonly(self.spl_ata_program, false),
         ];
         // Optional authorization rules accounts
@@ -811,8 +811,8 @@ impl InstructionBuilder for super::builders::Transfer {
 ///   8. `[]` System program
 ///   9. `[optional]` Token Authorization Rules Program
 ///   10. `[optional]` Token Authorization Rules account
-impl InstructionBuilder for super::builders::Update {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Update {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let mut accounts = vec![
             AccountMeta::new_readonly(self.authority, true),
             AccountMeta::new_readonly(self.delegate_record.unwrap_or(crate::ID), false),
@@ -827,7 +827,7 @@ impl InstructionBuilder for super::builders::Update {
 
         // Optional authorization rules accounts
         if let Some(rules) = &self.authorization_rules {
-            accounts.push(AccountMeta::new_readonly(mpl_token_auth_rules::ID, false));
+            accounts.push(AccountMeta::new_readonly(tpl_token_auth_rules::ID, false));
             accounts.push(AccountMeta::new_readonly(*rules, false));
         } else {
             accounts.push(AccountMeta::new_readonly(crate::ID, false));
@@ -867,8 +867,8 @@ impl InstructionBuilder for super::builders::Update {
 ///   15. `[]` Instructions System Variable
 ///   16. `[]` System Program
 
-impl InstructionBuilder for super::builders::Print {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Print {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let accounts = vec![
             AccountMeta::new(self.edition_metadata, false),
             AccountMeta::new(self.edition, false),
@@ -888,7 +888,7 @@ impl InstructionBuilder for super::builders::Print {
             AccountMeta::new_readonly(self.master_token_account, false),
             AccountMeta::new_readonly(self.master_metadata, false),
             AccountMeta::new_readonly(self.update_authority, false),
-            AccountMeta::new_readonly(self.spl_token_program, false),
+            AccountMeta::new_readonly(self.tpl_token_program, false),
             AccountMeta::new_readonly(self.spl_ata_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
             AccountMeta::new_readonly(self.system_program, false),
@@ -916,8 +916,8 @@ impl InstructionBuilder for super::builders::Print {
 ///   5. `[optional]` token account
 ///   6. `[]` system program
 
-impl InstructionBuilder for super::builders::Resize {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+itpl InstructionBuilder for super::builders::Resize {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let mut accounts = vec![
             AccountMeta::new(self.metadata, false),
             AccountMeta::new(self.edition, false),

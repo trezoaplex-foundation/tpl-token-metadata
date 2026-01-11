@@ -20,7 +20,7 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   mapSerializer,
@@ -30,7 +30,7 @@ import {
   struct,
   u64,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   Key,
   KeyArgs,
@@ -147,7 +147,7 @@ export function getTokenRecordGpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
   return gpaBuilder(context, programId)
@@ -186,7 +186,7 @@ export function findTokenRecordPda(
   }
 ): Pda {
   const programId = context.programs.getPublicKey(
-    'mplTokenMetadata',
+    'tplTokenMetadata',
     'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
   );
   return context.eddsa.findPda(programId, [

@@ -1,4 +1,4 @@
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     msg,
@@ -10,7 +10,7 @@ use solana_program::{
     system_instruction,
     sysvar::Sysvar,
 };
-use spl_token_2022::{
+use tpl_token_2022::{
     extension::{
         immutable_owner::ImmutableOwner,
         metadata_pointer::{self, MetadataPointer},
@@ -25,14 +25,14 @@ use spl_token_2022::{
 
 use crate::{error::MetadataError, state::TokenStandard};
 
-/// List of SPL Token-2022 `Mint` account extension types that are allowed on
+/// List of TPL Token-2022 `Mint` account extension types that are allowed on
 /// non-fungible assets.
 const NON_FUNGIBLE_MINT_EXTENSIONS: &[ExtensionType] = &[
     ExtensionType::MintCloseAuthority,
     ExtensionType::NonTransferable,
     ExtensionType::MetadataPointer,
 ];
-/// List of SPL Token-2022 `Account` (token) account extension types that are allowed
+/// List of TPL Token-2022 `Account` (token) account extension types that are allowed
 /// on non-fungible assets.
 const NON_FUNGIBLE_TOKEN_EXTENSIONS: &[ExtensionType] = &[
     ExtensionType::ImmutableOwner,
@@ -41,7 +41,7 @@ const NON_FUNGIBLE_TOKEN_EXTENSIONS: &[ExtensionType] = &[
 
 /// Creates a mint account for the given token standard.
 ///
-/// When creating a mint with spl-token-2022, the following extensions are enabled:
+/// When creating a mint with tpl-token-2022, the following extensions are enabled:
 ///
 /// - mint close authority extension enabled and set to the metadata account
 /// - metadata pointer extension enabled and set to the metadata account
@@ -52,11 +52,11 @@ pub(crate) fn create_mint<'a>(
     payer: &'a AccountInfo<'a>,
     token_standard: TokenStandard,
     decimals: Option<u8>,
-    spl_token_program: &'a AccountInfo<'a>,
+    tpl_token_program: &'a AccountInfo<'a>,
 ) -> ProgramResult {
-    let spl_token_2022 = matches!(spl_token_program.key, &spl_token_2022::ID);
+    let tpl_token_2022 = matches!(tpl_token_program.key, &tpl_token_2022::ID);
 
-    let mint_account_size = if spl_token_2022 {
+    let mint_account_size = if tpl_token_2022 {
         ExtensionType::try_calculate_account_len::<Mint>(&[
             ExtensionType::MintCloseAuthority,
             ExtensionType::MetadataPointer,
@@ -71,22 +71,22 @@ pub(crate) fn create_mint<'a>(
             mint.key,
             Rent::get()?.minimum_balance(mint_account_size),
             mint_account_size as u64,
-            spl_token_program.key,
+            tpl_token_program.key,
         ),
         &[payer.clone(), mint.clone()],
     )?;
 
-    if spl_token_2022 {
-        let account_infos = vec![mint.clone(), metadata.clone(), spl_token_program.clone()];
+    if tpl_token_2022 {
+        let account_infos = vec![mint.clone(), metadata.clone(), tpl_token_program.clone()];
 
         invoke(
-            &initialize_mint_close_authority(spl_token_program.key, mint.key, Some(metadata.key))?,
+            &initialize_mint_close_authority(tpl_token_program.key, mint.key, Some(metadata.key))?,
             &account_infos,
         )?;
 
         invoke(
             &metadata_pointer::instruction::initialize(
-                spl_token_program.key,
+                tpl_token_program.key,
                 mint.key,
                 None,
                 Some(*metadata.key),
@@ -100,7 +100,7 @@ pub(crate) fn create_mint<'a>(
         // always use 0 decimals
         TokenStandard::NonFungible | TokenStandard::ProgrammableNonFungible => 0,
         // for Fungile variants, we either use the specified decimals or the default
-        // DECIMALS from spl-token
+        // DECIMALS from tpl-token
         TokenStandard::FungibleAsset | TokenStandard::Fungible => match decimals {
             Some(decimals) => decimals,
             // if decimals not provided, use the default
@@ -113,8 +113,8 @@ pub(crate) fn create_mint<'a>(
 
     // initializing the mint account
     invoke(
-        &spl_token_2022::instruction::initialize_mint2(
-            spl_token_program.key,
+        &tpl_token_2022::instruction::initialize_mint2(
+            tpl_token_program.key,
             mint.key,
             authority.key,
             Some(authority.key),
@@ -209,11 +209,11 @@ pub(crate) fn validate_token(
     mint: &AccountInfo,
     token: &AccountInfo,
     token_owner: Option<&AccountInfo>,
-    spl_token_program: &AccountInfo,
+    tpl_token_program: &AccountInfo,
     token_standard: Option<TokenStandard>,
     required_amount: Option<u64>,
 ) -> Result<Account, ProgramError> {
-    if token.owner != spl_token_program.key {
+    if token.owner != tpl_token_program.key {
         return Err(MetadataError::IncorrectOwner.into());
     }
 

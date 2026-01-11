@@ -1,5 +1,5 @@
-use solana_program::program_option::COption;
-use spl_token_2022::state::Account;
+use trezoa_program::program_option::COption;
+use tpl_token_2022::state::Account;
 
 use super::*;
 use crate::{
@@ -47,7 +47,7 @@ pub fn burn<'a>(
     }
 }
 
-// V1 implementation of the burn instruction.
+// V1 itplementation of the burn instruction.
 fn burn_v1(program_id: &Pubkey, ctx: Context<Burn>, args: BurnArgs) -> ProgramResult {
     let BurnArgs::V1 { amount } = args;
 
@@ -57,16 +57,16 @@ fn burn_v1(program_id: &Pubkey, ctx: Context<Burn>, args: BurnArgs) -> ProgramRe
     assert_signer(ctx.accounts.authority_info)?;
 
     // Assert program ownership.
-    assert_token_program_matches_package(ctx.accounts.spl_token_program_info)?;
+    assert_token_program_matches_package(ctx.accounts.tpl_token_program_info)?;
 
     assert_owned_by(ctx.accounts.metadata_info, program_id)?;
     assert_owned_by(
         ctx.accounts.mint_info,
-        ctx.accounts.spl_token_program_info.key,
+        ctx.accounts.tpl_token_program_info.key,
     )?;
     assert_owned_by(
         ctx.accounts.token_info,
-        ctx.accounts.spl_token_program_info.key,
+        ctx.accounts.tpl_token_program_info.key,
     )?;
 
     if let Some(edition_info) = ctx.accounts.edition_info {
@@ -76,12 +76,12 @@ fn burn_v1(program_id: &Pubkey, ctx: Context<Burn>, args: BurnArgs) -> ProgramRe
         assert_owned_by(master_edition, program_id)?;
     }
     if let Some(master_edition_mint) = ctx.accounts.master_edition_mint_info {
-        assert_owned_by(master_edition_mint, ctx.accounts.spl_token_program_info.key)?;
+        assert_owned_by(master_edition_mint, ctx.accounts.tpl_token_program_info.key)?;
     }
     if let Some(master_edition_token) = ctx.accounts.master_edition_token_info {
         assert_owned_by(
             master_edition_token,
-            ctx.accounts.spl_token_program_info.key,
+            ctx.accounts.tpl_token_program_info.key,
         )?;
     }
     if let Some(edition_marker) = ctx.accounts.edition_marker_info {
@@ -210,7 +210,7 @@ fn burn_v1(program_id: &Pubkey, ctx: Context<Burn>, args: BurnArgs) -> ProgramRe
                 ctx.accounts.mint_info.clone(),
                 ctx.accounts.token_info.clone(),
                 edition_info.clone(),
-                ctx.accounts.spl_token_program_info.clone(),
+                ctx.accounts.tpl_token_program_info.clone(),
                 metadata.edition_nonce,
             )?;
 
@@ -269,7 +269,7 @@ fn burn_v1(program_id: &Pubkey, ctx: Context<Burn>, args: BurnArgs) -> ProgramRe
                 ctx.accounts.mint_info.clone(),
                 ctx.accounts.token_info.clone(),
                 edition_info.clone(),
-                ctx.accounts.spl_token_program_info.clone(),
+                ctx.accounts.tpl_token_program_info.clone(),
                 metadata.edition_nonce,
             )?;
 

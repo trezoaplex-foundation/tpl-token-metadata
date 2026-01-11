@@ -1,11 +1,11 @@
-use mpl_utils::assert_signer;
-use solana_program::{
+use tpl_utils::assert_signer;
+use trezoa_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     program::{invoke, invoke_signed},
     pubkey::Pubkey,
 };
-use spl_token_2022::{generic_token_account::is_initialized_account, state::Account};
+use tpl_token_2022::{generic_token_account::is_initialized_account, state::Account};
 
 use super::find_escrow_seeds;
 use crate::{
@@ -51,7 +51,7 @@ pub fn process_transfer_out_of_escrow(
     assert_owned_by(escrow_account_info, &SPL_TOKEN_ID)?;
 
     let system_program_info = next_account_info(account_info_iter)?;
-    if system_program_info.key != &solana_program::system_program::ID {
+    if system_program_info.key != &trezoa_program::system_program::ID {
         return Err(MetadataError::InvalidSystemProgram.into());
     }
 
@@ -66,7 +66,7 @@ pub fn process_transfer_out_of_escrow(
     }
 
     let sysvar_ix_account_info = next_account_info(account_info_iter)?;
-    if sysvar_ix_account_info.key != &solana_program::sysvar::instructions::ID {
+    if sysvar_ix_account_info.key != &trezoa_program::sysvar::instructions::ID {
         return Err(MetadataError::InvalidInstructionsSysvar.into());
     }
 
@@ -153,7 +153,7 @@ pub fn process_transfer_out_of_escrow(
     }
 
     // Transfer the token out of the escrow to the destination ATA.
-    let transfer_ix = spl_token_2022::instruction::transfer(
+    let transfer_ix = tpl_token_2022::instruction::transfer(
         &SPL_TOKEN_ID,
         attribute_src_info.key,
         attribute_dst_info.key,
@@ -177,7 +177,7 @@ pub fn process_transfer_out_of_escrow(
 
     // Close the source ATA and return funds to the user.
     if attribute_src.amount == 0 {
-        let close_ix = spl_token_2022::instruction::close_account(
+        let close_ix = tpl_token_2022::instruction::close_account(
             &SPL_TOKEN_ID,
             attribute_src_info.key,
             payer_info.key,

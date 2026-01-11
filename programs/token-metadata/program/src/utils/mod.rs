@@ -13,16 +13,16 @@ pub use metadata::{
     clean_write_metadata, meta_deser_unchecked, process_create_metadata_accounts_logic,
     CreateMetadataAccountsLogicArgs,
 };
-pub use mpl_utils::{
+pub use tpl_utils::{
     assert_signer, close_account_raw, create_or_allocate_account_raw,
     resize_or_reallocate_account_raw,
     token::{
         get_mint_authority, get_mint_decimals, get_mint_freeze_authority, get_mint_supply,
-        get_owner_from_token_account, spl_token_burn, spl_token_close, spl_token_mint_to,
+        get_owner_from_token_account, tpl_token_burn, tpl_token_close, tpl_token_mint_to,
     },
 };
 pub use programmable_asset::*;
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     program::{invoke, invoke_signed},
@@ -33,7 +33,7 @@ use solana_program::{
     system_instruction,
     sysvar::Sysvar,
 };
-use spl_token_2022::{
+use tpl_token_2022::{
     extension::{BaseState, StateWithExtensions},
     instruction::{set_authority, AuthorityType},
 };
@@ -252,7 +252,7 @@ pub(crate) fn close_program_account<'a>(
     // and assign ownership to the system program.
     if remaining_lamports == 0 {
         account_info.realloc(0, false)?;
-        account_info.assign(&solana_program::system_program::ID);
+        account_info.assign(&trezoa_program::system_program::ID);
     } else {
         // Otherwise, we realloc to a data length of one and set the byte to 0 so the
         // discriminator for the account is `Uninitialized`
@@ -263,7 +263,7 @@ pub(crate) fn close_program_account<'a>(
     Ok(())
 }
 
-/// Resize an account using realloc and retain any lamport overages, modified from Solana Cookbook
+/// Resize an account using realloc and retain any lamport overages, modified from Trezoa Cookbook
 pub(crate) fn resize_with_offset<'a>(
     target_account: &AccountInfo<'a>,
     funding_account: &AccountInfo<'a>,
@@ -305,7 +305,7 @@ pub(crate) fn resize_with_offset<'a>(
 
 #[cfg(test)]
 mod tests {
-    use solana_program::pubkey::Pubkey;
+    use trezoa_program::pubkey::Pubkey;
 
     use crate::utils::{
         metadata::tests::{expected_pesky_metadata, pesky_data},
@@ -377,7 +377,7 @@ mod tests {
     #[test]
     fn deserialize_corrupted_metadata_ok() {
         // This should be able to deserialize the corrupted metadata account successfully due to the custom BorshDeserialization
-        // implementation for the Metadata struct.
+        // itplementation for the Metadata struct.
         let expected_metadata = expected_pesky_metadata();
         let corrupted_data = pesky_data();
 

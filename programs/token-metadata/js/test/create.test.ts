@@ -2,7 +2,7 @@ import spok from 'spok';
 import { AssetData, Metadata, TokenStandard } from '../src/generated';
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess } from './setup';
-import { PublicKey, SystemProgram, Transaction, TransactionInstruction } from '@solana/web3.js';
+import { PublicKey, SystemProgram, Transaction, TransactionInstruction } from '@trezoa/web3.js';
 import {
   createAssociatedTokenAccountInstruction,
   createInitializeMintInstruction,
@@ -10,7 +10,7 @@ import {
   getMint,
   MintLayout,
   TOKEN_PROGRAM_ID,
-} from '@solana/spl-token';
+} from '@trezoa/tpl-token';
 import { SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID, spokSameBigint, spokSamePubkey } from './utils';
 import { BN } from 'bn.js';
 

@@ -1,17 +1,17 @@
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { WalletProvider } from "@solana/wallet-adapter-react";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { WalletAdapterNetwork } from "@trezoa/wallet-adapter-base";
+import { WalletProvider } from "@trezoa/wallet-adapter-react";
+import { WalletModalProvider } from "@trezoa/wallet-adapter-react-ui";
 import {
   LedgerWalletAdapter,
   SolflareWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from "@solana/web3.js";
+} from "@trezoa/wallet-adapter-wallets";
+import { clusterApiUrl } from "@trezoa/web3.js";
 import type { AppProps } from "next/app";
 import { useMemo } from "react";
 import { UmiProvider } from "./UmiProvider";
 
 import "@/styles/globals.css";
-import "@solana/wallet-adapter-react-ui/styles.css";
+import "@trezoa/wallet-adapter-react-ui/styles.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const network = WalletAdapterNetwork.Devnet;

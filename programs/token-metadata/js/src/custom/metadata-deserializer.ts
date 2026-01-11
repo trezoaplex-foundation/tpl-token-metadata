@@ -1,5 +1,5 @@
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Metadata } from '../generated/accounts/Metadata';
 import { collectionBeet } from '../generated/types/Collection';
 import { collectionDetailsBeet } from '../generated/types/CollectionDetails';
@@ -18,7 +18,7 @@ const NONE_BYTE_SIZE = beet.coptionNone('').byteSize;
  * Instead of failing the deserialization for the section that is possibly corrupt it just returns
  * `null` for the fields that would normally be stored in that section.
  *
- * This deserializer matches the [fix implemented in the Rust program](https://github.com/metaplex-foundation/metaplex-program-library/blob/df36da5a78fb17e1690247b8041b761d27c83b1b/token-metadata/program/src/deser.rs#L6).
+ * This deserializer matches the [fix itplemented in the Rust program](https://github.com/metaplex-foundation/metaplex-program-library/blob/df36da5a78fb17e1690247b8041b761d27c83b1b/token-metadata/program/src/deser.rs#L6).
  * Also @see ../../../program/src/deser.rs
  */
 export function deserialize(buf: Buffer, offset = 0): [Metadata, number] {
@@ -29,12 +29,12 @@ export function deserialize(buf: Buffer, offset = 0): [Metadata, number] {
   cursor += keyBeet.byteSize;
 
   // updateAuthority
-  const updateAuthority = beetSolana.publicKey.read(buf, cursor);
-  cursor += beetSolana.publicKey.byteSize;
+  const updateAuthority = beetTrezoa.publicKey.read(buf, cursor);
+  cursor += beetTrezoa.publicKey.byteSize;
 
   // mint
-  const mint = beetSolana.publicKey.read(buf, cursor);
-  cursor += beetSolana.publicKey.byteSize;
+  const mint = beetTrezoa.publicKey.read(buf, cursor);
+  cursor += beetTrezoa.publicKey.byteSize;
 
   // data
   const [data, dataDelta] = dataBeet.deserialize(buf, cursor);

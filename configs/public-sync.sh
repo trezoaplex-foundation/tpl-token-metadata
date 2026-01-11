@@ -8,7 +8,7 @@ fi
 
 # 1. Update public branch using the public remote.
 git checkout public
-git remote add public https://github.com/metaplex-foundation/mpl-token-metadata.git 2> /dev/null || true
+git remote add public https://github.com/metaplex-foundation/tpl-token-metadata.git 2> /dev/null || true
 git fetch public
 git merge public/main
 git push

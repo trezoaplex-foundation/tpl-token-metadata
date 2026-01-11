@@ -18,7 +18,7 @@
  */
 
 import test from 'ava';
-import { some } from '@solana/kit';
+import { some } from '@trezoa/kit';
 import { TokenStandard, MetadataDelegateRole } from '../src/generated/types';
 import {
   getDelegateDataItemV1InstructionAsync,
@@ -74,7 +74,7 @@ test('updateAsDataItemDelegateV2 › it can update NonFungible metadata as data 
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Original NFT',
-    uri: 'https://example.com/original.json',
+    uri: 'https://exatple.com/original.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: updateAuthority.address,
   });
@@ -119,7 +119,7 @@ test('updateAsDataItemDelegateV2 › it can update NonFungible metadata as data 
     data: some({
       name: 'Updated by Delegate',
       symbol: 'DEL',
-      uri: 'https://example.com/delegate-updated.json',
+      uri: 'https://exatple.com/delegate-updated.json',
       sellerFeeBasisPoints: basisPoints(5),
       creators: originalMetadata.data.creators.__option === 'Some'
         ? originalMetadata.data.creators.value
@@ -133,7 +133,7 @@ test('updateAsDataItemDelegateV2 › it can update NonFungible metadata as data 
   const updatedMetadata = await fetchMetadata(rpc, metadataAddress);
   t.is(updatedMetadata.data.name, 'Updated by Delegate');
   t.is(updatedMetadata.data.symbol, 'DEL');
-  t.is(updatedMetadata.data.uri, 'https://example.com/delegate-updated.json');
+  t.is(updatedMetadata.data.uri, 'https://exatple.com/delegate-updated.json');
 
   t.pass('Successfully updated NonFungible metadata as data item delegate');
 });
@@ -164,7 +164,7 @@ test('updateAsCollectionItemDelegateV2 › it can update NonFungible metadata as
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Collection Item NFT',
-    uri: 'https://example.com/collection-item.json',
+    uri: 'https://exatple.com/collection-item.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: updateAuthority.address,
   });
@@ -234,7 +234,7 @@ test('updateAsAuthorityItemDelegateV2 › it can update NonFungible metadata as 
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Authority Item NFT',
-    uri: 'https://example.com/authority-item.json',
+    uri: 'https://exatple.com/authority-item.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: updateAuthority.address,
   });
@@ -303,7 +303,7 @@ test('updateAsDataDelegateV2 › it can update Fungible metadata as data delegat
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Data Delegate Token',
-    uri: 'https://example.com/data-delegate.json',
+    uri: 'https://exatple.com/data-delegate.json',
     sellerFeeBasisPoints: basisPoints(2),
   });
 
@@ -335,7 +335,7 @@ test('updateAsDataDelegateV2 › it can update Fungible metadata as data delegat
     data: some({
       name: 'Updated Fungible by Delegate',
       symbol: 'UFD',
-      uri: 'https://example.com/fungible-updated.json',
+      uri: 'https://exatple.com/fungible-updated.json',
       sellerFeeBasisPoints: basisPoints(2),
       creators: originalMetadata.data.creators.__option === 'Some'
         ? originalMetadata.data.creators.value
@@ -349,7 +349,7 @@ test('updateAsDataDelegateV2 › it can update Fungible metadata as data delegat
   const updatedMetadata = await fetchMetadata(rpc, metadataAddress);
   t.is(updatedMetadata.data.name, 'Updated Fungible by Delegate');
   t.is(updatedMetadata.data.symbol, 'UFD');
-  t.is(updatedMetadata.data.uri, 'https://example.com/fungible-updated.json');
+  t.is(updatedMetadata.data.uri, 'https://exatple.com/fungible-updated.json');
 
   t.pass('Successfully updated Fungible metadata as data delegate');
 });
@@ -380,7 +380,7 @@ test('updateAsCollectionDelegateV2 › it can update NonFungible metadata as col
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Collection Delegate NFT',
-    uri: 'https://example.com/collection-delegate.json',
+    uri: 'https://exatple.com/collection-delegate.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: updateAuthority.address,
   });
@@ -448,7 +448,7 @@ test('updateAsDataDelegateV2 › it can update NonFungible metadata as data dele
     authority: updateAuthority,
     payer: updateAuthority,
     name: 'Data Delegate NFT',
-    uri: 'https://example.com/data-delegate-nft.json',
+    uri: 'https://exatple.com/data-delegate-nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: updateAuthority.address,
   });
@@ -484,7 +484,7 @@ test('updateAsDataDelegateV2 › it can update NonFungible metadata as data dele
     data: some({
       name: 'NFT Updated by Data Delegate',
       symbol: 'NDD',
-      uri: 'https://example.com/nft-data-delegate-updated.json',
+      uri: 'https://exatple.com/nft-data-delegate-updated.json',
       sellerFeeBasisPoints: basisPoints(5),
       creators: originalMetadata.data.creators.__option === 'Some'
         ? originalMetadata.data.creators.value
@@ -498,7 +498,7 @@ test('updateAsDataDelegateV2 › it can update NonFungible metadata as data dele
   const updatedMetadata = await fetchMetadata(rpc, metadataAddress);
   t.is(updatedMetadata.data.name, 'NFT Updated by Data Delegate');
   t.is(updatedMetadata.data.symbol, 'NDD');
-  t.is(updatedMetadata.data.uri, 'https://example.com/nft-data-delegate-updated.json');
+  t.is(updatedMetadata.data.uri, 'https://exatple.com/nft-data-delegate-updated.json');
 
   t.pass('Successfully updated NonFungible metadata as data delegate');
 });

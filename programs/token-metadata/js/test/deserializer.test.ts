@@ -14,10 +14,10 @@ import {
   TokenState,
   tokenStateBeet,
   UseMethod,
-} from '../src/mpl-token-metadata';
-import { PublicKey } from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+} from '../src/tpl-token-metadata';
+import { PublicKey } from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 
 const fixtures = path.join(__dirname, 'fixtures');
 
@@ -171,7 +171,7 @@ test('deserialize: token record without lockedTransfer', async (t) => {
   offset += ruleSetRevisionBeet.byteSize;
 
   // delegate
-  const delegateBeet = beet.coption(beetSolana.publicKey).toFixedFromValue(PublicKey.default);
+  const delegateBeet = beet.coption(beetTrezoa.publicKey).toFixedFromValue(PublicKey.default);
   delegateBeet.write(buffer, offset, PublicKey.default);
   offset += delegateBeet.byteSize;
 
@@ -216,7 +216,7 @@ test('deserialize: failed token record without lockedTransfer', async (t) => {
   offset += ruleSetRevisionBeet.byteSize;
 
   // delegate
-  const delegateBeet = beet.coption(beetSolana.publicKey).toFixedFromValue(PublicKey.default);
+  const delegateBeet = beet.coption(beetTrezoa.publicKey).toFixedFromValue(PublicKey.default);
   delegateBeet.write(buffer, offset, PublicKey.default);
   offset += delegateBeet.byteSize;
 

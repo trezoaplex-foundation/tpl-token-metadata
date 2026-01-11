@@ -2,9 +2,9 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program::{pubkey::Pubkey, system_instruction::assign};
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program::{pubkey::Pubkey, system_instruction::assign};
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
@@ -142,7 +142,7 @@ mod create_meta_accounts {
             &payer_pubkey,
             None,
             0,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -151,7 +151,7 @@ mod create_meta_accounts {
             &test_metadata.token,
             &test_metadata.mint.pubkey(),
             &payer_pubkey,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -162,7 +162,7 @@ mod create_meta_accounts {
             1,
             &payer_pubkey,
             None,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -642,7 +642,7 @@ mod create_meta_accounts {
             &mint_authority.pubkey(),
             Some(&context.payer.pubkey()),
             0,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -652,7 +652,7 @@ mod create_meta_accounts {
             &test_metadata.token,
             &test_metadata.mint.pubkey(),
             &context.payer.pubkey(),
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -664,7 +664,7 @@ mod create_meta_accounts {
             1,
             &mint_authority.pubkey(),
             Some(&mint_authority),
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -753,7 +753,7 @@ mod create_meta_accounts {
             &mint_authority.pubkey(),
             Some(&context.payer.pubkey()),
             0,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -763,7 +763,7 @@ mod create_meta_accounts {
             &test_metadata.token,
             &test_metadata.mint.pubkey(),
             &context.payer.pubkey(),
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -775,7 +775,7 @@ mod create_meta_accounts {
             1,
             &mint_authority.pubkey(),
             Some(&mint_authority),
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();

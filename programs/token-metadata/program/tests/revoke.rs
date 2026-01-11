@@ -1,8 +1,8 @@
 #![cfg(feature = "test-bpf")]
 pub mod utils;
 
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::TransactionError,
@@ -13,9 +13,9 @@ mod revoke {
 
     use borsh::BorshDeserialize;
     use num_traits::FromPrimitive;
-    use solana_program::{program_option::COption, pubkey::Pubkey};
-    use solana_sdk::account::{Account as SdkAccount, AccountSharedData};
-    use spl_token_2022::state::Account;
+    use trezoa_program::{program_option::COption, pubkey::Pubkey};
+    use trezoa_sdk::account::{Account as SdkAccount, AccountSharedData};
+    use tpl_token_2022::state::Account;
     use token_metadata::{
         error::MetadataError,
         instruction::{DelegateArgs, MetadataDelegateRole, RevokeArgs},
@@ -29,10 +29,10 @@ mod revoke {
 
     use super::*;
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn revoke_transfer_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn revoke_transfer_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -45,7 +45,7 @@ mod revoke {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -67,7 +67,7 @@ mod revoke {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -94,7 +94,7 @@ mod revoke {
                 approver,
                 user_pubkey,
                 RevokeArgs::TransferV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -115,10 +115,10 @@ mod revoke {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn revoke_collection_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn revoke_collection_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -131,7 +131,7 @@ mod revoke {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -157,7 +157,7 @@ mod revoke {
                 DelegateArgs::CollectionV1 {
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -185,7 +185,7 @@ mod revoke {
                 approver,
                 user_pubkey,
                 RevokeArgs::CollectionV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -200,10 +200,10 @@ mod revoke {
             .is_none());
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn revoke_sale_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn revoke_sale_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -216,7 +216,7 @@ mod revoke {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -237,7 +237,7 @@ mod revoke {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -262,7 +262,7 @@ mod revoke {
                 approver,
                 user_pubkey,
                 RevokeArgs::SaleV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -285,10 +285,10 @@ mod revoke {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn revoke_sale_delegate_as_transfer_delegate(spl_token_program: Pubkey) {
+    async fn revoke_sale_delegate_as_transfer_delegate(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -300,7 +300,7 @@ mod revoke {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -321,7 +321,7 @@ mod revoke {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -346,7 +346,7 @@ mod revoke {
                 approver,
                 user_pubkey,
                 RevokeArgs::TransferV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();
@@ -356,12 +356,12 @@ mod revoke {
         assert_custom_error!(error, MetadataError::InvalidDelegate);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn clear_rule_set_revision_on_delegate(spl_token_program: Pubkey) {
+    async fn clear_rule_set_revision_on_delegate(tpl_token_program: Pubkey) {
         let mut program_test = program_test();
-        program_test.add_program("mpl_token_auth_rules", mpl_token_auth_rules::ID, None);
+        program_test.add_program("tpl_token_auth_rules", tpl_token_auth_rules::ID, None);
         program_test.set_compute_max_units(400_000);
         let mut context = program_test.start_with_context().await;
 
@@ -381,7 +381,7 @@ mod revoke {
                 Some(rule_set),
                 Some(auth_data),
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -409,7 +409,7 @@ mod revoke {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -438,7 +438,7 @@ mod revoke {
                 authority,
                 rule_set,
                 RevokeArgs::SaleV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -451,10 +451,10 @@ mod revoke {
         assert_eq!(token_record.rule_set_revision, None);
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn revoke_migration_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn revoke_migration_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -467,7 +467,7 @@ mod revoke {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -489,7 +489,7 @@ mod revoke {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -533,7 +533,7 @@ mod revoke {
                 approver,
                 user_pubkey,
                 RevokeArgs::MigrationV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -554,10 +554,10 @@ mod revoke {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn revoke_utility_delegate_programmable_nonfungible(spl_token_program: Pubkey) {
+    async fn revoke_utility_delegate_programmable_nonfungible(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -570,7 +570,7 @@ mod revoke {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -590,7 +590,7 @@ mod revoke {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -615,7 +615,7 @@ mod revoke {
                 approver,
                 user_pubkey,
                 RevokeArgs::UtilityV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -639,10 +639,10 @@ mod revoke {
         }
     }
 
-    #[test_case::test_case(spl_token::id() ; "Token Program")]
-    #[test_case::test_case(spl_token_2022::id() ; "Token-2022 Program")]
+    #[test_case::test_case(tpl_token::id() ; "Token Program")]
+    #[test_case::test_case(tpl_token_2022::id() ; "Token-2022 Program")]
     #[tokio::test]
-    async fn invalid_close_authority_fails(spl_token_program: Pubkey) {
+    async fn invalid_close_authority_fails(tpl_token_program: Pubkey) {
         let mut context = program_test().start_with_context().await;
 
         // asset
@@ -655,7 +655,7 @@ mod revoke {
                 None,
                 None,
                 1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -676,7 +676,7 @@ mod revoke {
                     amount: 1,
                     authorization_data: None,
                 },
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap();
@@ -700,7 +700,7 @@ mod revoke {
                 approver,
                 delegate_pubkey,
                 RevokeArgs::UtilityV1,
-                spl_token_program,
+                tpl_token_program,
             )
             .await
             .unwrap_err();

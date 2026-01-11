@@ -1,7 +1,7 @@
 use borsh::{BorshDeserialize, BorshSerialize};
 #[cfg(feature = "serde-feature")]
 use serde::{Deserialize, Serialize};
-use solana_program::{
+use trezoa_program::{
     instruction::{AccountMeta, Instruction},
     pubkey::Pubkey,
 };
@@ -24,7 +24,7 @@ use crate::instruction::MetadataInstruction;
 ///   6. `[writable]` Master Edition PDA Account
 ///   7. `[writable]` Print Edition PDA Account
 ///   8. `[writable]` Edition Marker PDA Account
-///   9. [] SPL Token program.
+///   9. [] TPL Token program.
 #[allow(clippy::too_many_arguments)]
 pub fn burn_edition_nft(
     program_id: Pubkey,
@@ -37,7 +37,7 @@ pub fn burn_edition_nft(
     master_edition: Pubkey,
     print_edition: Pubkey,
     edition_marker: Pubkey,
-    spl_token: Pubkey,
+    tpl_token: Pubkey,
 ) -> Instruction {
     let accounts = vec![
         AccountMeta::new(metadata, false),
@@ -49,7 +49,7 @@ pub fn burn_edition_nft(
         AccountMeta::new(master_edition, false),
         AccountMeta::new(print_edition, false),
         AccountMeta::new(edition_marker, false),
-        AccountMeta::new_readonly(spl_token, false),
+        AccountMeta::new_readonly(tpl_token, false),
     ];
 
     Instruction {
@@ -68,7 +68,7 @@ pub fn burn_edition_nft(
 /// 2. `[writable]` Mint of NFT
 /// 3. `[writable]` NFT token account
 /// 4. `[writable]` NFT edition account
-/// 5. `[]` SPL Token program.
+/// 5. `[]` TPL Token program.
 /// 6. Optional `[writable]` Collection metadata account
 #[allow(clippy::too_many_arguments)]
 pub fn burn_nft(
@@ -78,7 +78,7 @@ pub fn burn_nft(
     mint: Pubkey,
     token: Pubkey,
     edition: Pubkey,
-    spl_token: Pubkey,
+    tpl_token: Pubkey,
     collection_metadata: Option<Pubkey>,
 ) -> Instruction {
     let mut accounts = vec![
@@ -87,7 +87,7 @@ pub fn burn_nft(
         AccountMeta::new(mint, false),
         AccountMeta::new(token, false),
         AccountMeta::new(edition, false),
-        AccountMeta::new_readonly(spl_token, false),
+        AccountMeta::new_readonly(tpl_token, false),
     ];
 
     if let Some(collection_metadata) = collection_metadata {
@@ -129,9 +129,9 @@ pub enum BurnArgs {
 ///  10.   `[optional, writable]` Token record account
 ///  11.   `[]` System program
 ///  12.   `[]` Instruction sysvar account
-///  13.   `[]` SPL Token Program
-impl InstructionBuilder for super::builders::Burn {
-    fn instruction(&self) -> solana_program::instruction::Instruction {
+///  13.   `[]` TPL Token Program
+itpl InstructionBuilder for super::builders::Burn {
+    fn instruction(&self) -> trezoa_program::instruction::Instruction {
         let accounts = vec![
             AccountMeta::new(self.authority, true),
             if let Some(collection_metadata) = self.collection_metadata {
@@ -166,7 +166,7 @@ impl InstructionBuilder for super::builders::Burn {
             },
             AccountMeta::new_readonly(self.system_program, false),
             AccountMeta::new_readonly(self.sysvar_instructions, false),
-            AccountMeta::new_readonly(self.spl_token_program, false),
+            AccountMeta::new_readonly(self.tpl_token_program, false),
         ];
 
         Instruction {

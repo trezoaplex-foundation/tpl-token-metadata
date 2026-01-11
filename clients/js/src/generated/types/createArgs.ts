@@ -13,7 +13,7 @@ import {
   PublicKey,
   mapAmountSerializer,
   none,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   GetDataEnumKind,
   GetDataEnumKindContent,
@@ -28,7 +28,7 @@ import {
   struct,
   u16,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   Collection,
   CollectionArgs,

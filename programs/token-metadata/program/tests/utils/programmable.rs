@@ -1,11 +1,11 @@
-use mpl_token_auth_rules::{
+use tpl_token_auth_rules::{
     instruction::{builders::CreateOrUpdateBuilder, CreateOrUpdateArgs, InstructionBuilder},
     payload::Payload,
     state::{CompareOp, Rule, RuleSetV1},
 };
 use rmp_serde::Serializer;
 use serde::Serialize;
-use solana_sdk::{
+use trezoa_sdk::{
     compute_budget::ComputeBudgetInstruction,
     pubkey::Pubkey,
     signature::{Keypair, Signer},
@@ -18,7 +18,7 @@ use token_metadata::{
 
 use crate::*;
 
-static PROGRAM_ALLOW_LIST: [Pubkey; 2] = [mpl_token_auth_rules::ID, rooster::ID];
+static PROGRAM_ALLOW_LIST: [Pubkey; 2] = [tpl_token_auth_rules::ID, rooster::ID];
 
 macro_rules! get_primitive_rules {
     (
@@ -61,9 +61,9 @@ pub async fn create_default_metaplex_rule_set(
     creator: Keypair,
     use_delegate_allow_list: bool,
 ) -> (Pubkey, AuthorizationData) {
-    let name = String::from("Metaplex Royalty Enforcement");
+    let name = String::from("Trezoaplex Royalty Enforcement");
     let (ruleset_addr, _ruleset_bump) =
-        mpl_token_auth_rules::pda::find_rule_set_address(creator.pubkey(), name.clone());
+        tpl_token_auth_rules::pda::find_rule_set_address(creator.pubkey(), name.clone());
 
     get_primitive_rules!(
         dest_program_allow_list,

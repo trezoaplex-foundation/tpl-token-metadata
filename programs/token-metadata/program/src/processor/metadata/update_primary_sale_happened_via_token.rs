@@ -1,8 +1,8 @@
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program_error::ProgramError,
     pubkey::Pubkey,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use crate::{
     assertions::{assert_initialized, assert_owned_by},

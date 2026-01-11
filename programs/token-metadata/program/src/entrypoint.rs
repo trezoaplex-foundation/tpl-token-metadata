@@ -1,6 +1,6 @@
 //! Program entrypoint definitions
 
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo, entrypoint, entrypoint::ProgramResult,
     program_error::PrintProgramError, pubkey::Pubkey,
 };

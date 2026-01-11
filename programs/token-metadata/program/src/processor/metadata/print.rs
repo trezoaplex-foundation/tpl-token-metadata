@@ -1,5 +1,5 @@
-use mpl_utils::token::get_mint_supply;
-use solana_program::{
+use tpl_utils::token::get_mint_supply;
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program::invoke,
     program_error::ProgramError, program_option::COption, pubkey::Pubkey, sysvar,
 };
@@ -113,7 +113,7 @@ fn print_logic<'a>(
     // CHECK: Checked in process_mint_new_edition_from_master_edition_via_token_logic
     let update_authority_info = ctx.accounts.update_authority_info;
     // CHECK: Checked in process_mint_new_edition_from_master_edition_via_token_logic
-    let token_program = ctx.accounts.spl_token_program_info;
+    let token_program = ctx.accounts.tpl_token_program_info;
     let ata_program = ctx.accounts.spl_ata_program_info;
     let sysvar_instructions = ctx.accounts.sysvar_instructions_info;
     // CHECK: Checked in process_mint_new_edition_from_master_edition_via_token_logic
@@ -183,7 +183,7 @@ fn print_logic<'a>(
 
         // mint one token to the associated token account
         invoke(
-            &spl_token_2022::instruction::mint_to(
+            &tpl_token_2022::instruction::mint_to(
                 token_program.key,
                 edition_mint_info.key,
                 edition_token_account_info.key,

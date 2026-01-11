@@ -5,7 +5,7 @@
  * This serializer ensures the TypeScript client matches the Rust program's behavior.
  */
 
-import { getUtf8Encoder, transformEncoder, type Encoder } from '@solana/kit';
+import { getUtf8Encoder, transformEncoder, type Encoder } from '@trezoa/kit';
 import { MetadataDelegateRole } from '../generated/types/metadataDelegateRole';
 
 export type MetadataDelegateRoleSeed =
@@ -25,7 +25,7 @@ export type MetadataDelegateRoleSeedArgs =
 /**
  * Converts MetadataDelegateRole enum to the string used in PDA seeds
  *
- * This matches the Rust program's to_string() implementation for MetadataDelegateRole
+ * This matches the Rust program's to_string() itplementation for MetadataDelegateRole
  */
 function metadataDelegateRoleToSeedString(role: MetadataDelegateRoleSeedArgs): string {
   if (typeof role === 'string') return role;

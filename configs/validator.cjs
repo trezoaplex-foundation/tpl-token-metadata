@@ -31,9 +31,9 @@ module.exports = {
         deployPath: getProgram("mpl_token_extras.so"),
       },
       {
-        label: "SPL Token-2022",
+        label: "TPL Token-2022",
         programId: "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
-        deployPath: getProgram("spl_token_2022.so"),
+        deployPath: getProgram("tpl_token_2022.so"),
       },
     ],
   },

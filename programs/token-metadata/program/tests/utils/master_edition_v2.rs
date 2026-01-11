@@ -1,9 +1,9 @@
 use borsh::{ser::BorshSerialize, BorshDeserialize};
-use solana_program::{
+use trezoa_program::{
     instruction::{AccountMeta, Instruction},
     sysvar,
 };
-use solana_sdk::{
+use trezoa_sdk::{
     pubkey::Pubkey,
     signature::{Keypair, Signer},
     transaction::Transaction,
@@ -23,7 +23,7 @@ pub struct MasterEditionV2 {
     pub mint_pubkey: Pubkey,
 }
 
-impl MasterEditionV2 {
+itpl MasterEditionV2 {
     pub fn new(metadata: &Metadata) -> Self {
         let program_id = ID;
         let mint_pubkey = metadata.mint.pubkey();
@@ -95,7 +95,7 @@ impl MasterEditionV2 {
                 AccountMeta::new_readonly(context.payer.pubkey(), true),
                 AccountMeta::new_readonly(self.metadata_pubkey, false),
                 AccountMeta::new_readonly(fake_token_program.pubkey(), false),
-                AccountMeta::new_readonly(solana_program::system_program::ID, false),
+                AccountMeta::new_readonly(trezoa_program::system_program::ID, false),
                 AccountMeta::new_readonly(sysvar::rent::ID, false),
             ],
             data: MetadataInstruction::CreateMasterEditionV3(CreateMasterEditionArgs {
@@ -160,7 +160,7 @@ impl MasterEditionV2 {
         let mut slot = start_slot;
 
         for i in 1..=number {
-            let print_edition = EditionMarker::new(nft, self, i, spl_token::ID);
+            let print_edition = EditionMarker::new(nft, self, i, tpl_token::ID);
             print_edition.create(context).await?;
             editions.push(print_edition);
             slot += 5;
@@ -181,7 +181,7 @@ impl MasterEditionV2 {
         let mut slot = start_slot;
 
         for i in 1..=number {
-            let print_edition = EditionMarker::new_from_asset(nft, self, i, spl_token::ID);
+            let print_edition = EditionMarker::new_from_asset(nft, self, i, tpl_token::ID);
             print_edition.create_from_asset(context).await?;
             editions.push(print_edition);
             slot += 5;

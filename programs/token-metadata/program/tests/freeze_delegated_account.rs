@@ -2,8 +2,8 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
@@ -43,8 +43,8 @@ mod freeze_delegated {
             .await
             .unwrap();
 
-        let approve_ix = spl_token::instruction::approve(
-            &spl_token::ID,
+        let approve_ix = tpl_token::instruction::approve(
+            &tpl_token::ID,
             &test_metadata.token.pubkey(),
             &delegate.pubkey(),
             &context.payer.pubkey(),
@@ -84,8 +84,8 @@ mod freeze_delegated {
             .unwrap();
 
         // transfer fails because frozen
-        let transfer_ix = spl_token::instruction::transfer(
-            &spl_token::ID,
+        let transfer_ix = tpl_token::instruction::transfer(
+            &tpl_token::ID,
             &test_metadata.token.pubkey(),
             &test_metadata.token.pubkey(),
             &context.payer.pubkey(),
@@ -105,7 +105,7 @@ mod freeze_delegated {
             .await
             .unwrap_err();
 
-        assert_custom_error!(err, spl_token::error::TokenError::AccountFrozen);
+        assert_custom_error!(err, tpl_token::error::TokenError::AccountFrozen);
     }
 
     #[tokio::test]
@@ -132,8 +132,8 @@ mod freeze_delegated {
             .unwrap();
 
         // delegate token to delegate
-        spl_token::instruction::approve(
-            &spl_token::ID,
+        tpl_token::instruction::approve(
+            &tpl_token::ID,
             &test_metadata.token.pubkey(),
             &delegate.pubkey(),
             &context.payer.pubkey(),
@@ -252,8 +252,8 @@ mod freeze_delegated {
             .unwrap();
 
         // delegate token to delegate
-        spl_token::instruction::approve(
-            &spl_token::ID,
+        tpl_token::instruction::approve(
+            &tpl_token::ID,
             &test_metadata.token.pubkey(),
             &delegate.pubkey(),
             &context.payer.pubkey(),

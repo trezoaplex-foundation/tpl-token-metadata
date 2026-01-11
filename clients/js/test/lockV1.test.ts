@@ -1,8 +1,8 @@
 import {
   setComputeUnitLimit,
   TokenState as SplTokenState,
-} from '@metaplex-foundation/mpl-toolbox';
-import { generateSigner, percentAmount } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-toolbox';
+import { generateSigner, percentAmount } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   DigitalAssetWithToken,
@@ -59,7 +59,7 @@ test('it can lock a ProgrammableNonFungibleEdition', async (t) => {
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: percentAmount(5.42),
     tokenOwner: originalOwner.publicKey,
     printSupply: printSupply('Limited', [10]),

@@ -1,4 +1,4 @@
-import type { Umi } from "@metaplex-foundation/umi";
+import type { Umi } from "@trezoaplex-foundation/umi";
 import { createContext, useContext } from "react";
 
 type UmiContext = {

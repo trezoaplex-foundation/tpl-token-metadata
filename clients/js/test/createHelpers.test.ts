@@ -1,11 +1,11 @@
-import { fetchMint, Mint } from '@metaplex-foundation/mpl-toolbox';
+import { fetchMint, Mint } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   none,
   percentAmount,
   publicKey,
   some,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   createFungible,
@@ -34,7 +34,7 @@ test('it can create a new NonFungible', async (t) => {
     mint,
     tokenOwner: umi.identity.publicKey,
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -57,7 +57,7 @@ test('it can create a new NonFungible', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.NonFungible),
     name: 'My NFT',
-    uri: 'https://example.com/my-nft.json',
+    uri: 'https://exatple.com/my-nft.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -89,7 +89,7 @@ test('it can create a new ProgrammableNonFungible', async (t) => {
     mint,
     tokenOwner: umi.identity.publicKey,
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -113,7 +113,7 @@ test('it can create a new ProgrammableNonFungible', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.ProgrammableNonFungible),
     name: 'My Programmable NFT',
-    uri: 'https://example.com/my-programmable-nft.json',
+    uri: 'https://exatple.com/my-programmable-nft.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -144,7 +144,7 @@ test('it can create a new Fungible', async (t) => {
   await createFungible(umi, {
     mint,
     name: 'My Fungible',
-    uri: 'https://example.com/my-fungible.json',
+    uri: 'https://exatple.com/my-fungible.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -167,7 +167,7 @@ test('it can create a new Fungible', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.Fungible),
     name: 'My Fungible',
-    uri: 'https://example.com/my-fungible.json',
+    uri: 'https://exatple.com/my-fungible.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,
@@ -190,7 +190,7 @@ test('it can create a new FungibleAsset', async (t) => {
   await createFungibleAsset(umi, {
     mint,
     name: 'My Fungible Asset',
-    uri: 'https://example.com/my-fungible-asset.json',
+    uri: 'https://exatple.com/my-fungible-asset.json',
     sellerFeeBasisPoints: percentAmount(5.5),
   }).sendAndConfirm(umi);
 
@@ -213,7 +213,7 @@ test('it can create a new FungibleAsset', async (t) => {
     mint: publicKey(mint),
     tokenStandard: some(TokenStandard.FungibleAsset),
     name: 'My Fungible Asset',
-    uri: 'https://example.com/my-fungible-asset.json',
+    uri: 'https://exatple.com/my-fungible-asset.json',
     sellerFeeBasisPoints: 550,
     primarySaleHappened: false,
     isMutable: true,

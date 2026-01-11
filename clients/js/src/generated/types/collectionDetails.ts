@@ -15,7 +15,7 @@ import {
   struct,
   u64,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 export type CollectionDetails =
   | { __kind: 'V1'; size: bigint }

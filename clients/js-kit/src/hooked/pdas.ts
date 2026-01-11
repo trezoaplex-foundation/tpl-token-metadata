@@ -1,32 +1,32 @@
 /**
- * Manual PDA implementations for external programs
- * These are not auto-generated and supplement the Codama-generated PDAs
+ * Manual PDA itplementations for external programs
+ * These are not auto-generated and supplement the Codoma-generated PDAs
  */
 
-import type { Address, ProgramDerivedAddress } from '@solana/addresses';
-import { getAddressEncoder, getAddressDecoder, getProgramDerivedAddress } from '@solana/addresses';
+import type { Address, ProgramDerivedAddress } from '@trezoa/addresses';
+import { getAddressEncoder, getAddressDecoder, getProgramDerivedAddress } from '@trezoa/addresses';
 
 /**
- * SPL Token Program ID (original SPL Token program)
+ * TPL Token Program ID (original TPL Token program)
  */
 export const SPL_TOKEN_PROGRAM_ADDRESS =
   'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' as Address;
 
 /**
- * SPL Token 2022 Program ID (Token Extensions program)
+ * TPL Token 2022 Program ID (Token Extensions program)
  */
 export const SPL_TOKEN_2022_PROGRAM_ADDRESS =
   'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb' as Address;
 
 /**
- * SPL Associated Token Program ID
+ * TPL Associated Token Program ID
  */
 export const SPL_ASSOCIATED_TOKEN_PROGRAM_ADDRESS =
   'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL' as Address;
 
 /**
  * Find Associated Token Account PDA
- * This is a standard SPL Token PDA for associated token accounts
+ * This is a standard TPL Token PDA for associated token accounts
  *
  * @param owner - The wallet address that owns the token account
  * @param mint - The mint address of the token

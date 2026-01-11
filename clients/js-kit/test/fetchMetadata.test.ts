@@ -55,7 +55,7 @@ test('it can fetch metadata by address', async (t) => {
     authority,
     payer: authority,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -70,7 +70,7 @@ test('it can fetch metadata by address', async (t) => {
   t.is(metadata.address, metadataAddress, 'Address should match');
   t.is(metadata.data.mint, mint.address, 'Mint should match');
   t.is(metadata.data.name, 'Test NFT', 'Name should match');
-  t.is(metadata.data.uri, 'https://example.com/nft.json', 'URI should match');
+  t.is(metadata.data.uri, 'https://exatple.com/nft.json', 'URI should match');
   t.is(metadata.data.sellerFeeBasisPoints, basisPoints(5), 'Seller fee should match');
 });
 
@@ -95,7 +95,7 @@ test('it can fetch metadata from seeds', async (t) => {
     authority,
     payer: authority,
     name: 'NFT from Seeds',
-    uri: 'https://example.com/seeds.json',
+    uri: 'https://exatple.com/seeds.json',
     sellerFeeBasisPoints: basisPoints(2.5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -108,7 +108,7 @@ test('it can fetch metadata from seeds', async (t) => {
   t.truthy(metadata, 'Metadata should exist');
   t.is(metadata.data.mint, mint.address, 'Mint should match');
   t.is(metadata.data.name, 'NFT from Seeds', 'Name should match');
-  t.is(metadata.data.uri, 'https://example.com/seeds.json', 'URI should match');
+  t.is(metadata.data.uri, 'https://exatple.com/seeds.json', 'URI should match');
 });
 
 test('it can fetch maybe metadata (exists)', async (t) => {
@@ -132,7 +132,7 @@ test('it can fetch maybe metadata (exists)', async (t) => {
     authority,
     payer: authority,
     name: 'Maybe NFT',
-    uri: 'https://example.com/maybe.json',
+    uri: 'https://exatple.com/maybe.json',
     sellerFeeBasisPoints: basisPoints(1),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -189,7 +189,7 @@ test('it can fetch all metadata by addresses', async (t) => {
     authority,
     payer: authority,
     name: 'NFT One',
-    uri: 'https://example.com/1.json',
+    uri: 'https://exatple.com/1.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -199,7 +199,7 @@ test('it can fetch all metadata by addresses', async (t) => {
     authority,
     payer: authority,
     name: 'NFT Two',
-    uri: 'https://example.com/2.json',
+    uri: 'https://exatple.com/2.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -240,7 +240,7 @@ test('it can fetch master edition', async (t) => {
     authority,
     payer: authority,
     name: 'Master Edition NFT',
-    uri: 'https://example.com/master.json',
+    uri: 'https://exatple.com/master.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -277,7 +277,7 @@ test('it can fetch maybe master edition (exists)', async (t) => {
     authority,
     payer: authority,
     name: 'Maybe Edition',
-    uri: 'https://example.com/maybe-edition.json',
+    uri: 'https://exatple.com/maybe-edition.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -333,7 +333,7 @@ test('it can verify fetched metadata properties', async (t) => {
     authority,
     payer: authority,
     name: 'Property Test NFT',
-    uri: 'https://example.com/properties.json',
+    uri: 'https://exatple.com/properties.json',
     sellerFeeBasisPoints: basisPoints(7.5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -348,7 +348,7 @@ test('it can verify fetched metadata properties', async (t) => {
   t.is(metadata.data.mint, mint.address, 'Mint should match');
   t.is(metadata.data.name, 'Property Test NFT', 'Name should match');
   t.is(metadata.data.symbol, '', 'Symbol should be empty');
-  t.is(metadata.data.uri, 'https://example.com/properties.json', 'URI should match');
+  t.is(metadata.data.uri, 'https://exatple.com/properties.json', 'URI should match');
   t.is(metadata.data.sellerFeeBasisPoints, 750, 'Seller fee should be 750 basis points (7.5%)');
   t.false(metadata.data.primarySaleHappened, 'Primary sale should not have happened');
   t.true(metadata.data.isMutable, 'Should be mutable by default');

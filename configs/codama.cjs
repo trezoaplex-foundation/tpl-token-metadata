@@ -1,6 +1,6 @@
 // @ts-check
-const { rootNodeFromAnchor } = require("@codama/nodes-from-anchor");
-const { renderJavaScriptVisitor } = require("@codama/renderers");
+const { rootNodeFromAnchor } = require("@codoma/nodes-from-trezoa");
+const { renderJavaScriptVisitor } = require("@codoma/renderers");
 const {
   constantPdaSeedNodeFromProgramId,
   constantPdaSeedNodeFromString,
@@ -44,7 +44,7 @@ const {
   instructionAccountNode,
   booleanTypeNode,
   programIdValueNode,
-} = require("codama");
+} = require("codoma");
 const { writeFileSync } = require("node:fs");
 const path = require("node:path");
 
@@ -55,10 +55,10 @@ const anchorIdl = require(anchorPath);
 const treeDir = path.join(__dirname, "..", "trees");
 const clientDir = path.join(__dirname, "..", "clients");
 
-// Instantiate Codama.
-const codama = createFromRoot(rootNodeFromAnchor(anchorIdl));
+// Instantiate Codoma.
+const codoma = createFromRoot(rootNodeFromAnchor(anchorIdl));
 
-codama.update(
+codoma.update(
   updateProgramsVisitor({
     tokenMetadata: {
       name: "mplTokenMetadata",
@@ -77,7 +77,7 @@ const metadataSeeds = [
   ),
 ];
 
-codama.update(
+codoma.update(
   updateAccountsVisitor({
     metadata: {
       size: null,
@@ -200,7 +200,7 @@ codama.update(
 );
 
 // Set default values for instruction accounts.
-codama.update(
+codoma.update(
   setInstructionAccountDefaultValuesVisitor([
     {
       account: "authority",
@@ -247,10 +247,10 @@ function ataPdaDefault(mint = "mint", owner = "owner") {
     pdaSeedValueNode("owner", accountValueNode(owner)),
   ]);
 }
-codama.update(
+codoma.update(
   updateInstructionsVisitor({
     create: {
-      // @ts-expect-error Fixed upstream: https://github.com/codama-idl/codama/pull/747
+      // @ts-expect-error Fixed upstream: https://github.com/codoma-idl/codoma/pull/747
       byteDeltas: [
         instructionByteDeltaNode(
           numberValueNode(
@@ -285,7 +285,7 @@ codama.update(
       },
     },
     mint: {
-      // @ts-expect-error Fixed upstream: https://github.com/codama-idl/codama/pull/747
+      // @ts-expect-error Fixed upstream: https://github.com/codoma-idl/codoma/pull/747
       byteDeltas: [
         instructionByteDeltaNode(
           numberValueNode(
@@ -630,7 +630,7 @@ function key(name) {
     value: enumValueNode("Key", name),
   };
 }
-codama.update(
+codoma.update(
   setAccountDiscriminatorFromFieldVisitor({
     Edition: key("EditionV1"),
     Metadata: key("MetadataV1"),
@@ -647,7 +647,7 @@ codama.update(
 );
 
 // Wrap leaves.
-codama.update(
+codoma.update(
   setNumberWrappersVisitor({
     "AssetData.sellerFeeBasisPoints": {
       kind: "Amount",
@@ -658,7 +658,7 @@ codama.update(
 );
 
 // Set struct default values.
-codama.update(
+codoma.update(
   setStructDefaultValuesVisitor({
     assetData: {
       symbol: stringValueNode(""),
@@ -679,7 +679,7 @@ codama.update(
 );
 
 // Set more struct default values dynamically.
-codama.update(
+codoma.update(
   bottomUpTransformerVisitor([
     {
       select: "[structFieldTypeNode|instructionArgumentNode]amount",
@@ -749,9 +749,9 @@ codama.update(
 );
 
 // Unwrap types and structs.
-codama.update(unwrapDefinedTypesVisitor(["AssetData"]));
-codama.update(unwrapTypeDefinedLinksVisitor(["metadata.data"]));
-codama.update(
+codoma.update(unwrapDefinedTypesVisitor(["AssetData"]));
+codoma.update(unwrapTypeDefinedLinksVisitor(["metadata.data"]));
+codoma.update(
   flattenStructVisitor({
     Metadata: ["data"],
     "CreateArgs.V1": ["assetData"],
@@ -759,7 +759,7 @@ codama.update(
 );
 
 // Create versioned instructions.
-codama.update(
+codoma.update(
   createSubInstructionsFromEnumArgsVisitor({
     burn: "burnArgs",
     create: "createArgs",
@@ -778,7 +778,7 @@ codama.update(
 );
 
 // Update versioned instructions.
-codama.update(
+codoma.update(
   bottomUpTransformerVisitor([
     {
       select: "[instructionNode]printV2",
@@ -963,10 +963,10 @@ const tokenDelegateDefaults = {
   },
 };
 
-codama.update(
+codoma.update(
   updateInstructionsVisitor({
     createV1: {
-      // @ts-expect-error Fixed upstream: https://github.com/codama-idl/codama/pull/747
+      // @ts-expect-error Fixed upstream: https://github.com/codoma-idl/codoma/pull/747
       byteDeltas: [
         instructionByteDeltaNode(resolverValueNode("resolveCreateV1Bytes")),
       ],
@@ -1159,15 +1159,15 @@ codama.update(
 
 // Render tree.
 writeFileSync(
-  path.join(treeDir, "codama.json"),
-  JSON.stringify(JSON.parse(codama.getJson()), null, 2)
+  path.join(treeDir, "codoma.json"),
+  JSON.stringify(JSON.parse(codoma.getJson()), null, 2)
 );
 
 
 // Render JavaScript.
 const jsDir = path.join(clientDir, "js-kit", "src", "generated");
 const prettier = require(path.join(clientDir, "js", ".prettierrc.json"));
-codama.accept(
+codoma.accept(
   renderJavaScriptVisitor(jsDir, {
     prettierOptions: prettier,
     linkOverrides: {

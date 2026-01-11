@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Key, keyBeet } from '../types/Key';
 
 /**
@@ -27,7 +27,7 @@ export type UseAuthorityRecordArgs = {
  * @category Accounts
  * @category generated
  */
-export class UseAuthorityRecord implements UseAuthorityRecordArgs {
+export class UseAuthorityRecord itplements UseAuthorityRecordArgs {
   private constructor(
     readonly key: Key,
     readonly allowedUses: beet.bignum,
@@ -79,7 +79,7 @@ export class UseAuthorityRecord implements UseAuthorityRecordArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, useAuthorityRecordBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, useAuthorityRecordBeet);
   }
 
   /**

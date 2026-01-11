@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
+import * as beet from '@trezoaplex-foundation/beet';
 export type Creator = {
   address: web3.PublicKey;
   verified: boolean;
@@ -20,7 +20,7 @@ export type Creator = {
  */
 export const creatorBeet = new beet.BeetArgsStruct<Creator>(
   [
-    ['address', beetSolana.publicKey],
+    ['address', beetTrezoa.publicKey],
     ['verified', beet.bool],
     ['share', beet.u8],
   ],

@@ -1,4 +1,4 @@
-use solana_program::program_memory::sol_memcpy;
+use trezoa_program::program_memory::sol_memcpy;
 
 use super::*;
 
@@ -10,7 +10,7 @@ pub struct EditionMarkerV2 {
     pub ledger: Vec<u8>,
 }
 
-impl Default for EditionMarkerV2 {
+itpl Default for EditionMarkerV2 {
     fn default() -> Self {
         Self {
             key: Key::EditionMarkerV2,
@@ -19,7 +19,7 @@ impl Default for EditionMarkerV2 {
     }
 }
 
-impl TokenMetadataAccount for EditionMarkerV2 {
+itpl TokenMetadataAccount for EditionMarkerV2 {
     fn key() -> Key {
         Key::EditionMarkerV2
     }
@@ -29,7 +29,7 @@ impl TokenMetadataAccount for EditionMarkerV2 {
     }
 }
 
-impl EditionMarkerV2 {
+itpl EditionMarkerV2 {
     fn get_index(offset_from_start: usize) -> Result<usize, ProgramError> {
         let index = offset_from_start
             .checked_div(8)
@@ -41,7 +41,7 @@ impl EditionMarkerV2 {
     fn get_offset_from_right(offset_from_start: usize) -> Result<u32, ProgramError> {
         // We're saying the left hand side of a u8 is the 0th index so to get a 1 in that 0th index
         // you need to shift a 1 over 8 spots from the right hand side. To do that you actually
-        // need not 00000001 but 10000000 which you can get by simply multiplying 1 by 2^7, 128 and then ORing
+        // need not 00000001 but 10000000 which you can get by sitply multiplying 1 by 2^7, 128 and then ORing
         // it with the current value.
         Ok(7 - offset_from_start
             .checked_rem(8)

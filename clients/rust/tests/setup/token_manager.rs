@@ -1,11 +1,11 @@
-use mpl_token_metadata::accounts::Metadata;
-use solana_program::{native_token::LAMPORTS_PER_SOL, program_pack::Pack, pubkey::Pubkey};
-use solana_program_test::{BanksClientError, ProgramTestContext};
-use solana_sdk::{
+use tpl_token_metadata::accounts::Metadata;
+use trezoa_program::{native_token::LAMPORTS_PER_TRZ, program_pack::Pack, pubkey::Pubkey};
+use trezoa_program_test::{BanksClientError, ProgramTestContext};
+use trezoa_sdk::{
     signature::{Keypair, Signer},
     transaction::Transaction,
 };
-use spl_token_2022_interface::{
+use tpl_token_2022_interface::{
     extension::{
         default_account_state::instruction::initialize_default_account_state,
         interest_bearing_mint, metadata_pointer,
@@ -19,18 +19,18 @@ use spl_token_2022_interface::{
 };
 
 pub struct TokenManager {
-    pub spl_token_program: Pubkey,
+    pub tpl_token_program: Pubkey,
 }
 
-impl Default for TokenManager {
+itpl Default for TokenManager {
     fn default() -> Self {
         Self {
-            spl_token_program: spl_token_2022_interface::ID,
+            tpl_token_program: tpl_token_2022_interface::ID,
         }
     }
 }
 
-impl TokenManager {
+itpl TokenManager {
     pub async fn create_mint(
         &self,
         context: &mut ProgramTestContext,
@@ -65,12 +65,12 @@ impl TokenManager {
         let (metadata, _) = Metadata::find_pda(&mint.pubkey());
         let mut instructions = vec![];
 
-        instructions.push(solana_system_interface::instruction::create_account(
+        instructions.push(trezoa_system_interface::instruction::create_account(
             &context.payer.pubkey(),
             &mint.pubkey(),
             rent.minimum_balance(account_size),
             account_size as u64,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         ));
 
         // set up extentions
@@ -79,7 +79,7 @@ impl TokenManager {
             // the mint close authority must be the metadata account
             instructions.push(
                 initialize_mint_close_authority(
-                    &self.spl_token_program,
+                    &self.tpl_token_program,
                     &mint.pubkey(),
                     Some(&metadata),
                 )
@@ -90,12 +90,12 @@ impl TokenManager {
         if extensions.contains(&ExtensionType::TransferFeeConfig) {
             instructions.push(
                 initialize_transfer_fee_config(
-                    &self.spl_token_program,
+                    &self.tpl_token_program,
                     &mint.pubkey(),
                     Some(&context.payer.pubkey()),
                     Some(&context.payer.pubkey()),
                     500u16,
-                    LAMPORTS_PER_SOL,
+                    LAMPORTS_PER_TRZ,
                 )
                 .unwrap(),
             );
@@ -104,7 +104,7 @@ impl TokenManager {
         if extensions.contains(&ExtensionType::DefaultAccountState) {
             instructions.push(
                 initialize_default_account_state(
-                    &self.spl_token_program,
+                    &self.tpl_token_program,
                     &mint.pubkey(),
                     &AccountState::Frozen,
                 )
@@ -114,14 +114,14 @@ impl TokenManager {
 
         if extensions.contains(&ExtensionType::NonTransferable) {
             instructions.push(
-                initialize_non_transferable_mint(&self.spl_token_program, &mint.pubkey()).unwrap(),
+                initialize_non_transferable_mint(&self.tpl_token_program, &mint.pubkey()).unwrap(),
             );
         }
 
         if extensions.contains(&ExtensionType::InterestBearingConfig) {
             instructions.push(
                 interest_bearing_mint::instruction::initialize(
-                    &self.spl_token_program,
+                    &self.tpl_token_program,
                     &mint.pubkey(),
                     None,
                     5i16,
@@ -134,7 +134,7 @@ impl TokenManager {
             // mint authority as permanent delegate
             instructions.push(
                 initialize_permanent_delegate(
-                    &self.spl_token_program,
+                    &self.tpl_token_program,
                     &mint.pubkey(),
                     mint_authority,
                 )
@@ -146,10 +146,10 @@ impl TokenManager {
             // token metadata as the transfer hook program
             instructions.push(
                 transfer_hook::instruction::initialize(
-                    &self.spl_token_program,
+                    &self.tpl_token_program,
                     &mint.pubkey(),
                     Some(context.payer.pubkey()),
-                    Some(mpl_token_metadata::ID),
+                    Some(tpl_token_metadata::ID),
                 )
                 .unwrap(),
             );
@@ -159,7 +159,7 @@ impl TokenManager {
             // metadata as the metadata pointer address
             instructions.push(
                 metadata_pointer::instruction::initialize(
-                    &self.spl_token_program,
+                    &self.tpl_token_program,
                     &mint.pubkey(),
                     None,
                     Some(metadata),
@@ -171,8 +171,8 @@ impl TokenManager {
         // initialize the mint
 
         instructions.push(
-            spl_token_2022_interface::instruction::initialize_mint2(
-                &self.spl_token_program,
+            tpl_token_2022_interface::instruction::initialize_mint2(
+                &self.tpl_token_program,
                 &mint.pubkey(),
                 mint_authority,
                 freeze_authority,
@@ -197,11 +197,11 @@ impl TokenManager {
         owner: &Pubkey,
         token_account: &Keypair,
         mint: &Pubkey,
-        spl_token_program: Pubkey,
+        tpl_token_program: Pubkey,
     ) -> Result<(), BanksClientError> {
-        let spl_token_2022 = spl_token_program == spl_token_2022_interface::ID;
+        let tpl_token_2022 = tpl_token_program == tpl_token_2022_interface::ID;
 
-        let length = if spl_token_2022 {
+        let length = if tpl_token_2022 {
             ExtensionType::try_calculate_account_len::<Account>(&[ExtensionType::ImmutableOwner])
                 .unwrap()
         } else {
@@ -211,18 +211,18 @@ impl TokenManager {
 
         let mut instructions = vec![];
 
-        instructions.push(solana_system_interface::instruction::create_account(
+        instructions.push(trezoa_system_interface::instruction::create_account(
             &context.payer.pubkey(),
             &token_account.pubkey(),
             rent.minimum_balance(length),
             length as u64,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         ));
 
-        if spl_token_2022 {
+        if tpl_token_2022 {
             instructions.push(
-                spl_token_2022_interface::instruction::initialize_immutable_owner(
-                    &self.spl_token_program,
+                tpl_token_2022_interface::instruction::initialize_immutable_owner(
+                    &self.tpl_token_program,
                     &token_account.pubkey(),
                 )
                 .unwrap(),
@@ -230,8 +230,8 @@ impl TokenManager {
         }
 
         instructions.push(
-            spl_token_2022_interface::instruction::initialize_account3(
-                &self.spl_token_program,
+            tpl_token_2022_interface::instruction::initialize_account3(
+                &self.tpl_token_program,
                 &token_account.pubkey(),
                 mint,
                 owner,
@@ -262,18 +262,18 @@ impl TokenManager {
 
         let mut instructions = vec![];
 
-        instructions.push(solana_system_interface::instruction::create_account(
+        instructions.push(trezoa_system_interface::instruction::create_account(
             &context.payer.pubkey(),
             &token_account.pubkey(),
             rent.minimum_balance(length),
             length as u64,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         ));
 
         if extensions.contains(&ExtensionType::ImmutableOwner) {
             instructions.push(
-                spl_token_2022_interface::instruction::initialize_immutable_owner(
-                    &self.spl_token_program,
+                tpl_token_2022_interface::instruction::initialize_immutable_owner(
+                    &self.tpl_token_program,
                     &token_account.pubkey(),
                 )
                 .unwrap(),
@@ -281,8 +281,8 @@ impl TokenManager {
         }
 
         instructions.push(
-            spl_token_2022_interface::instruction::initialize_account3(
-                &self.spl_token_program,
+            tpl_token_2022_interface::instruction::initialize_account3(
+                &self.tpl_token_program,
                 &token_account.pubkey(),
                 mint,
                 owner,

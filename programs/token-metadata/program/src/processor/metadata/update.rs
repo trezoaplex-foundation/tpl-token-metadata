@@ -1,11 +1,11 @@
 use std::fmt::{Display, Formatter};
 
-use mpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
-use solana_program::{
+use tpl_utils::{assert_signer, token::SPL_TOKEN_PROGRAM_IDS};
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, msg, program_error::ProgramError,
     pubkey::Pubkey, sysvar,
 };
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use crate::{
     assertions::{assert_owned_by, assert_owner_in, programmable::assert_valid_authorization},
@@ -29,7 +29,7 @@ pub enum UpdateScenario {
     Proxy,
 }
 
-impl Display for UpdateScenario {
+itpl Display for UpdateScenario {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             UpdateScenario::MetadataAuth => write!(f, "MetadataAuth"),
@@ -81,14 +81,14 @@ fn update_v1(program_id: &Pubkey, ctx: Context<Update>, args: UpdateArgs) -> Pro
 
     // Check program IDs
 
-    if ctx.accounts.system_program_info.key != &solana_program::system_program::ID {
+    if ctx.accounts.system_program_info.key != &trezoa_program::system_program::ID {
         return Err(ProgramError::IncorrectProgramId);
     }
     if ctx.accounts.sysvar_instructions_info.key != &sysvar::instructions::ID {
         return Err(ProgramError::IncorrectProgramId);
     }
 
-    // If the current rule set is passed in, also require the mpl-token-auth-rules program
+    // If the current rule set is passed in, also require the tpl-token-auth-rules program
     // to be passed in (and check its program ID).
     if ctx.accounts.authorization_rules_info.is_some() {
         let authorization_rules_program = ctx
@@ -96,7 +96,7 @@ fn update_v1(program_id: &Pubkey, ctx: Context<Update>, args: UpdateArgs) -> Pro
             .authorization_rules_program_info
             .ok_or(MetadataError::MissingAuthorizationRulesProgram)?;
 
-        if authorization_rules_program.key != &mpl_token_auth_rules::ID {
+        if authorization_rules_program.key != &tpl_token_auth_rules::ID {
             return Err(ProgramError::IncorrectProgramId);
         }
     }

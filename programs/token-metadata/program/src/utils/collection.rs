@@ -1,5 +1,5 @@
 use metadata::clean_write_metadata;
-use solana_program::msg;
+use trezoa_program::msg;
 
 use super::*;
 use crate::state::CollectionDetails;

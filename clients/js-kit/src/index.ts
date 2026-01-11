@@ -1,8 +1,8 @@
 /**
- * Metaplex Token Metadata - Codama Client
+ * Trezoaplex Token Metadata - Codoma Client
  *
- * This is the @solana/kit (web3.js 2.0) client for mpl-token-metadata
- * Generated using Codama
+ * This is the @trezoa/kit (web3.js 2.0) client for tpl-token-metadata
+ * Generated using Codoma
  */
 
 export * from './generated';

@@ -1,4 +1,4 @@
-import { some } from '@metaplex-foundation/umi';
+import { some } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   fetchMetadataFromSeeds,

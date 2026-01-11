@@ -5,9 +5,9 @@
  * for common token creation patterns.
  */
 
-import type { Address } from '@solana/addresses';
-import type { Instruction } from '@solana/kit';
-import type { TransactionSigner } from '@solana/signers';
+import type { Address } from '@trezoa/addresses';
+import type { Instruction } from '@trezoa/kit';
+import type { TransactionSigner } from '@trezoa/signers';
 import {
   getCreateV1InstructionAsync,
   getMintV1InstructionAsync,
@@ -32,14 +32,14 @@ export type CreateAndMintInput = CreateV1AsyncInput &
  * @param input - Combined create and mint parameters
  * @returns Array containing [createInstruction, mintInstruction]
  *
- * @example
+ * @exatple
  * ```ts
  * const [createIx, mintIx] = await createAndMint({
  *   mint,
  *   authority,
  *   payer,
  *   name: 'My NFT',
- *   uri: 'https://example.com/nft.json',
+ *   uri: 'https://exatple.com/nft.json',
  *   sellerFeeBasisPoints: 500,
  *   tokenStandard: TokenStandard.NonFungible,
  *   amount: 1,
@@ -77,14 +77,14 @@ export async function createAndMint(
  * @param input - Create parameters without tokenStandard and amount
  * @returns Array containing [createInstruction, mintInstruction]
  *
- * @example
+ * @exatple
  * ```ts
  * const [createIx, mintIx] = await createNft({
  *   mint,
  *   authority,
  *   payer,
  *   name: 'My NFT',
- *   uri: 'https://example.com/nft.json',
+ *   uri: 'https://exatple.com/nft.json',
  *   sellerFeeBasisPoints: 500,
  *   tokenOwner: owner.address,
  * });
@@ -108,14 +108,14 @@ export async function createNft(
  * @param input - Create parameters without tokenStandard and amount
  * @returns Array containing [createInstruction, mintInstruction]
  *
- * @example
+ * @exatple
  * ```ts
  * const [createIx, mintIx] = await createProgrammableNft({
  *   mint,
  *   authority,
  *   payer,
  *   name: 'My PNFT',
- *   uri: 'https://example.com/pnft.json',
+ *   uri: 'https://exatple.com/pnft.json',
  *   sellerFeeBasisPoints: 500,
  *   tokenOwner: owner.address,
  * });
@@ -139,14 +139,14 @@ export async function createProgrammableNft(
  * @param input - Create parameters without tokenStandard
  * @returns Create instruction
  *
- * @example
+ * @exatple
  * ```ts
  * const createIx = await createFungible({
  *   mint,
  *   authority,
  *   payer,
  *   name: 'My Token',
- *   uri: 'https://example.com/token.json',
+ *   uri: 'https://exatple.com/token.json',
  *   sellerFeeBasisPoints: 100,
  * });
  *
@@ -176,14 +176,14 @@ export async function createFungible(
  * @param input - Create parameters without tokenStandard
  * @returns Create instruction
  *
- * @example
+ * @exatple
  * ```ts
  * const createIx = await createFungibleAsset({
  *   mint,
  *   authority,
  *   payer,
  *   name: 'My Asset',
- *   uri: 'https://example.com/asset.json',
+ *   uri: 'https://exatple.com/asset.json',
  *   sellerFeeBasisPoints: 200,
  * });
  * ```

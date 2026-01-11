@@ -1,8 +1,8 @@
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { walletAdapterIdentity } from "@metaplex-foundation/umi-signer-wallet-adapters";
-import { bundlrUploader } from "@metaplex-foundation/umi-uploader-bundlr";
-import { mplTokenMetadata } from "@metaplex-foundation/mpl-token-metadata";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { createUmi } from "@trezoaplex-foundation/umi-bundle-defaults";
+import { walletAdapterIdentity } from "@trezoaplex-foundation/umi-signer-wallet-adapters";
+import { bundlrUploader } from "@trezoaplex-foundation/umi-uploader-bundlr";
+import { mplTokenMetadata } from "@trezoaplex-foundation/tpl-token-metadata";
+import { useWallet } from "@trezoa/wallet-adapter-react";
 import { ReactNode } from "react";
 import { UmiContext } from "./useUmi";
 

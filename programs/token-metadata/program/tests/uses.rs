@@ -2,8 +2,8 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::Signer,
     transaction::{Transaction, TransactionError},
@@ -13,9 +13,9 @@ use utils::*;
 
 mod uses {
     use borsh::BorshDeserialize;
-    use solana_program::program_pack::Pack;
-    use solana_sdk::signature::Keypair;
-    use spl_token::state::Account;
+    use trezoa_program::program_pack::Pack;
+    use trezoa_sdk::signature::Keypair;
+    use tpl_token::state::Account;
     use token_metadata::{
         error::MetadataError,
         pda::{find_program_as_burner_account, find_use_authority_account},

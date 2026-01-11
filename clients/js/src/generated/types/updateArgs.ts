@@ -11,7 +11,7 @@ import {
   OptionOrNullable,
   PublicKey,
   none,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   GetDataEnumKind,
   GetDataEnumKindContent,
@@ -22,7 +22,7 @@ import {
   option,
   publicKey as publicKeySerializer,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   AuthorizationData,
   AuthorizationDataArgs,

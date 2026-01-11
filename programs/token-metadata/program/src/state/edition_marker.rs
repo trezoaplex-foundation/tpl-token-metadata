@@ -12,7 +12,7 @@ pub struct EditionMarker {
     pub ledger: [u8; 31],
 }
 
-impl Default for EditionMarker {
+itpl Default for EditionMarker {
     fn default() -> Self {
         Self {
             key: Key::EditionMarker,
@@ -21,7 +21,7 @@ impl Default for EditionMarker {
     }
 }
 
-impl TokenMetadataAccount for EditionMarker {
+itpl TokenMetadataAccount for EditionMarker {
     fn key() -> Key {
         Key::EditionMarker
     }
@@ -31,7 +31,7 @@ impl TokenMetadataAccount for EditionMarker {
     }
 }
 
-impl EditionMarker {
+itpl EditionMarker {
     fn get_edition_offset_from_starting_index(edition: u64) -> Result<usize, ProgramError> {
         Ok(edition
             .checked_rem(EDITION_MARKER_BIT_SIZE)
@@ -54,7 +54,7 @@ impl EditionMarker {
     fn get_offset_from_right(offset_from_start: usize) -> Result<u32, ProgramError> {
         // We're saying the left hand side of a u8 is the 0th index so to get a 1 in that 0th index
         // you need to shift a 1 over 8 spots from the right hand side. To do that you actually
-        // need not 00000001 but 10000000 which you can get by simply multiplying 1 by 2^7, 128 and then ORing
+        // need not 00000001 but 10000000 which you can get by sitply multiplying 1 by 2^7, 128 and then ORing
         // it with the current value.
         Ok(7 - offset_from_start
             .checked_rem(8)
@@ -105,8 +105,8 @@ impl EditionMarker {
 
 #[cfg(test)]
 mod tests {
-    use solana_program::account_info::AccountInfo;
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_program::account_info::AccountInfo;
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
 
     use crate::{
         error::MetadataError,

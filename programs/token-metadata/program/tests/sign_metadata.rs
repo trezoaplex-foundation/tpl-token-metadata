@@ -1,14 +1,14 @@
 #![cfg(feature = "test-bpf")]
 
-use solana_program_test::*;
-use solana_sdk::signature::{Keypair, Signer};
+use trezoa_program_test::*;
+use trezoa_sdk::signature::{Keypair, Signer};
 use utils::*;
 
 pub mod utils;
 
 mod sign_metadata {
 
-    use solana_sdk::transaction::Transaction;
+    use trezoa_sdk::transaction::Transaction;
     use token_metadata::{
         instruction::{remove_creator_verification, sign_metadata},
         state::Creator,

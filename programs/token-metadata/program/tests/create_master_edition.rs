@@ -2,8 +2,8 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
@@ -209,7 +209,7 @@ mod create_master_edition {
             &payer_pubkey,
             None,
             0,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -218,7 +218,7 @@ mod create_master_edition {
             &fake_account,
             &fake_mint.pubkey(),
             &payer_pubkey,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -229,7 +229,7 @@ mod create_master_edition {
             1000000,
             &payer_pubkey,
             None,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -238,7 +238,7 @@ mod create_master_edition {
             mint: fake_mint,
             pubkey: test_metadata.pubkey,
             token: fake_account,
-            spl_token_program: spl_token::ID,
+            tpl_token_program: tpl_token::ID,
         });
 
         let result = test_master_edition
@@ -377,7 +377,7 @@ mod create_master_edition {
             &payer_pubkey,
             None,
             0,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -386,7 +386,7 @@ mod create_master_edition {
             &fake_account,
             &fake_mint.pubkey(),
             &payer_pubkey,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -397,7 +397,7 @@ mod create_master_edition {
             1000000,
             &payer_pubkey,
             None,
-            &spl_token::ID,
+            &tpl_token::ID,
         )
         .await
         .unwrap();
@@ -406,7 +406,7 @@ mod create_master_edition {
             mint: fake_mint,
             pubkey: test_metadata.pubkey,
             token: fake_account,
-            spl_token_program: spl_token::ID,
+            tpl_token_program: tpl_token::ID,
         });
 
         let result = test_master_edition

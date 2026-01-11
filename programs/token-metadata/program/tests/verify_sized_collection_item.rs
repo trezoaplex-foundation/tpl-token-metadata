@@ -2,8 +2,8 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
@@ -23,7 +23,7 @@ use utils::*;
 mod verify_sized_collection_item {
 
     use borsh::BorshDeserialize;
-    use solana_sdk::transaction::Transaction;
+    use trezoa_sdk::transaction::Transaction;
     use token_metadata::state::{CollectionAuthorityRecord, COLLECTION_AUTHORITY_RECORD_SIZE};
 
     use super::*;

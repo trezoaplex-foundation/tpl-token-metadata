@@ -2,7 +2,7 @@
  * fetchDigitalAsset tests for js-kit client
  *
  * These tests demonstrate using the high-level digitalAsset API:
- * - fetchDigitalAsset: Fetch a complete digital asset by mint address
+ * - fetchDigitalAsset: Fetch a cotplete digital asset by mint address
  * - fetchDigitalAssetByMetadata: Fetch by metadata address
  * - fetchAllDigitalAsset: Batch fetch multiple digital assets
  *
@@ -57,7 +57,7 @@ test('it can fetch a NonFungible digital asset', async (t) => {
     authority,
     payer: authority,
     name: 'Test NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -75,7 +75,7 @@ test('it can fetch a NonFungible digital asset', async (t) => {
   t.truthy(digitalAsset.mint);
   t.truthy(digitalAsset.metadata);
   t.is(digitalAsset.metadata.name, 'Test NFT');
-  t.is(digitalAsset.metadata.uri, 'https://example.com/nft.json');
+  t.is(digitalAsset.metadata.uri, 'https://exatple.com/nft.json');
   t.is(digitalAsset.metadata.sellerFeeBasisPoints, basisPoints(5.5));
 
   // Note: Edition data may or may not be present immediately after creation
@@ -109,7 +109,7 @@ test('it can fetch a digital asset by metadata address', async (t) => {
     authority,
     payer: authority,
     name: 'Test NFT 2',
-    uri: 'https://example.com/nft2.json',
+    uri: 'https://exatple.com/nft2.json',
     sellerFeeBasisPoints: basisPoints(2.5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -128,7 +128,7 @@ test('it can fetch a digital asset by metadata address', async (t) => {
   // Verify the data
   t.is(digitalAsset.address, mint.address);
   t.is(digitalAsset.metadata.name, 'Test NFT 2');
-  t.is(digitalAsset.metadata.uri, 'https://example.com/nft2.json');
+  t.is(digitalAsset.metadata.uri, 'https://exatple.com/nft2.json');
 
   t.pass('Successfully fetched digital asset by metadata address');
 });
@@ -157,7 +157,7 @@ test('it can fetch a Fungible digital asset without edition', async (t) => {
     authority,
     payer: authority,
     name: 'Test Fungible',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(1),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -207,7 +207,7 @@ test('it can fetch multiple digital assets in a batch', async (t) => {
       authority,
       payer: authority,
       name: `Batch NFT ${index + 1}`,
-      uri: `https://example.com/batch${index + 1}.json`,
+      uri: `https://exatple.com/batch${index + 1}.json`,
       sellerFeeBasisPoints: basisPoints(2),
       tokenStandard: TokenStandard.NonFungible,
     });
@@ -233,7 +233,7 @@ test('it can fetch multiple digital assets in a batch', async (t) => {
     t.truthy(asset.mint);
     t.truthy(asset.metadata);
     t.is(asset.metadata.name, `Batch NFT ${index + 1}`);
-    t.is(asset.metadata.uri, `https://example.com/batch${index + 1}.json`);
+    t.is(asset.metadata.uri, `https://exatple.com/batch${index + 1}.json`);
     // Note: Edition data may or may not be present depending on initialization
   }
 

@@ -62,16 +62,16 @@ pub(crate) fn burn_nonfungible(ctx: &Context<Burn>, args: BurnNonFungibleArgs) -
         &[bump],
     ];
 
-    // Burn the SPL token
+    // Burn the TPL token
     let params = TokenBurnParams {
         mint: ctx.accounts.mint_info.clone(),
         source: ctx.accounts.token_info.clone(),
         authority: ctx.accounts.authority_info.clone(),
-        token_program: ctx.accounts.spl_token_program_info.clone(),
+        token_program: ctx.accounts.tpl_token_program_info.clone(),
         amount: 1,
         authority_signer_seeds: None,
     };
-    spl_token_burn(params)?;
+    tpl_token_burn(params)?;
 
     let close_params = TokenCloseParams {
         account: ctx.accounts.token_info.clone(),
@@ -86,10 +86,10 @@ pub(crate) fn burn_nonfungible(ctx: &Context<Burn>, args: BurnNonFungibleArgs) -
         } else {
             None
         },
-        token_program: ctx.accounts.spl_token_program_info.clone(),
+        token_program: ctx.accounts.tpl_token_program_info.clone(),
     };
     // CPIs panic if there's an error so unwrapping is fine here.
-    mpl_utils::token::spl_token_close(close_params).unwrap();
+    tpl_utils::token::tpl_token_close(close_params).unwrap();
 
     close_program_account(
         ctx.accounts.metadata_info,

@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { Key, keyBeet } from '../types/Key';
 import { Data, dataBeet } from '../types/Data';
 import { TokenStandard, tokenStandardBeet } from '../types/TokenStandard';
@@ -43,7 +43,7 @@ export type MetadataArgs = {
  * @category Accounts
  * @category generated
  */
-export class Metadata implements MetadataArgs {
+export class Metadata itplements MetadataArgs {
   private constructor(
     readonly key: Key,
     readonly updateAuthority: web3.PublicKey,
@@ -114,7 +114,7 @@ export class Metadata implements MetadataArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, metadataBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, metadataBeet);
   }
 
   /**
@@ -190,8 +190,8 @@ export class Metadata implements MetadataArgs {
 export const metadataBeet = new beet.FixableBeetStruct<Metadata, MetadataArgs>(
   [
     ['key', keyBeet],
-    ['updateAuthority', beetSolana.publicKey],
-    ['mint', beetSolana.publicKey],
+    ['updateAuthority', beetTrezoa.publicKey],
+    ['mint', beetTrezoa.publicKey],
     ['data', dataBeet],
     ['primarySaleHappened', beet.bool],
     ['isMutable', beet.bool],

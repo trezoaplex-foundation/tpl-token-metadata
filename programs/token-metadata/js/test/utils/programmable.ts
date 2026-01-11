@@ -1,6 +1,6 @@
 // @ts-ignore
 import { encode } from '@msgpack/msgpack';
-import { PublicKey } from '@solana/web3.js';
+import { PublicKey } from '@trezoa/web3.js';
 import { PROGRAM_ID } from '../../src/generated';
 
 export function createPassRuleSet(

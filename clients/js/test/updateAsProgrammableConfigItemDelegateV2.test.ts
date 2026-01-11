@@ -1,5 +1,5 @@
-import { findAssociatedTokenPda } from '@metaplex-foundation/mpl-toolbox';
-import { generateSigner, none, some } from '@metaplex-foundation/umi';
+import { findAssociatedTokenPda } from '@trezoaplex-foundation/tpl-toolbox';
+import { generateSigner, none, some } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   Metadata,

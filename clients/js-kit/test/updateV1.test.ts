@@ -50,7 +50,7 @@ test('it can update NonFungible metadata name and URI', async (t) => {
   const authority = await createKeypair();
   const payer = authority;
 
-  // Airdrop SOL to payer
+  // Airdrop TRZ to payer
   await airdrop(rpc, authority.address);
 
   // Create NonFungible token
@@ -59,7 +59,7 @@ test('it can update NonFungible metadata name and URI', async (t) => {
     authority,
     payer,
     name: 'Original Name',
-    uri: 'https://example.com/original.json',
+    uri: 'https://exatple.com/original.json',
     sellerFeeBasisPoints: basisPoints(5.5),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -86,7 +86,7 @@ test('it can update NonFungible metadata name and URI', async (t) => {
   // Fetch original metadata
   const originalMetadata = await fetchMetadata(rpc, metadataAddress);
   t.is(originalMetadata.data.name, 'Original Name');
-  t.is(originalMetadata.data.uri, 'https://example.com/original.json');
+  t.is(originalMetadata.data.uri, 'https://exatple.com/original.json');
   t.is(originalMetadata.data.sellerFeeBasisPoints, basisPoints(5.5));
 
   // Update metadata (extract values from Option types)
@@ -97,7 +97,7 @@ test('it can update NonFungible metadata name and URI', async (t) => {
     data: {
       name: 'Updated Name',
       symbol: 'UPD',
-      uri: 'https://example.com/updated.json',
+      uri: 'https://exatple.com/updated.json',
       sellerFeeBasisPoints: basisPoints(10),
       creators: originalMetadata.data.creators.__option === 'Some'
         ? originalMetadata.data.creators.value
@@ -111,7 +111,7 @@ test('it can update NonFungible metadata name and URI', async (t) => {
   const updatedMetadata = await fetchMetadata(rpc, metadataAddress);
   t.is(updatedMetadata.data.name, 'Updated Name');
   t.is(updatedMetadata.data.symbol, 'UPD');
-  t.is(updatedMetadata.data.uri, 'https://example.com/updated.json');
+  t.is(updatedMetadata.data.uri, 'https://exatple.com/updated.json');
   t.is(updatedMetadata.data.sellerFeeBasisPoints, basisPoints(10));
 
   t.pass('Successfully updated NonFungible metadata');
@@ -142,7 +142,7 @@ test('it can update Fungible metadata', async (t) => {
     authority,
     payer,
     name: 'Fungible Token',
-    uri: 'https://example.com/fungible.json',
+    uri: 'https://exatple.com/fungible.json',
     sellerFeeBasisPoints: basisPoints(2.5),
     tokenStandard: TokenStandard.Fungible,
   });
@@ -176,7 +176,7 @@ test('it can update Fungible metadata', async (t) => {
     data: {
       name: 'Updated Fungible',
       symbol: 'UFNG',
-      uri: 'https://example.com/fungible-updated.json',
+      uri: 'https://exatple.com/fungible-updated.json',
       sellerFeeBasisPoints: basisPoints(7.5),
       creators: originalMetadata.data.creators.__option === 'Some'
         ? originalMetadata.data.creators.value
@@ -220,7 +220,7 @@ test('it can update ProgrammableNonFungible metadata', async (t) => {
     authority,
     payer,
     name: 'PNFT Original',
-    uri: 'https://example.com/pnft-original.json',
+    uri: 'https://exatple.com/pnft-original.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -255,7 +255,7 @@ test('it can update ProgrammableNonFungible metadata', async (t) => {
     data: {
       name: 'PNFT Updated',
       symbol: 'PNFT',
-      uri: 'https://example.com/pnft-updated.json',
+      uri: 'https://exatple.com/pnft-updated.json',
       sellerFeeBasisPoints: basisPoints(8),
       creators: originalMetadata.data.creators.__option === 'Some'
         ? originalMetadata.data.creators.value
@@ -269,7 +269,7 @@ test('it can update ProgrammableNonFungible metadata', async (t) => {
   const updatedMetadata = await fetchMetadata(rpc, metadataAddress);
   t.is(updatedMetadata.data.name, 'PNFT Updated');
   t.is(updatedMetadata.data.symbol, 'PNFT');
-  t.is(updatedMetadata.data.uri, 'https://example.com/pnft-updated.json');
+  t.is(updatedMetadata.data.uri, 'https://exatple.com/pnft-updated.json');
   t.is(updatedMetadata.data.sellerFeeBasisPoints, basisPoints(8));
 
   t.pass('Successfully updated ProgrammableNonFungible metadata');
@@ -300,7 +300,7 @@ test('it can update only seller fee basis points', async (t) => {
     authority,
     payer,
     name: 'My NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenStandard: TokenStandard.NonFungible,
   });

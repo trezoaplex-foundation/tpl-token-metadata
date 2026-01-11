@@ -2,8 +2,8 @@
 pub mod utils;
 
 use num_traits::FromPrimitive;
-use solana_program_test::*;
-use solana_sdk::{
+use trezoa_program_test::*;
+use trezoa_sdk::{
     instruction::InstructionError,
     signature::{Keypair, Signer},
     transaction::TransactionError,
@@ -16,7 +16,7 @@ use utils::*;
 // * Unsized -> Sized
 // * Unsized -> Unsized
 mod collection_migrations {
-    use solana_sdk::transaction::Transaction;
+    use trezoa_sdk::transaction::Transaction;
     use token_metadata::{
         error::MetadataError,
         pda::find_collection_authority_account,

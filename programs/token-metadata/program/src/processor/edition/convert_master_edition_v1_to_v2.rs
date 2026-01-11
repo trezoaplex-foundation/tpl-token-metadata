@@ -1,5 +1,5 @@
-use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
-use spl_token_2022::state::Mint;
+use trezoa_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use tpl_token_2022::state::Mint;
 
 use crate::{
     assertions::{assert_initialized, assert_owned_by},

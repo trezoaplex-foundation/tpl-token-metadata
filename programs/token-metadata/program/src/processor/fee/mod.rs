@@ -1,6 +1,6 @@
-use mpl_utils::assert_signer;
+use tpl_utils::assert_signer;
 use num_traits::FromPrimitive;
-use solana_program::{account_info::next_account_info, rent::Rent, system_program, sysvar::Sysvar};
+use trezoa_program::{account_info::next_account_info, rent::Rent, system_program, sysvar::Sysvar};
 
 use super::*;
 use crate::{

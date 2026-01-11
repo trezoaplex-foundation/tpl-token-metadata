@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-Metaplex Token Metadata is a Solana program that attaches additional data to Fungible or Non-Fungible tokens using Program Derived Addresses (PDAs) derived from Mint account addresses.
+Trezoaplex Token Metadata is a Trezoa program that attaches additional data to Fungible or Non-Fungible tokens using Program Derived Addresses (PDAs) derived from Mint account addresses.
 
 Program ID: `metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s`
 
@@ -17,7 +17,7 @@ pnpm install
 
 ### Building
 
-**Build the Solana program:**
+**Build the Trezoa program:**
 ```bash
 pnpm programs:build
 ```
@@ -121,7 +121,7 @@ pnpm validator:stop
 
 ```
 programs/token-metadata/
-├── program/          # Main Solana program (Rust)
+├── program/          # Main Trezoa program (Rust)
 │   └── src/
 │       ├── instruction/  # Instruction definitions
 │       ├── processor/    # Instruction processors
@@ -147,7 +147,7 @@ clients/
     └── src/
         ├── generated/  # Auto-generated from IDL (DO NOT EDIT)
         ├── hooked/     # Manual overrides/extensions
-        └── traits.rs   # Trait implementations
+        └── traits.rs   # Trait itplementations
 
 configs/
 ├── kinobi.cjs       # Client code generation config
@@ -187,7 +187,7 @@ The repository uses a two-stage code generation process:
 ### Program Workspace
 
 The `programs/token-metadata/` directory is a Cargo workspace with two members:
-- `program/`: The main Solana program binary
+- `program/`: The main Trezoa program binary
 - `macro/`: Procedural macros used by the program
 
 ### Client Libraries
@@ -195,19 +195,19 @@ The `programs/token-metadata/` directory is a Cargo workspace with two members:
 Both clients (JS and Rust) follow the same pattern:
 - `generated/`: Auto-generated code from IDL
 - `hooked/`: Manual code that extends or overrides generated code
-- Built on top of Metaplex framework (Umi for JS, native for Rust)
+- Built on top of Trezoaplex framework (Umi for JS, native for Rust)
 
 ### Testing Strategy
 
-- **BPF tests**: In `programs/token-metadata/program/src/` using Solana program test framework
+- **BPF tests**: In `programs/token-metadata/program/src/` using Trezoa program test framework
 - **Client tests**: Integration tests in `clients/js/test/` and `clients/rust/tests/`
 - Client tests require a running validator with the program deployed
 - Program features (`padded`, `resize`) affect account sizes and are tested separately
 
 ## Important Notes
 
-- The program uses Solana 1.14.13 - 1.17 range (legacy codebase)
-- The Rust client uses Solana 3.0 (newer SDK)
+- The program uses Trezoa 1.14.13 - 1.17 range (legacy codebase)
+- The Rust client uses Trezoa 3.0 (newer SDK)
 - When modifying instruction parameters or accounts, regenerate clients after updating the program
 - The program binary must be rebuilt before running client tests against new changes
 - PDA seeds are defined in `configs/kinobi.cjs` for client generation

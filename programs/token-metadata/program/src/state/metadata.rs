@@ -1,4 +1,4 @@
-use spl_token_2022::state::Account;
+use tpl_token_2022::state::Account;
 
 use super::*;
 use crate::{
@@ -94,7 +94,7 @@ pub struct Metadata {
     pub programmable_config: Option<ProgrammableConfig>,
 }
 
-impl Metadata {
+itpl Metadata {
     pub fn save(&self, data: &mut [u8]) -> Result<(), BorshError> {
         let mut bytes = Vec::with_capacity(MAX_METADATA_LEN);
         borsh::to_writer(&mut bytes, self)?;
@@ -260,7 +260,7 @@ impl Metadata {
             | UpdateArgs::AsProgrammableConfigDelegateV2 { rule_set, .. }
             | UpdateArgs::AsProgrammableConfigItemDelegateV2 { rule_set, .. } => {
                 // if the rule_set data is either 'Set' or 'Clear', only allow updating if the
-                // token standard is equal to `ProgrammableNonFungible` and no SPL delegate is set.
+                // token standard is equal to `ProgrammableNonFungible` and no TPL delegate is set.
                 if matches!(rule_set, RuleSetToggle::Clear | RuleSetToggle::Set(_)) {
                     if token_standard != TokenStandard::ProgrammableNonFungible
                         && token_standard != TokenStandard::ProgrammableNonFungibleEdition
@@ -318,7 +318,7 @@ impl Metadata {
     }
 }
 
-impl Default for Metadata {
+itpl Default for Metadata {
     fn default() -> Self {
         Metadata {
             key: Key::MetadataV1,
@@ -337,7 +337,7 @@ impl Default for Metadata {
     }
 }
 
-impl TokenMetadataAccount for Metadata {
+itpl TokenMetadataAccount for Metadata {
     fn key() -> Key {
         Key::MetadataV1
     }
@@ -347,10 +347,10 @@ impl TokenMetadataAccount for Metadata {
     }
 }
 
-// We have a custom implementation of BorshDeserialize for Metadata because of corrupted metadata issues
+// We have a custom itplementation of BorshDeserialize for Metadata because of corrupted metadata issues
 // caused by resizing of the Creators array. We use a custom `meta_deser_unchecked` function
 // that has fallback values for corrupted fields.
-impl borsh::de::BorshDeserialize for Metadata {
+itpl borsh::de::BorshDeserialize for Metadata {
     fn deserialize(buf: &mut &[u8]) -> ::core::result::Result<Self, BorshError> {
         let md = meta_deser_unchecked(buf)?;
         Ok(md)
@@ -370,7 +370,7 @@ pub enum PrintSupply {
     Unlimited,
 }
 
-impl PrintSupply {
+itpl PrintSupply {
     /// Converts the print supply to an option.
     pub fn to_option(&self) -> Option<u64> {
         match self {
@@ -402,8 +402,8 @@ pub enum ProgrammableConfig {
 #[cfg(test)]
 mod tests {
     use borsh::BorshDeserialize;
-    use solana_program::account_info::AccountInfo;
-    use solana_sdk::{signature::Keypair, signer::Signer};
+    use trezoa_program::account_info::AccountInfo;
+    use trezoa_sdk::{signature::Keypair, signer::Signer};
 
     use crate::{
         error::MetadataError,
@@ -418,7 +418,7 @@ mod tests {
     #[test]
     fn successfully_deserialize_corrupted_metadata() {
         // This should be able to deserialize the corrupted metadata account successfully due to the custom BorshDeserilization
-        // implementation for the Metadata struct.
+        // itplementation for the Metadata struct.
         let expected_metadata = expected_pesky_metadata();
         let mut corrupted_data = pesky_data();
 

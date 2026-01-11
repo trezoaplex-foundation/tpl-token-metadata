@@ -1,5 +1,5 @@
 use borsh::BorshDeserialize;
-use solana_sdk::{
+use trezoa_sdk::{
     pubkey::Pubkey, signature::Signer, signer::keypair::Keypair, transaction::Transaction,
 };
 use token_metadata::{
@@ -19,10 +19,10 @@ pub struct Metadata {
     pub mint: Keypair,
     pub pubkey: Pubkey,
     pub token: Keypair,
-    pub spl_token_program: Pubkey,
+    pub tpl_token_program: Pubkey,
 }
 
-impl Metadata {
+itpl Metadata {
     pub fn new() -> Self {
         let mint = Keypair::new();
         let mint_pubkey = mint.pubkey();
@@ -35,7 +35,7 @@ impl Metadata {
             mint,
             pubkey,
             token: Keypair::new(),
-            spl_token_program: spl_token::ID,
+            tpl_token_program: tpl_token::ID,
         }
     }
 
@@ -113,7 +113,7 @@ impl Metadata {
             &context.payer.pubkey(),
             Some(&context.payer.pubkey()),
             0,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         create_token_account(
@@ -121,7 +121,7 @@ impl Metadata {
             &self.token,
             &self.mint.pubkey(),
             &context.payer.pubkey(),
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         mint_tokens(
@@ -131,7 +131,7 @@ impl Metadata {
             1,
             &context.payer.pubkey(),
             None,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
 
@@ -188,7 +188,7 @@ impl Metadata {
             &context.payer.pubkey(),
             Some(&context.payer.pubkey()),
             0,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         create_token_account(
@@ -196,7 +196,7 @@ impl Metadata {
             &self.token,
             &self.mint.pubkey(),
             &context.payer.pubkey(),
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         mint_tokens(
@@ -206,7 +206,7 @@ impl Metadata {
             10,
             &context.payer.pubkey(),
             None,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
 
@@ -265,7 +265,7 @@ impl Metadata {
             &context.payer.pubkey(),
             None,
             0,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         create_token_account(
@@ -273,7 +273,7 @@ impl Metadata {
             &self.token,
             &self.mint.pubkey(),
             &context.payer.pubkey(),
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
         mint_tokens(
@@ -283,7 +283,7 @@ impl Metadata {
             1,
             &context.payer.pubkey(),
             None,
-            &self.spl_token_program,
+            &self.tpl_token_program,
         )
         .await?;
 
@@ -376,7 +376,7 @@ impl Metadata {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -428,7 +428,7 @@ impl Metadata {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -484,7 +484,7 @@ impl Metadata {
                     .payer(context.payer.pubkey())
                     .authority(context.payer.pubkey())
                     .token(nft.token.pubkey())
-                    .system_program(solana_program::system_program::ID)
+                    .system_program(trezoa_program::system_program::ID)
                     .build()
                     .unwrap()
                     .instruction()],
@@ -790,7 +790,7 @@ impl Metadata {
     }
 }
 
-impl Default for Metadata {
+itpl Default for Metadata {
     fn default() -> Self {
         Self::new()
     }

@@ -14,7 +14,7 @@ import {
   struct,
   tuple,
   unit,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { Collection, CollectionArgs, getCollectionSerializer } from '.';
 
 export type CollectionToggle =

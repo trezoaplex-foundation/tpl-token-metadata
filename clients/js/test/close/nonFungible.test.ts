@@ -7,9 +7,9 @@ import {
   MaybeRpcAccount,
   publicKey,
   subtractAmounts,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { readFileSync } from 'fs';
-import { burnToken } from '@metaplex-foundation/mpl-toolbox';
+import { burnToken } from '@trezoaplex-foundation/tpl-toolbox';
 import { createDigitalAssetWithToken, createUmi } from '../_setup';
 import {
   closeAccounts,
@@ -31,7 +31,7 @@ test.skip('it can close ownerless metadata for a non-fungible with zero supply',
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -41,7 +41,7 @@ test.skip('it can close ownerless metadata for a non-fungible with zero supply',
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.NonFungible,
     amount: 1,
   });
@@ -98,7 +98,7 @@ test.skip('it cannot close ownerless metadata for a non-fungible with non-zero s
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -108,7 +108,7 @@ test.skip('it cannot close ownerless metadata for a non-fungible with non-zero s
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.NonFungible,
     amount: 1,
   });
@@ -130,7 +130,7 @@ test.skip('it cannot close ownerless metadata for a programmable non-fungible wi
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -140,7 +140,7 @@ test.skip('it cannot close ownerless metadata for a programmable non-fungible wi
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     amount: 1,
   });
@@ -160,7 +160,7 @@ test.skip('it cannot close ownerless metadata with wrong authority', async (t) =
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     amount: 1,
   });
@@ -182,7 +182,7 @@ test.skip('it cannot close ownerless metadata with wrong destination', async (t)
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -192,7 +192,7 @@ test.skip('it cannot close ownerless metadata with wrong destination', async (t)
   const mint = await createDigitalAssetWithToken(umi, {
     name: 'Fungible',
     symbol: 'FUN',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     amount: 1,
   });
@@ -214,7 +214,7 @@ test.skip('it can close ownerless metadata for a non-fungible edition with zero 
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -224,7 +224,7 @@ test.skip('it can close ownerless metadata for a non-fungible edition with zero 
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     printSupply: printSupply('Limited', [10]),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -289,7 +289,7 @@ test.skip('it cannot close ownerless metadata for a non-fungible edition with no
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -299,7 +299,7 @@ test.skip('it cannot close ownerless metadata for a non-fungible edition with no
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     printSupply: printSupply('Limited', [10]),
     tokenStandard: TokenStandard.NonFungible,
   });
@@ -332,7 +332,7 @@ test.skip('it cannot close ownerless metadata for a programmable non-fungible ed
       new Uint8Array(
         JSON.parse(
           readFileSync(
-            '/Users/kelliott/Metaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
+            '/Users/kelliott/Trezoaplex/keys/C1oseLQExhuEzeBhsVbLtseSpVgvpHDbBj3PTevBCEBh.json'
           ).toString()
         )
       )
@@ -342,7 +342,7 @@ test.skip('it cannot close ownerless metadata for a programmable non-fungible ed
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     printSupply: printSupply('Limited', [10]),
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });

@@ -13,8 +13,8 @@ import { createAndMintDefaultAsset } from './utils/digital-asset-manager';
 import spok from 'spok';
 import { spokSameBigint, spokSamePubkey } from './utils';
 import { BN } from 'bn.js';
-import { getAccount } from '@solana/spl-token';
-import { PublicKey } from '@solana/web3.js';
+import { getAccount } from '@trezoa/tpl-token';
+import { PublicKey } from '@trezoa/web3.js';
 import { findTokenRecordPda } from './utils/programmable';
 
 killStuckProcess();

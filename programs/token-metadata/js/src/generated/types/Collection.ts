@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 export type Collection = {
   verified: boolean;
   key: web3.PublicKey;
@@ -20,7 +20,7 @@ export type Collection = {
 export const collectionBeet = new beet.BeetArgsStruct<Collection>(
   [
     ['verified', beet.bool],
-    ['key', beetSolana.publicKey],
+    ['key', beetTrezoa.publicKey],
   ],
   'Collection',
 );

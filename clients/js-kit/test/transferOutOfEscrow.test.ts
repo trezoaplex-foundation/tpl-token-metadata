@@ -18,7 +18,7 @@ import {
   getAddressEncoder,
   getU8Encoder,
   type Address,
-} from '@solana/kit';
+} from '@trezoa/kit';
 import {
   getCreateEscrowAccountInstructionAsync,
   getTransferOutOfEscrowInstruction,
@@ -32,7 +32,7 @@ import {
   SPL_ASSOCIATED_TOKEN_PROGRAM_ADDRESS,
   findAssociatedTokenPda,
 } from './_setup';
-import { MPL_TOKEN_METADATA_PROGRAM_ADDRESS } from '../src/generated/programs';
+import { TPL_TOKEN_METADATA_PROGRAM_ADDRESS } from '../src/generated/programs';
 import {
   createKeypair,
   createRpc,
@@ -47,7 +47,7 @@ import {
 import {
   getTransferInstruction,
   getCreateAssociatedTokenInstructionAsync,
-} from '@solana-program/token';
+} from '@trezoa-program/token';
 
 /**
  * Helper to derive the escrow PDA address for TokenOwner authority
@@ -56,10 +56,10 @@ async function findTokenOwnerEscrowPda(
   mint: Address
 ): Promise<[Address, number]> {
   const result = await getProgramDerivedAddress({
-    programAddress: MPL_TOKEN_METADATA_PROGRAM_ADDRESS,
+    programAddress: TPL_TOKEN_METADATA_PROGRAM_ADDRESS,
     seeds: [
       getUtf8Encoder().encode('metadata'),
-      getAddressEncoder().encode(MPL_TOKEN_METADATA_PROGRAM_ADDRESS),
+      getAddressEncoder().encode(TPL_TOKEN_METADATA_PROGRAM_ADDRESS),
       getAddressEncoder().encode(mint),
       getU8Encoder().encode(0), // TokenOwner authority type
       getUtf8Encoder().encode('escrow'),
@@ -71,7 +71,7 @@ async function findTokenOwnerEscrowPda(
 /**
  * Test: Transfer tokens out of escrow
  *
- * Note: This is a complex operation that requires:
+ * Note: This is a cotplex operation that requires:
  * 1. Creating an NFT (the escrow holder)
  * 2. Creating a fungible token (the attribute to hold)
  * 3. Creating an escrow account
@@ -100,7 +100,7 @@ test('it can transfer tokens out of an escrow account', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Escrow NFT',
-    uri: 'https://example.com/nft.json',
+    uri: 'https://exatple.com/nft.json',
     sellerFeeBasisPoints: basisPoints(5),
     tokenOwner: owner.address,
   });
@@ -139,7 +139,7 @@ test('it can transfer tokens out of an escrow account', async (t) => {
     authority: owner,
     payer: owner,
     name: 'Attribute Token',
-    uri: 'https://example.com/token.json',
+    uri: 'https://exatple.com/token.json',
     sellerFeeBasisPoints: basisPoints(0),
   });
 

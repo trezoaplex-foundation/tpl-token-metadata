@@ -11,7 +11,7 @@ import {
   map,
   string,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { PayloadType, PayloadTypeArgs, getPayloadTypeSerializer } from '.';
 
 export type Payload = { map: Map<string, PayloadType> };

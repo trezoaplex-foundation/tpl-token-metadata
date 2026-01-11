@@ -1,8 +1,8 @@
-use mpl_utils::{assert_signer, create_or_allocate_account_raw};
-use solana_program::{
+use tpl_utils::{assert_signer, create_or_allocate_account_raw};
+use trezoa_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, program::invoke, pubkey::Pubkey,
 };
-use spl_token_2022::instruction::approve;
+use tpl_token_2022::instruction::approve;
 
 use crate::{
     assertions::{

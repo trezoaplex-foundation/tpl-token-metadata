@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { AuthorizationData, authorizationDataBeet } from './AuthorizationData';
 /**
  * This type is used to derive the {@link DelegateArgs} type as well as the de/serializer.
@@ -168,7 +168,7 @@ export const delegateArgsBeet = beet.dataEnum<DelegateArgsRecord>([
     new beet.FixableBeetArgsStruct<DelegateArgsRecord['LockedTransferV1']>(
       [
         ['amount', beet.u64],
-        ['lockedAddress', beetSolana.publicKey],
+        ['lockedAddress', beetTrezoa.publicKey],
         ['authorizationData', beet.coption(authorizationDataBeet)],
       ],
       'DelegateArgsRecord["LockedTransferV1"]',

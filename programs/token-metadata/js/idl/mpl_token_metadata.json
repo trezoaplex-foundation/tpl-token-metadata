@@ -1,6 +1,6 @@
 {
   "version": "1.13.0",
-  "name": "mpl_token_metadata",
+  "name": "tpl_token_metadata",
   "instructions": [
     {
       "name": "CreateMetadataAccount",
@@ -1638,7 +1638,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program"
+          "desc": "TPL Token Program"
         },
         {
           "name": "collectionMetadata",
@@ -2065,7 +2065,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program"
+          "desc": "TPL Token Program"
         }
       ],
       "args": [],
@@ -2385,7 +2385,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program"
+          "desc": "TPL Token Program"
         }
       ],
       "args": [
@@ -2458,7 +2458,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token program"
+          "desc": "TPL Token program"
         }
       ],
       "args": [
@@ -2552,13 +2552,13 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token program"
+          "desc": "TPL Token program"
         },
         {
           "name": "splAtaProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Associated Token Account program"
+          "desc": "TPL Associated Token Account program"
         },
         {
           "name": "authorizationRulesProgram",
@@ -2666,7 +2666,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program",
+          "desc": "TPL Token Program",
           "optional": true
         },
         {
@@ -2775,7 +2775,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program",
+          "desc": "TPL Token Program",
           "optional": true
         },
         {
@@ -2877,7 +2877,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program",
+          "desc": "TPL Token Program",
           "optional": true
         },
         {
@@ -2979,7 +2979,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program",
+          "desc": "TPL Token Program",
           "optional": true
         },
         {
@@ -3090,7 +3090,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program"
+          "desc": "TPL Token Program"
         },
         {
           "name": "authorizationRulesProgram",
@@ -3202,13 +3202,13 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program"
+          "desc": "TPL Token Program"
         },
         {
           "name": "splAtaProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Associated Token Account program"
+          "desc": "TPL Associated Token Account program"
         },
         {
           "name": "authorizationRulesProgram",
@@ -3392,7 +3392,7 @@
           "name": "splTokenProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Token Program",
+          "desc": "TPL Token Program",
           "optional": true
         },
         {
@@ -3677,7 +3677,7 @@
           "name": "splAtaProgram",
           "isMut": false,
           "isSigner": false,
-          "desc": "SPL Associated Token Account program"
+          "desc": "TPL Associated Token Account program"
         },
         {
           "name": "sysvarInstructions",
@@ -6116,7 +6116,7 @@
     },
     {
       "code": 65,
-      "name": "ReservationNotComplete",
+      "name": "ReservationNotCotplete",
       "msg": ""
     },
     {
@@ -6537,7 +6537,7 @@
     {
       "code": 149,
       "name": "MissingSplTokenProgram",
-      "msg": "Missing SPL token program"
+      "msg": "Missing TPL token program"
     },
     {
       "code": 150,
