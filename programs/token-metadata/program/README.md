@@ -36,7 +36,7 @@ yarn build && yarn test
 ## Source
 
 The Token Metadata Program's source is available on
-[github](https://github.com/trezoaplex-foundation/metaplex-program-library)
+[github](https://github.com/trezoaplex-foundation/trezoaplex-program-library)
 
 ## Interface
 

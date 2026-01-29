@@ -2097,7 +2097,7 @@ packages:
       '@pedrouid/environment': 1.0.1
     dev: false
 
-  /@keystonehq/bc-ur-registry-sol@0.3.1:
+  /@keystonehq/bc-ur-registry-trz@0.3.1:
     resolution: {integrity: sha512-Okr5hwPxBZxB4EKLK1GSC9vsrh/tFMQ5dvs3EQ9NCOmCn7CXdXIMSeafrpGCHk484Jf5c6X0Wq0yf0VqY2A/8Q==}
     dependencies:
       '@keystonehq/bc-ur-registry': 0.5.4
@@ -2126,11 +2126,11 @@ packages:
       typescript: 4.9.5
     dev: false
 
-  /@keystonehq/sol-keyring@0.3.1:
+  /@keystonehq/trz-keyring@0.3.1:
     resolution: {integrity: sha512-RU6I3HQrQ9NpRDP9TwlBIy5DftVcNcyk0NWfhkPy/YanhMcCB0cRPw68iQl1rMnR6n1G2+YrBHMxm6swCW+B4Q==}
     dependencies:
       '@keystonehq/bc-ur-registry': 0.5.4
-      '@keystonehq/bc-ur-registry-sol': 0.3.1
+      '@keystonehq/bc-ur-registry-trz': 0.3.1
       '@keystonehq/sdk': 0.13.1
       '@trezoa/web3.js': 1.73.2
       bs58: 5.0.0
@@ -2606,7 +2606,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@project-serum/sol-wallet-adapter@0.2.0(@trezoa/web3.js@1.73.2):
+  /@project-serum/trz-wallet-adapter@0.2.0(@trezoa/web3.js@1.73.2):
     resolution: {integrity: sha512-ed7wZwlDqjF88VCq7eHVO8njHqdUkBxBL8WEVOnB47ooLO4btOJt6GBdkKpKqKX86c86LiEROJclcdW8e7kIjg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -2617,7 +2617,7 @@ packages:
       eventemitter3: 4.0.7
     dev: false
 
-  /@project-serum/sol-wallet-adapter@0.2.6(@trezoa/web3.js@1.73.2):
+  /@project-serum/trz-wallet-adapter@0.2.6(@trezoa/web3.js@1.73.2):
     resolution: {integrity: sha512-cpIb13aWPW8y4KzkZAPDgw+Kb+DXjCC6rZoH74MGm3I/6e/zKyGnfAuW5olb2zxonFqsYgnv7ev8MQnvSgJ3/g==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -3139,7 +3139,7 @@ packages:
     peerDependencies:
       '@trezoa/web3.js': ^1.58.0
     dependencies:
-      '@keystonehq/sol-keyring': 0.3.1
+      '@keystonehq/trz-keyring': 0.3.1
       '@trezoa/wallet-adapter-base': 0.9.20(@trezoa/web3.js@1.73.2)
       '@trezoa/web3.js': 1.73.2
     transitivePeerDependencies:
@@ -3360,7 +3360,7 @@ packages:
     peerDependencies:
       '@trezoa/web3.js': ^1.58.0
     dependencies:
-      '@project-serum/sol-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
+      '@project-serum/trz-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
       '@trezoa/wallet-adapter-base': 0.9.20(@trezoa/web3.js@1.73.2)
       '@trezoa/web3.js': 1.73.2
     dev: false
@@ -3647,7 +3647,7 @@ packages:
     peerDependencies:
       '@trezoa/web3.js': ^1.61.0
     dependencies:
-      '@project-serum/sol-wallet-adapter': 0.2.0(@trezoa/web3.js@1.73.2)
+      '@project-serum/trz-wallet-adapter': 0.2.0(@trezoa/web3.js@1.73.2)
       '@trezoa/web3.js': 1.73.2
       bs58: 4.0.1
       eventemitter3: 4.0.7
@@ -9180,7 +9180,7 @@ packages:
     peerDependencies:
       '@trezoa/web3.js': ^1.44.3
     dependencies:
-      '@project-serum/sol-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
+      '@project-serum/trz-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
       '@trezoa/web3.js': 1.73.2
       eventemitter3: 4.0.7
     dev: false

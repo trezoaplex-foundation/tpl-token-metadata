@@ -85,7 +85,7 @@ pub(crate) fn toggle_asset_state(
 
     // authority – this can be either:
     //  1. token delegate (programmable non-fungible): valid token_record.delegate
-    //  2. spl-delegate (non-fungibles): authority == token.delegate
+    //  2. tpl-delegate (non-fungibles): authority == token.delegate
     //  3. freeze authority (fungibles): authority == freeze_authority
 
     if matches!(

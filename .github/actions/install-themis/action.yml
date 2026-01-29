@@ -7,5 +7,5 @@ runs:
       - name: Download binary
         shell: bash
         run: |
-          bash <(curl -sSf https://raw.githubusercontent.com/metaplex-foundation/themis/main/scripts/install.sh)
+          bash <(curl -sSf https://raw.githubusercontent.com/trezoaplex-foundation/themis/main/scripts/install.sh)
           echo $(themis -V)

@@ -7,7 +7,7 @@ import {
   generateSigner,
   percentAmount,
   publicKey,
-  sol,
+  trz,
   some,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
@@ -267,7 +267,7 @@ test('it can delegate the authority to print a new edition', async (t) => {
   const umi = await createUmi();
   const originalOwner = generateSigner(umi);
   const delegate = generateSigner(umi);
-  umi.rpc.airdrop(delegate.publicKey, sol(1));
+  umi.rpc.airdrop(delegate.publicKey, trz(1));
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
@@ -354,8 +354,8 @@ test('it can delegate multiple authorities to print new editions', async (t) => 
   const originalOwner = generateSigner(umi);
   const delegate0 = generateSigner(umi);
   const delegate1 = generateSigner(umi);
-  umi.rpc.airdrop(delegate0.publicKey, sol(1));
-  umi.rpc.airdrop(delegate1.publicKey, sol(1));
+  umi.rpc.airdrop(delegate0.publicKey, trz(1));
+  umi.rpc.airdrop(delegate1.publicKey, trz(1));
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
@@ -497,7 +497,7 @@ test('it can still print as the master edition holder even after delegating', as
   const umi = await createUmi();
   const originalOwner = generateSigner(umi);
   const delegate = generateSigner(umi);
-  umi.rpc.airdrop(delegate.publicKey, sol(1));
+  umi.rpc.airdrop(delegate.publicKey, trz(1));
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',
@@ -581,7 +581,7 @@ test('it can delegate the authority to print a new edition with a separate payer
   const originalOwner = generateSigner(umi);
   const payer = generateSigner(umi);
   const delegate = generateSigner(umi);
-  umi.rpc.airdrop(payer.publicKey, sol(1));
+  umi.rpc.airdrop(payer.publicKey, trz(1));
   const originalMint = await createDigitalAssetWithToken(umi, {
     name: 'My NFT',
     symbol: 'MNFT',

@@ -37,7 +37,7 @@
     "blockchain"
   ],
   "homepage": "https://trezoaplex.com",
-  "repository": "https://github.com/trezoaplex-foundation/metaplex-program-library.git",
+  "repository": "https://github.com/trezoaplex-foundation/trezoaplex-program-library.git",
   "author": "Trezoaplex Maintainers <contact@trezoaplex.com>",
   "license": "MIT",
   "dependencies": {

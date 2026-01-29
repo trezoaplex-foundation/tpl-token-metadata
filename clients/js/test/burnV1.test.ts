@@ -1,7 +1,7 @@
 import {
   assertAccountExists,
   generateSigner,
-  sol,
+  trz,
 } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
@@ -44,7 +44,7 @@ test('it can burn a NonFungible', async (t) => {
   const metadata = await umi.rpc.getAccount(da.metadata.publicKey);
   t.true(metadata.exists);
   assertAccountExists(metadata);
-  t.deepEqual(metadata.lamports, sol(0.01));
+  t.deepEqual(metadata.lamports, trz(0.01));
   t.is(metadata.data.length, 1);
   t.is(metadata.data[0], 0);
 
@@ -83,7 +83,7 @@ test('it can burn a ProgrammableNonFungible', async (t) => {
   const metadata = await umi.rpc.getAccount(da.metadata.publicKey);
   t.true(metadata.exists);
   assertAccountExists(metadata);
-  t.deepEqual(metadata.lamports, sol(0.01));
+  t.deepEqual(metadata.lamports, trz(0.01));
   t.is(metadata.data.length, 1);
   t.is(metadata.data[0], 0);
 

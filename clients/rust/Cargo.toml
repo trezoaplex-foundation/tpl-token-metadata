@@ -1,5 +1,5 @@
 [package]
-authors = ["Trezoaplex Developers <dev@metaplex.com>"]
+authors = ["Trezoaplex Developers <dev@trezoaplex.com>"]
 description = "Trezoaplex Token Metadata SDK"
 edition = "2021"
 license-file = "../../LICENSE"
@@ -30,7 +30,7 @@ kaigan = "0.3.0"
 assert_matches = "1.5.0"
 trezoa-program-test = "3.0"
 trezoa-sdk = "3.0"
-spl-associated-token-account = { version = "8.0", features = [
+tpl-associated-token-account = { version = "8.0", features = [
   "no-entrypoint",
 ] }
 tpl-token = { version = "9.0", features = ["no-entrypoint"] }

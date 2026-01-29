@@ -28,7 +28,7 @@ pub fn set_collection_size(
     // Owned by token-metadata program.
     assert_owned_by(parent_nft_metadata_account_info, program_id)?;
 
-    // Mint owned by spl token program.
+    // Mint owned by tpl token program.
     assert_owned_by(collection_mint_account_info, &SPL_TOKEN_ID)?;
 
     let mut metadata = Metadata::from_account_info(parent_nft_metadata_account_info)?;
