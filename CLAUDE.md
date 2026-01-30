@@ -117,7 +117,7 @@ pnpm validator:stop
 
 ## Architecture
 
-### Project Structure
+### Trezoa Structure
 
 ```
 programs/token-metadata/

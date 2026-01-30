@@ -2338,7 +2338,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@project-serum/trz-wallet-adapter@0.2.0(@trezoa/web3.js@1.73.2):
+  /@trezoa-serum/trz-wallet-adapter@0.2.0(@trezoa/web3.js@1.73.2):
     resolution: {integrity: sha512-ed7wZwlDqjF88VCq7eHVO8njHqdUkBxBL8WEVOnB47ooLO4btOJt6GBdkKpKqKX86c86LiEROJclcdW8e7kIjg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -2349,7 +2349,7 @@ packages:
       eventemitter3: 4.0.7
     dev: false
 
-  /@project-serum/trz-wallet-adapter@0.2.6(@trezoa/web3.js@1.73.2):
+  /@trezoa-serum/trz-wallet-adapter@0.2.6(@trezoa/web3.js@1.73.2):
     resolution: {integrity: sha512-cpIb13aWPW8y4KzkZAPDgw+Kb+DXjCC6rZoH74MGm3I/6e/zKyGnfAuW5olb2zxonFqsYgnv7ev8MQnvSgJ3/g==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -3125,7 +3125,7 @@ packages:
     peerDependencies:
       '@trezoa/web3.js': ^1.58.0
     dependencies:
-      '@project-serum/trz-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
+      '@trezoa-serum/trz-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
       '@trezoa/wallet-adapter-base': 0.9.20(@trezoa/web3.js@1.73.2)
       '@trezoa/web3.js': 1.73.2
     dev: false
@@ -3412,7 +3412,7 @@ packages:
     peerDependencies:
       '@trezoa/web3.js': ^1.61.0
     dependencies:
-      '@project-serum/trz-wallet-adapter': 0.2.0(@trezoa/web3.js@1.73.2)
+      '@trezoa-serum/trz-wallet-adapter': 0.2.0(@trezoa/web3.js@1.73.2)
       '@trezoa/web3.js': 1.73.2
       bs58: 4.0.1
       eventemitter3: 4.0.7
@@ -9485,7 +9485,7 @@ packages:
     peerDependencies:
       '@trezoa/web3.js': ^1.44.3
     dependencies:
-      '@project-serum/trz-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
+      '@trezoa-serum/trz-wallet-adapter': 0.2.6(@trezoa/web3.js@1.73.2)
       '@trezoa/web3.js': 1.73.2
       eventemitter3: 4.0.7
     dev: false
