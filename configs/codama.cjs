@@ -250,7 +250,7 @@ function ataPdaDefault(mint = "mint", owner = "owner") {
 codoma.update(
   updateInstructionsVisitor({
     create: {
-      // @ts-expect-error Fixed upstream: https://github.com/codoma-idl/codoma/pull/747
+      // @ts-expect-error Fixed upstream: https://github.com/trzledgerfoundation-idl/codoma/pull/747
       byteDeltas: [
         instructionByteDeltaNode(
           numberValueNode(
@@ -285,7 +285,7 @@ codoma.update(
       },
     },
     mint: {
-      // @ts-expect-error Fixed upstream: https://github.com/codoma-idl/codoma/pull/747
+      // @ts-expect-error Fixed upstream: https://github.com/trzledgerfoundation-idl/codoma/pull/747
       byteDeltas: [
         instructionByteDeltaNode(
           numberValueNode(
@@ -966,7 +966,7 @@ const tokenDelegateDefaults = {
 codoma.update(
   updateInstructionsVisitor({
     createV1: {
-      // @ts-expect-error Fixed upstream: https://github.com/codoma-idl/codoma/pull/747
+      // @ts-expect-error Fixed upstream: https://github.com/trzledgerfoundation-idl/codoma/pull/747
       byteDeltas: [
         instructionByteDeltaNode(resolverValueNode("resolveCreateV1Bytes")),
       ],

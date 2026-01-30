@@ -2725,7 +2725,7 @@ dependencies = [
  "trezoa-pubkey",
  "trezoa-sdk",
  "trezoa-system-interface",
- "spl-associated-token-account",
+ "tpl-associated-token-account",
  "tpl-token",
  "tpl-token-2022-interface",
  "test-case",
@@ -4264,7 +4264,7 @@ dependencies = [
  "trezoa-transaction",
  "trezoa-transaction-context",
  "trezoa-transaction-error",
- "spl-generic-token",
+ "tpl-generic-token",
  "static_assertions",
  "tar",
  "tempfile",
@@ -5612,7 +5612,7 @@ dependencies = [
  "trezoa-transaction-context",
  "trezoa-transaction-error",
  "trezoa-vote-program",
- "spl-generic-token",
+ "tpl-generic-token",
  "thiserror 2.0.17",
  "tokio",
 ]
@@ -5827,7 +5827,7 @@ dependencies = [
  "trezoa-transaction-error",
  "trezoa-transaction-status-client-types",
  "trezoa-version",
- "spl-generic-token",
+ "tpl-generic-token",
  "thiserror 2.0.17",
 ]
 
@@ -5955,7 +5955,7 @@ dependencies = [
  "trezoa-vote",
  "trezoa-vote-interface",
  "trezoa-vote-program",
- "spl-generic-token",
+ "tpl-generic-token",
  "static_assertions",
  "strum",
  "strum_macros",
@@ -6413,7 +6413,7 @@ dependencies = [
  "trezoa-sysvar-id",
  "trezoa-transaction-context",
  "trezoa-transaction-error",
- "spl-generic-token",
+ "tpl-generic-token",
  "thiserror 2.0.17",
 ]
 
@@ -7016,7 +7016,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "spl-associated-token-account"
+name = "tpl-associated-token-account"
 version = "8.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0242277e290c023de8826f504abcf9206b3cd4e18d9ace4ec59a698b2828e88b"
@@ -7035,14 +7035,14 @@ dependencies = [
  "trezoa-sdk-ids",
  "trezoa-system-interface",
  "trezoa-sysvar",
- "spl-associated-token-account-interface",
+ "tpl-associated-token-account-interface",
  "tpl-token-2022-interface",
  "tpl-token-interface",
  "thiserror 2.0.17",
 ]
 
 [[package]]
-name = "spl-associated-token-account-interface"
+name = "tpl-associated-token-account-interface"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e6433917b60441d68d99a17e121d9db0ea15a9a69c0e5afa34649cf5ba12612f"
@@ -7053,7 +7053,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "spl-discriminator"
+name = "tpl-discriminator"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d48cc11459e265d5b501534144266620289720b4c44522a47bc6b63cd295d2f3"
@@ -7061,22 +7061,22 @@ dependencies = [
  "bytemuck",
  "trezoa-program-error",
  "trezoa-sha256-hasher",
- "spl-discriminator-derive",
+ "tpl-discriminator-derive",
 ]
 
 [[package]]
-name = "spl-discriminator-derive"
+name = "tpl-discriminator-derive"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d9e8418ea6269dcfb01c712f0444d2c75542c04448b480e87de59d2865edc750"
 dependencies = [
  "quote",
- "spl-discriminator-syn",
+ "tpl-discriminator-syn",
  "syn 2.0.108",
 ]
 
 [[package]]
-name = "spl-discriminator-syn"
+name = "tpl-discriminator-syn"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5d1dbc82ab91422345b6df40a79e2b78c7bce1ebb366da323572dd60b7076b67"
@@ -7089,7 +7089,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "spl-generic-token"
+name = "tpl-generic-token"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "233df81b75ab99b42f002b5cdd6e65a7505ffa930624f7096a7580a56765e9cf"
@@ -7099,7 +7099,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "spl-pod"
+name = "tpl-pod"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1233fdecd7461611d69bb87bc2e95af742df47291975d21232a0be8217da9de"
@@ -7164,12 +7164,12 @@ dependencies = [
  "trezoa-pubkey",
  "trezoa-sdk-ids",
  "trezoa-zk-sdk",
- "spl-pod",
+ "tpl-pod",
  "tpl-token-confidential-transfer-proof-extraction",
  "tpl-token-confidential-transfer-proof-generation",
  "tpl-token-group-interface",
  "tpl-token-metadata-interface",
- "spl-type-length-value",
+ "tpl-type-length-value",
  "thiserror 2.0.17",
 ]
 
@@ -7189,7 +7189,7 @@ dependencies = [
  "trezoa-pubkey",
  "trezoa-sdk-ids",
  "trezoa-zk-sdk",
- "spl-pod",
+ "tpl-pod",
  "thiserror 2.0.17",
 ]
 
@@ -7217,8 +7217,8 @@ dependencies = [
  "trezoa-instruction",
  "trezoa-program-error",
  "trezoa-pubkey",
- "spl-discriminator",
- "spl-pod",
+ "tpl-discriminator",
+ "tpl-pod",
  "thiserror 2.0.17",
 ]
 
@@ -7255,14 +7255,14 @@ dependencies = [
  "trezoa-instruction",
  "trezoa-program-error",
  "trezoa-pubkey",
- "spl-discriminator",
- "spl-pod",
- "spl-type-length-value",
+ "tpl-discriminator",
+ "tpl-pod",
+ "tpl-type-length-value",
  "thiserror 2.0.17",
 ]
 
 [[package]]
-name = "spl-type-length-value"
+name = "tpl-type-length-value"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ca20a1a19f4507a98ca4b28ff5ed54cac9b9d34ed27863e2bde50a3238f9a6ac"
@@ -7274,8 +7274,8 @@ dependencies = [
  "trezoa-account-info",
  "trezoa-msg",
  "trezoa-program-error",
- "spl-discriminator",
- "spl-pod",
+ "tpl-discriminator",
+ "tpl-pod",
  "thiserror 2.0.17",
 ]
 
