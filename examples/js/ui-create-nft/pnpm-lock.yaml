@@ -3119,7 +3119,7 @@ packages:
       '@trzflare-wallet/sdk': 1.2.0(@trezoa/web3.js@1.73.2)
     dev: false
 
-  /@trezoa/wallet-adapter-sollet@0.11.14(@trezoa/web3.js@1.73.2):
+  /@trezoa/wallet-adapter-trzlet@0.11.14(@trezoa/web3.js@1.73.2):
     resolution: {integrity: sha512-iE+QLS7eUhyMAiQB5MG/cYlhXMlprYKQtYSnxwgGmUOfIxXDX9HHMZiE3YJcsmtVODf2RvtM9ecd2BWiV1Fk1Q==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -3284,7 +3284,7 @@ packages:
       '@trezoa/wallet-adapter-sky': 0.1.12(@trezoa/web3.js@1.73.2)
       '@trezoa/wallet-adapter-slope': 0.5.18(@trezoa/web3.js@1.73.2)
       '@trezoa/wallet-adapter-trzflare': 0.6.22(@trezoa/web3.js@1.73.2)
-      '@trezoa/wallet-adapter-sollet': 0.11.14(@trezoa/web3.js@1.73.2)
+      '@trezoa/wallet-adapter-trzlet': 0.11.14(@trezoa/web3.js@1.73.2)
       '@trezoa/wallet-adapter-solong': 0.9.15(@trezoa/web3.js@1.73.2)
       '@trezoa/wallet-adapter-spot': 0.1.12(@trezoa/web3.js@1.73.2)
       '@trezoa/wallet-adapter-strike': 0.1.10(@trezoa/web3.js@1.73.2)
