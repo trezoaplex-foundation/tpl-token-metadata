@@ -1,4 +1,4 @@
-# JavaScript client for Mpl Token Metadata
+# JavaScript client for Tpl Token Metadata
 
 A Umi-compatible JavaScript library for Token Metadata.
 

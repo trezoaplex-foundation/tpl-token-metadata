@@ -1,6 +1,6 @@
 # Contributing to the JavaScript client
 
-This is a quick guide to help you contribute to the JavaScript client of Mpl Token Metadata.
+This is a quick guide to help you contribute to the JavaScript client of Tpl Token Metadata.
 
 ## Getting started
 
